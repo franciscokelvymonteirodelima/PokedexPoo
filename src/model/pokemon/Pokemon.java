@@ -2,7 +2,8 @@ public class Pokemon {
     
     // Atributos bases
     protected String nome;
-    protected int numeroPokedex;    protected int nivel;
+    protected int numeroPokedex;    
+    protected int nivel;
     protected String tipo;
     protected String somCaracteristico;
     
@@ -19,14 +20,22 @@ public class Pokemon {
     protected boolean desmaiado;
     protected boolean paralisado; // ao decorrer do desenvolvimento esse atributo pode acabar sendo nao utilizado...
 
-    public Pokemon(String nome, int numeroPokedex, String tipo) {
+    // Construtor para a pokedex em si (sem atributos de batalha), ou seja ela serve apenas para consulta
+    public Pokemon(String nome, int numeroPokedex, String tipo, String somCaracteristico){
         this.nome = nome;
-        this.numeroPokedex = numeroPokedex;
+        this.numeroPokedex = numeroPokedex;        
         this.tipo = tipo;
-        this.nivel = nivel;
-        this.experiencia = experiencia;
-        this.desmaiado = false;
-        this.paralisado = false;
         this.somCaracteristico = somCaracteristico;
+        this.hp = 0;
+        this.ataque = 0;
+        this.defesa = 0;
+        this.spAtaque = 0;
+        this.spDefesa = 0;
+        this.velocidade = 0;
+        this.nivel = 0;
+    }
+
+    public Pokemon(int numeroPokedex, int nivel){
+        
     }
 }

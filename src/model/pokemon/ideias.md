@@ -148,4 +148,3 @@ Aqui está uma lista final que garante **nota máxima** e cobre tudo exigido pel
 - a **estrutura da batalha**
 - o **modelo completo do jogo para Eclipse** (zip)
 
-É só dizer até onde quer ir!
