@@ -49,6 +49,28 @@ public class Pokemon {
         this.desmaiado = false;
         this.paralisado = false;
     }
+
+    public Pokemon(String nome, int numeroPokedex, String tipo1, String tipo2,
+                   String somCaracteristico, int hp, int ataque, int defesa, 
+                   int spAtaque, int spDefesa, int velocidade, 
+                   String descricao, String habilidade) {
+        this.nome = nome;
+        this.numeroPokedex = numeroPokedex;
+        this.tipo1 = tipo1;
+        this.tipo2 = tipo2 != null ? tipo2 : "-"; // Se não tiver tipo2, usa "-" , rever essa logica depois ...
+        this.somCaracteristico = somCaracteristico;
+        this.hp = hp;
+        this.ataque = ataque;
+        this.defesa = defesa;
+        this.spAtaque = spAtaque;
+        this.spDefesa = spDefesa;
+        this.velocidade = velocidade;
+        this.descricao = descricao;
+        this.habilidade = habilidade;
+        this.experiencia = 0;
+        this.desmaiado = false;
+        this.paralisado = false;
+    }
     
     // Construtor simples
     public Pokemon(String nome, int numeroPokedex, String tipo1, String somCaracteristico) {
