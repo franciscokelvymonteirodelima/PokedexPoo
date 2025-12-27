@@ -1,5 +1,9 @@
 package model.pokemon;
 
+import model.ataques.Ataque;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pokemon {
     // Atributos bases
     private String nome;
@@ -26,6 +30,9 @@ public class Pokemon {
     private boolean desmaiado;
     private boolean paralisado;
     
+    // Ataques do pokemon
+    private List<Ataque> ataques;
+    
     // Construtor completo
     public Pokemon(String nome, int numeroPokedex, int nivel, String tipo1, String tipo2,
                    String somCaracteristico, int hp, int ataque, int defesa, 
@@ -48,6 +55,7 @@ public class Pokemon {
         this.experiencia = 0;
         this.desmaiado = false;
         this.paralisado = false;
+        this.ataques = new ArrayList<>();
     }
 
     public Pokemon(String nome, int numeroPokedex, String tipo1, String tipo2,
@@ -70,6 +78,7 @@ public class Pokemon {
         this.experiencia = 0;
         this.desmaiado = false;
         this.paralisado = false;
+        this.ataques = new ArrayList<>();
     }
     
     // Construtor simples
@@ -88,6 +97,52 @@ public class Pokemon {
         this.nivel = 1;
         this.descricao = "";
         this.habilidade = "";
+        this.ataques = new ArrayList<>();
+    }
+    
+    // métodos de ataques
+    public void adicionarAtaque(Ataque ataque) {
+        ataques.add(ataque);
+    }
+    
+    public List<Ataque> getAtaques() {
+        return ataques;
+    }
+    
+    public Ataque getAtaque(int indice) {
+        if (indice >= 0 && indice < ataques.size()) {
+            return ataques.get(indice);
+        }
+        return null;
+    }
+    
+    public int usarAtaque(Pokemon alvo, int indiceAtaque) {
+        if (indiceAtaque < 0 || indiceAtaque >= ataques.size()) {
+            return 0;
+        }
+        
+        Ataque ataque = ataques.get(indiceAtaque);
+        if (!ataque.podeUsar()) {
+            return 0;
+        }
+        
+        ataque.usarAtaque();
+        
+        // calcula dano simples: poder do ataque - defesa do alvo
+        int dano = ataque.getPoder() - alvo.getDefesa();
+        if (dano < 0) {
+            dano = 1; // dano mínimo de 1
+        }
+        
+        // aplica dano no alvo
+        int novoHp = alvo.getHp() - dano;
+        if (novoHp < 0) {
+            novoHp = 0;
+            alvo.setDesmaiado(true);
+        }
+        alvo.setHp(novoHp);
+        
+        return dano;
     }
     
     // GETTERS (ESSENCIAIS para a tabela!)
