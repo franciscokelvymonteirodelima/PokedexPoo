@@ -2,14 +2,6 @@ package model.frames;
 import javax.swing.*;
 import java.awt.*;
 
-public class FInicio extends JFrame{
-    public FInicio(String title) {
-        super(title);
-        JPanel pane = new JPanel();
-        JButton botao = new JButton ("Texto botao");
-        JTextArea textArea = new JTextArea();
-        pane.add(botao);
-        pane.add(textArea);
 public class FInicio extends JFrame {
     public FInicio() {
         setTitle("MENU");
@@ -17,7 +9,7 @@ public class FInicio extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
-
+        
         // ===== Fundo =====
         ImageIcon fundoMenu = new ImageIcon("/home/jeudes/PokedexPoo-main/src/model/frames/images/FUNDO_MENU.jpg");
         JLabel background = new JLabel(fundoMenu);
@@ -25,13 +17,6 @@ public class FInicio extends JFrame {
         setContentPane(background);
         setLayout(null);
 
-        JRadioButton apcaoA = new JRadioButton("Opção A");
-        apcaoA.setSelected(true);
-        JRadioButton apcaoB = new JRadioButton("Opção B");
-        //Agrupa radio buttons.
-        ButtonGroup group = new ButtonGroup();
-        group.add(apcaoA);
-        group.add(apcaoB);
         // ===== Nome do Site =====
         ImageIcon iconePokemon = new ImageIcon("/home/jeudes/PokedexPoo-main/src/model/frames/images/LogoInicio_400x.png");
         JLabel labelIcone = new JLabel(iconePokemon);
@@ -42,8 +27,6 @@ public class FInicio extends JFrame {
         // nomeSite.setBounds(0, 10, 1280, 60);
         // add(nomeSite);
 
-        pane.add(apcaoA);
-        pane.add(apcaoB);
         // ===== BOTÕES DO MENU =====
         int larguraBotao = 500;
         int alturaBotao = 55;
@@ -51,7 +34,6 @@ public class FInicio extends JFrame {
         int yInicial = 140;
         int espaco = 20;
 
-        setContentPane(pane); // Adiciona o conteudo ao painel
         String[] textos = {
             "Pokedex",
             "Batalha Pokemon",
@@ -61,7 +43,6 @@ public class FInicio extends JFrame {
             ""
         };
 
-        setVisible(true);
         for (int i = 0; i < textos.length; i++) {
             JButton botao = new JButton(textos[i]);
             botao.setBounds(xBotao, yInicial + i * (alturaBotao + espaco), larguraBotao, alturaBotao);
@@ -71,9 +52,7 @@ public class FInicio extends JFrame {
     }
 
     public static void main(String[] args) {
-        FInicio teste = new FInicio("MinhaJanela");
         FInicio frame = new FInicio();
         frame.setVisible(true);
     }
 }
-
