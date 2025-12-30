@@ -20,31 +20,28 @@ public class FBatalha extends JFrame{
 
         // Definicao das caixas de dados do pokemon em batalha
         JPanel panel1 = new JPanel();
-        JPanel panel2 = new JPanel();
-
-        panel1.setBounds(50, 50, 300, 80);   // posição + tamanho
-        panel2.setBounds(900, 400, 300, 80);
-
+        panel1.setBounds(50, 50, 280, 80);   // posição + tamanho
         panel1.setLayout(null);
-        panel2.setLayout(null);
-
         panel1.setBackground(GameColors.HUD_BACKGROUND);
         panel1.setBorder(BorderFactory.createLineBorder(GameColors.HUD_BORDER));
 
+        JPanel panel2 = new JPanel();
+        panel2.setBounds(900, 400, 280, 80);
+        panel2.setLayout(null);
         panel2.setBackground(GameColors.HUD_BACKGROUND);
         panel2.setBorder(BorderFactory.createLineBorder(GameColors.HUD_BORDER));
 
         //--------- Definicao dos dados do pokemos para a panel1 ----------
         JLabel nomePokemon1 = new JLabel("LOTAD");
         JLabel pokemonLevel1 = new JLabel("Lv7");
-        nomePokemon1.setFont(new Font("Arial", Font.BOLD, 15));
-        pokemonLevel1.setFont(new Font("Arial", Font.BOLD, 15));
+        nomePokemon1.setFont(new Font("Arial", Font.BOLD, 17));
+        pokemonLevel1.setFont(new Font("Arial", Font.BOLD, 17));
 
         nomePokemon1.setBounds(25, 10, 60, 20);
-        pokemonLevel1.setBounds(250, 10, 50, 10);
+        pokemonLevel1.setBounds(240, 10, 50, 20);
 
         JPanel barraLevel1 = new JPanel();
-        barraLevel1.setBounds(60, 40, 180, 10);
+        barraLevel1.setBounds(80, 40, 180, 10);
         barraLevel1.setBackground(GameColors.HP_FULL);
         barraLevel1.setLayout(null);
         // ----------------------------------------------------------------
@@ -52,14 +49,14 @@ public class FBatalha extends JFrame{
         //--------- Definicao dos dados do pokemos para a panel2 ----------
         JLabel nomePokemon2 = new JLabel("TORCHIC");
         JLabel pokemonLevel2 = new JLabel("Lv7");
-        nomePokemon2.setFont(new Font("Arial", Font.BOLD, 15));
-        pokemonLevel2.setFont(new Font("Arial", Font.BOLD, 15));
+        nomePokemon2.setFont(new Font("Arial", Font.BOLD, 17));
+        pokemonLevel2.setFont(new Font("Arial", Font.BOLD, 17));
 
-        nomePokemon2.setBounds(920, 370, 100, 100);
-        pokemonLevel2.setBounds(1147, 370, 100, 100);
+        nomePokemon2.setBounds(25, 10, 100, 20);
+        pokemonLevel2.setBounds(240, 10, 50, 20);
 
         JPanel barraLevel2 = new JPanel();
-        barraLevel2.setBounds(957, 440, 180, 10);
+        barraLevel2.setBounds(80, 40, 180, 10);
         barraLevel2.setBackground(GameColors.HP_FULL);
         barraLevel2.setLayout(null);
         // -------------------------------------------------------------------
@@ -100,17 +97,31 @@ public class FBatalha extends JFrame{
         // PANEL PARA AS OPCOES DE ESCOLHA
         JPanel panelEscolhas = new JPanel();
         panelEscolhas.setLayout(new GridLayout(2, 2, 10, 10));
-        panelEscolhas.setBackground(GameColors.MENU_ACTIONS_BG);
-        panelEscolhas.setBorder(BorderFactory.createLineBorder(GameColors.MENU_BORDER_PURPLE));
-        panelEscolhas.setBounds(650, 10, 600, 140);
+        panelEscolhas.setBackground(GameColors.MENU_WHITE_BG);
+        panelEscolhas.setBounds(620, 10, 600, 140);
         panelInferiorPrincipal.add(panelEscolhas);
 
         // BOTOES PARA AS OPCOES DE ESCOLHA
-        JRadioButton buttonFight = new JRadioButton("Fight");
-        JRadioButton buttonPokemon = new JRadioButton("Pokemon");
-        JRadioButton buttonBag = new JRadioButton("Bag");
-        JRadioButton buttonRun = new JRadioButton("Run");
-        buttonFight.setSelected(true);
+        JButton buttonFight = new JButton("Fight");
+        buttonFight.setFont(new Font("Arial", Font.BOLD, 30));
+        buttonFight.setBackground(GameColors.MENU_WHITE_BG);
+        buttonFight.setBorderPainted(false);
+        buttonFight.setFocusPainted(false);
+        JButton buttonPokemon = new JButton("Pokemon");
+        buttonPokemon.setFont(new Font("Arial", Font.BOLD, 30));
+        buttonPokemon.setBackground(GameColors.MENU_WHITE_BG);
+        buttonPokemon.setBorderPainted(false);
+        buttonPokemon.setFocusPainted(false);
+        JButton buttonBag = new JButton("Bag");
+        buttonBag.setFont(new Font("Arial", Font.BOLD, 30));
+        buttonBag.setBackground(GameColors.MENU_WHITE_BG);
+        buttonBag.setBorderPainted(false);
+        buttonBag.setFocusPainted(false);
+        JButton buttonRun = new JButton("Run");
+        buttonRun.setFont(new Font("Arial", Font.BOLD, 30));
+        buttonRun.setBackground(GameColors.MENU_WHITE_BG);
+        buttonRun.setBorderPainted(false);
+        buttonRun.setFocusPainted(false);
 
         //Agrupar Botoes:
         ButtonGroup buttonGroup = new ButtonGroup();
@@ -129,64 +140,76 @@ public class FBatalha extends JFrame{
 
         // ------------------------------------------------------------------
 
-
-        panel.add(nomePokemon2);
-        panel.add(pokemonLevel2);
-        panel.add(barraLevel2);
-        panel.add(panelInferiorPrincipal);
-
         panel1.add(barraLevel1);
         panel1.add(nomePokemon1);
         panel1.add(pokemonLevel1);
 
+        panel2.add(nomePokemon2);
+        panel2.add(pokemonLevel2);
+        panel2.add(barraLevel2);
+
+        panel.add(panelInferiorPrincipal);
         //--------------- Adicao dos sprites --------------------------------------------------
 
         // -------- Sprinte LOTAD -----------------------------------
         // Nessesario fazer um tratamento de excessao para verificar se achou a imagem !
         ImageIcon lotadIcon = new ImageIcon(getClass().getResource("images/Lotad.png"));
-
+        // Carregar o caminho: não faz configuracoes
         Image imageLotadConfig = lotadIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        // Faz as configs necessarias
 
         JLabel lotadSprite = new JLabel(new ImageIcon(imageLotadConfig));
+        // O JLabel so pode receber ImageIcon, entao eu transformo imageCongig(Image) em ImageIcon e passo para JLabel (coldura)
 
-        // Calculo para o alinhamento
-        int alturaImagemLotad = 300;
-
-        int panel1Y = panel1.getY();
-        int panelHight  = panel1.getHeight();
-
-        int yAlinhado =  panel1Y + (panelHight - alturaImagemLotad ) / 2;
-
-        int xAlinhadoLotad = panel2.getX();
-
-        lotadSprite.setBounds(xAlinhadoLotad, yAlinhado, 300, 300);
+        lotadSprite.setBounds(700,30, 300, 300);
         // -------------------------------------------------------------
 
         // -------- Sprinte TORCHIC -----------------------------------
         // Nessesario fazer um tratamento de excessao para verificar se achou a imagem !
         ImageIcon torchicIcon = new ImageIcon(getClass().getResource("images/Torchic.png"));
 
-        Image imageTorchicConfig = torchicIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-
-        // Calculo para o alinhamento
-        int alturaImagemTorchic = 300;
-
-        int panel2Y = panel2.getY();
-        int panelHight2 = panel2.getHeight();
-
-        int YAlinhadoTorchic = panel2Y + (panelHight2 - alturaImagemTorchic ) / 2;
+        Image imageTorchicConfig = torchicIcon.getImage().getScaledInstance(350, 350, Image.SCALE_SMOOTH);
 
         JLabel torchicSprite = new JLabel(new ImageIcon(imageTorchicConfig));
 
-        torchicSprite.setBounds(50, 295, 300, 300);
+        torchicSprite.setBounds(230, 220, 350, 350);
         // ------------------------------------------------------------
 
-        // -----------------------------------------------------------------------------------------
+        //------- Sprite BattleBase ----------------------
 
+        ImageIcon battleBaseIcon = new ImageIcon(getClass().getResource("images/BattleBase.png"));
+        Image playerbattlebase = battleBaseIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
+
+        JLabel battleBaseLabel = new JLabel(new ImageIcon(playerbattlebase));
+        battleBaseLabel.setBounds(0, -140, 1280, 720);
+
+        // -----------------------------------------------
+
+        //------- Sprite MascSimbol ----------------------
+        ImageIcon simbolMascIcon = new ImageIcon(getClass().getResource("images/MascSimbol.png"));
+        Image simbolMascIconCpnfig = simbolMascIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+
+        JLabel simbolMasc =  new JLabel(new ImageIcon(simbolMascIconCpnfig));
+        panel1.add(simbolMasc);
+        simbolMasc.setBounds(83, 7, 25, 25);
+        // -----------------------------------------------
+
+        //------- Sprite MascSimbol ----------------------
+        ImageIcon simbolFemIcon = new ImageIcon(getClass().getResource("images/FemSimbol.png"));
+        Image simbolFemIconCpnfig = simbolFemIcon.getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
+
+        JLabel simbolFem =  new JLabel(new ImageIcon(simbolFemIconCpnfig));
+        panel2.add(simbolFem);
+        simbolFem.setBounds(105, 7, 22, 22);
+        // -----------------------------------------------
+
+        // -----------------------------------------------------------------------------------------
         panel.add(panel1);
         panel.add(panel2);
         panel.add(lotadSprite);
         panel.add(torchicSprite);
+        panel.add(battleBaseLabel);
+
     }
 
     public static void main(String[] args) {
