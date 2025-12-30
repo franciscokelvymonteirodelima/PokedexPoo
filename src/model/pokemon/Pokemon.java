@@ -145,27 +145,66 @@ public class Pokemon {
         return dano;
     }
     
-    // GETTERS (ESSENCIAIS para a tabela!)
-    public String getNome() { return nome; }
-    public int getNumeroPokedex() { return numeroPokedex; }
-    public String getNumeroFormatado() { 
-        return String.format("%03d", numeroPokedex); // Retorna "001", "025", etc
+    // Getters para os atributos listados
+    public String getNome() {
+        return nome;
     }
-    public int getNivel() { return nivel; }
-    public String getTipo1() { return tipo1; }
-    public String getTipo2() { return tipo2; }
-    public String getSomCaracteristico() { return somCaracteristico; }
-    public int getHp() { return hp; }
-    public int getAtaque() { return ataque; }
-    public int getDefesa() { return defesa; }
-    public int getSpAtaque() { return spAtaque; }
-    public int getSpDefesa() { return spDefesa; }
-    public int getVelocidade() { return velocidade; }
-    public int getExperiencia() { return experiencia; }
-    public String getDescricao() { return descricao; }
-    public String getHabilidade() { return habilidade; }
-    public boolean isDesmaiado() { return desmaiado; }
-    public boolean isParalisado() { return paralisado; }
+
+    public int getNumeroPokedex() {
+        return numeroPokedex;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public String getTipo1() {
+        return tipo1;
+    }
+
+    public String getTipo2() {
+        return tipo2;
+    }
+
+    public String getSomCaracteristico() {
+        return somCaracteristico;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getHabilidade() {
+        return habilidade;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public int getDefesa() {
+        return defesa;
+    }
+
+    public int getSpAtaque() {
+        return spAtaque;
+    }
+
+    public int getSpDefesa() {
+        return spDefesa;
+    }
+
+    public int getVelocidade() {
+        return velocidade;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
     
     // SETTERS (caso precise modificar depois)
     public void setNivel(int nivel) { this.nivel = nivel; }
@@ -178,6 +217,11 @@ public class Pokemon {
         return nome + " (#" + getNumeroFormatado() + ")";
     }
     
+    private String getNumeroFormatado() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getNumeroFormatado'");
+    }
+
     // Método equals para comparação (útil no contains()) , revisar se é o suficiente mas creio que sim ...
     @Override
     public boolean equals(Object obj) {
