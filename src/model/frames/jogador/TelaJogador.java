@@ -1,10 +1,11 @@
-package model.frames.jogador;
+
 
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class TelaJogador extends JFrame {
 
@@ -30,18 +31,47 @@ public class TelaJogador extends JFrame {
 
     /* ================= PERFIL ================= */
     private JPanel criarPainelPerfil() {
-        JPanel painel = new JPanel(new GridLayout(2, 4, 10, 10));
+        JPanel painel = new JPanel(new BorderLayout(15, 15));
         painel.setBorder(BorderFactory.createTitledBorder("Perfil"));
 
-        painel.add(new JLabel("Nome: " + jogador.getNome()));
-        painel.add(new JLabel("Idade: " + jogador.getIdade()));
-        painel.add(new JLabel("Gênero: " + jogador.getGenero()));
-        painel.add(new JLabel("Cidade: " + jogador.getCidadeOrigem()));
-        painel.add(new JLabel("Dinheiro: $" + jogador.getDinheiro()));
-        painel.add(new JLabel("Capturados: " + jogador.getPokemonsCapturados()));
+        JLabel lblImagem = criarLabelImagem();
+
+        JPanel info = new JPanel(new GridLayout(2, 3, 10, 10));
+        info.add(new JLabel("Nome: " + jogador.getNome()));
+        info.add(new JLabel("Idade: " + jogador.getIdade()));
+        info.add(new JLabel("Gênero: " + jogador.getGenero()));
+        info.add(new JLabel("Cidade: " + jogador.getCidadeOrigem()));
+        info.add(new JLabel("Dinheiro: $" + jogador.getDinheiro()));
+        info.add(new JLabel("Capturados: " + jogador.getPokemonsCapturados()));
+
+        painel.add(lblImagem, BorderLayout.WEST);
+        painel.add(info, BorderLayout.CENTER);
 
         return painel;
     }
+
+    /* ================= IMAGEM ================= */
+    private JLabel criarLabelImagem() {
+
+    String caminho = System.getProperty("user.dir")
+    + "/src/model/frames/images/personagens/ash.webp"; // Mudou para WEBP
+
+    File arquivo = new File(caminho);
+
+    if (arquivo.exists()) {
+        ImageIcon icon = new ImageIcon(caminho);
+        Image img = icon.getImage().getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+        return new JLabel(new ImageIcon(img));
+    }
+
+    JLabel erro = new JLabel("Sem imagem");
+    erro.setPreferredSize(new Dimension(120, 160));
+    erro.setHorizontalAlignment(SwingConstants.CENTER);
+
+    System.err.println("Imagem não encontrada: " + caminho);
+    return erro;
+}
+
 
     /* ================= CENTRAL ================= */
     private JTabbedPane criarPainelCentral() {
