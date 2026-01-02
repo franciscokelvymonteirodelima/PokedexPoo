@@ -2,7 +2,7 @@ package model.batalha;
 
 import model.pokemon.Pokemon;
 
-public class Batalha {
+public class Comparacao extends RegrasComparacao{
     
     private Pokemon pokemon1;
     private Pokemon pokemon2;
@@ -11,27 +11,14 @@ public class Batalha {
     private double mediaStatusPokemon2;
     
     // inicializando a batalha com os pokemons
-    public Batalha(Pokemon pokemon1, Pokemon pokemon2) {
+    public Comparacao(Pokemon pokemon1, Pokemon pokemon2) {
         this.pokemon1 = pokemon1;
         this.pokemon2 = pokemon2;
         this.vencedor = null;
     }
     
-    // inicializando a batalha com os pokemons e o vencedor
-    public double calcularMediaStatus(Pokemon pokemon) {
-        int hp = pokemon.getHp();
-        int ataque = pokemon.getAtaque();
-        int defesa = pokemon.getDefesa();
-        int spAtaque = pokemon.getSpAtaque();
-        int spDefesa = pokemon.getSpDefesa();
-        int velocidade = pokemon.getVelocidade();
-        
-        int somaStatus = hp + ataque + defesa + spAtaque + spDefesa + velocidade;
-        return somaStatus / 6.0;
-    }
-    
     // realizando a batalha
-    public Pokemon realizarBatalha() {
+    public Pokemon realizarComparacao() {
         this.mediaStatusPokemon1 = calcularMediaStatus(pokemon1);
         this.mediaStatusPokemon2 = calcularMediaStatus(pokemon2);
         
