@@ -1,15 +1,37 @@
 package model.frames;
+import model.batalha.Comparacao;
+import model.pokemon.Pokemon;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class FBatalha extends JFrame{
 
-    public FBatalha(String title){
+    private Comparacao comparacao;
+
+    public FBatalha(String title, Comparacao comparacao){
         super(title);
+        this.comparacao =  comparacao;
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
+    }
+
+    private JLabel nomePokemon1; // O nome sera modificado a depender do pokemon
+    private JLabel nomePokemon2;
+
+    private JLabel levelPokemon1;
+    private JLabel levelPokemon2;
+
+    public void atualizarInterface(){
+        Pokemon pokemon1 = comparacao.getPokemon1();
+        nomePokemon1.setText(pokemon1.getNome().toUpperCase());
+        levelPokemon1.setText("Lv" +  pokemon1.getNivel());
+
+        Pokemon pokemon2 = comparacao.getPokemon2();
+        nomePokemon2.setText(pokemon2.getNome().toUpperCase());
+        levelPokemon2.setText("Lv" +  pokemon2.getNivel());
     }
 
     private void initComponents() {
@@ -32,13 +54,12 @@ public class FBatalha extends JFrame{
         panel2.setBorder(BorderFactory.createLineBorder(GameColors.HUD_BORDER));
 
         //--------- Definicao dos dados do pokemos para a panel1 ----------
-        JLabel nomePokemon1 = new JLabel("LOTAD");
-        JLabel pokemonLevel1 = new JLabel("Lv7");
+        nomePokemon1 = new JLabel();
+        levelPokemon1 = new JLabel();
         nomePokemon1.setFont(new Font("Arial", Font.BOLD, 17));
-        pokemonLevel1.setFont(new Font("Arial", Font.BOLD, 17));
-
-        nomePokemon1.setBounds(25, 10, 60, 20);
-        pokemonLevel1.setBounds(240, 10, 50, 20);
+        nomePokemon1.setBounds(25, 10, 200, 20);
+        levelPokemon1.setFont(new Font("Arial", Font.BOLD, 17));
+        levelPokemon1.setBounds(240, 10, 50, 20);
 
         JPanel barraLevel1 = new JPanel();
         barraLevel1.setBounds(80, 40, 180, 10);
@@ -47,13 +68,12 @@ public class FBatalha extends JFrame{
         // ----------------------------------------------------------------
 
         //--------- Definicao dos dados do pokemos para a panel2 ----------
-        JLabel nomePokemon2 = new JLabel("TORCHIC");
-        JLabel pokemonLevel2 = new JLabel("Lv7");
+        nomePokemon2 = new JLabel();
+        levelPokemon2 = new JLabel();
         nomePokemon2.setFont(new Font("Arial", Font.BOLD, 17));
-        pokemonLevel2.setFont(new Font("Arial", Font.BOLD, 17));
-
-        nomePokemon2.setBounds(25, 10, 100, 20);
-        pokemonLevel2.setBounds(240, 10, 50, 20);
+        levelPokemon2.setFont(new Font("Arial", Font.BOLD, 17));
+        nomePokemon2.setBounds(25, 10, 200, 20);
+        levelPokemon2.setBounds(240, 10, 50, 20);
 
         JPanel barraLevel2 = new JPanel();
         barraLevel2.setBounds(80, 40, 180, 10);
@@ -103,6 +123,16 @@ public class FBatalha extends JFrame{
 
         // BOTOES PARA AS OPCOES DE ESCOLHA
         JButton buttonFight = new JButton("Fight");
+
+        // ---- Acao do botao fight ----------
+        buttonFight.addActionListener(e -> {
+            Pokemon vencedor = comparacao.realizarComparacao();
+
+            JOptionPane.showMessageDialog(null, "O vencedor foi: " + vencedor.getNome());
+        });
+
+        // -----------------------------------
+
         buttonFight.setFont(new Font("Arial", Font.BOLD, 30));
         buttonFight.setBackground(GameColors.MENU_WHITE_BG);
         buttonFight.setBorderPainted(false);
@@ -142,10 +172,10 @@ public class FBatalha extends JFrame{
 
         panel1.add(barraLevel1);
         panel1.add(nomePokemon1);
-        panel1.add(pokemonLevel1);
+        panel1.add(levelPokemon1);
 
         panel2.add(nomePokemon2);
-        panel2.add(pokemonLevel2);
+        panel2.add(levelPokemon2);
         panel2.add(barraLevel2);
 
         panel.add(panelInferiorPrincipal);
@@ -190,7 +220,7 @@ public class FBatalha extends JFrame{
         Image simbolMascIconCpnfig = simbolMascIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 
         JLabel simbolMasc =  new JLabel(new ImageIcon(simbolMascIconCpnfig));
-        panel1.add(simbolMasc);
+
         simbolMasc.setBounds(83, 7, 25, 25);
         // -----------------------------------------------
 
@@ -199,7 +229,7 @@ public class FBatalha extends JFrame{
         Image simbolFemIconCpnfig = simbolFemIcon.getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 
         JLabel simbolFem =  new JLabel(new ImageIcon(simbolFemIconCpnfig));
-        panel2.add(simbolFem);
+
         simbolFem.setBounds(105, 7, 22, 22);
         // -----------------------------------------------
 
@@ -209,11 +239,48 @@ public class FBatalha extends JFrame{
         panel.add(lotadSprite);
         panel.add(torchicSprite);
         panel.add(battleBaseLabel);
-
+        atualizarInterface();
     }
 
+
     public static void main(String[] args) {
-        FBatalha frame = new FBatalha("Batalha");
+        Pokemon bulbasaur = new Pokemon(
+                "Bulbasaur",    // nome
+                1,              // numeroPokedex
+                5,              // nivel
+                "Grama",        // tipo1
+                "Veneno",       // tipo2
+                "Bulba!",       // somCaracteristico
+                45,             // hp (base)
+                49,             // ataque
+                49,             // defesa
+                65,             // spAtaque
+                65,             // spDefesa
+                45,             // velocidade
+                "Uma semente estranha foi plantada em suas costas ao nascer.", // descricao
+                "Overgrow"      // habilidade
+        );
+
+        Pokemon charmander = new Pokemon(
+                "Charmander",   // nome
+                4,              // numeroPokedex
+                5,              // nivel
+                "Fogo",         // tipo1
+                null,           // tipo2 (Sua lógica vai transformar em "-")
+                "Char!",        // somCaracteristico
+                39,             // hp (base)
+                52,             // ataque
+                43,             // defesa
+                60,             // spAtaque
+                50,             // spDefesa
+                65,             // velocidade
+                "A chama em sua cauda indica sua força vital.", // descricao
+                "Blaze"         // habilidade
+        );
+
+        Comparacao comparacao1 = new Comparacao(bulbasaur, charmander);
+
+        FBatalha frame = new FBatalha("Batalha", comparacao1);
         frame.setVisible(true);
     }
 }

@@ -17,43 +17,42 @@
 ```java
 import model.pokemon.Pokemon;
 import model.ataques.Ataque;
-import model.batalha.Batalha;
 
 public class ExemploIntegracao {
     public static void main(String[] args) {
         // Criar dois Pokémons
-        Pokemon pikachu = new Pokemon("Pikachu", 25, "Electric", "-", "Pika!", 
-            35, 55, 40, 50, 50, 90, "Descrição", "Static");
-            
-        Pokemon charizard = new Pokemon("Charizard", 6, "Fire", "Flying", "Zard!", 
-            78, 84, 78, 109, 85, 100, "Descrição", "Blaze");
-        
+        Pokemon pikachu = new Pokemon("Pikachu", 25, "Electric", "-", "Pika!",
+                35, 55, 40, 50, 50, 90, "Descrição", "Static");
+
+        Pokemon charizard = new Pokemon("Charizard", 6, "Fire", "Flying", "Zard!",
+                78, 84, 78, 109, 85, 100, "Descrição", "Blaze");
+
         // Criar ataques para o Pikachu
         Ataque choqueTrovao = new Ataque("Choque do Trovão", "Electric", 90, 100, 15);
         Ataque raio = new Ataque("Raio", "Electric", 120, 70, 10);
         Ataque velocidade = new Ataque("Velocidade", "Normal", 40, 100, 30);
-        
+
         // Adicionar ataques ao Pikachu
         pikachu.adicionarAtaque(choqueTrovao);
         pikachu.adicionarAtaque(raio);
         pikachu.adicionarAtaque(velocidade);
-        
+
         // Criar ataques para o Charizard
         Ataque lancachamas = new Ataque("Lança-chamas", "Fire", 90, 100, 15);
         Ataque explosaoFogo = new Ataque("Explosão de Fogo", "Fire", 110, 85, 5);
-        
+
         charizard.adicionarAtaque(lancachamas);
         charizard.adicionarAtaque(explosaoFogo);
-        
+
         // Usar um ataque do Pikachu contra o Charizard
         int dano = pikachu.usarAtaque(charizard, 0); // usa o primeiro ataque (Choque do Trovão)
         System.out.println("Pikachu usou " + pikachu.getAtaque(0).getNome() + "!");
         System.out.println("Dano causado: " + dano);
         System.out.println("HP do Charizard: " + charizard.getHp());
-        
+
         // Verificar PP do ataque
         System.out.println("PP restante: " + pikachu.getAtaque(0).getPpAtual());
-        
+
         // Usar outro ataque
         int dano2 = charizard.usarAtaque(pikachu, 0); // Charizard usa Lança-chamas
         System.out.println("Charizard usou " + charizard.getAtaque(0).getNome() + "!");
