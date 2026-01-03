@@ -1,4 +1,4 @@
-package model.frames;
+package model.frames.qualEhEssePokemon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,22 +16,21 @@ public class FWhosThatPoke extends JFrame {
         ImageIcon fundoPrincipal = new ImageIcon("/home/jeudes/PokedexPoo-main/src/model/frames/images/FUNDO_PRINCIPAL_MINIGAME.jpg");
         JLabel background = new JLabel(fundoPrincipal);
         background.setBounds(0, 0, 1280, 720);
-        setContentPane(background);
-        setLayout(null);
+        add(background);
+        background.setLayout(null);
 
         // ===== Título =====
         JLabel titulo = new JLabel("Who's that Pokemon", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
-        titulo.setBounds(0, 10, 1280, 30);
+        titulo.setBounds(0, 10, 1280, 40);
         add(titulo);
 
         // ===== Campo para Inserir o Pokemon =====
-        JButton campoTexto = new JButton("Insira o nome do Pokemon");
+        JTextArea campoTexto = new JTextArea("Insira o nome do Pokemon");
         campoTexto.setLayout(new BorderLayout());
-        campoTexto.setFont(new Font("Arial", Font.PLAIN, 18));
+        campoTexto.setFont(new Font("Arial", Font.PLAIN, 24));
         campoTexto.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
         campoTexto.setBounds(250, 60, 600, 50);
-
 
         add(campoTexto);
 
@@ -57,26 +56,37 @@ public class FWhosThatPoke extends JFrame {
         painelPokemon.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
         painelPokemon.setBounds(200, 140, 880, 350);
 
-        // JLabel pokemonLabel = new JLabel("Pokemon", SwingConstants.CENTER);
-        // pokemonLabel.setFont(new Font("Arial", Font.BOLD, 28));
-        // painelPokemon.add(pokemonLabel, BorderLayout.CENTER);
-
         add(painelPokemon);
 
         // ===== BOTÕES NUMERADOS (1 a 10) =====
-        int xInicial = 195;
+        int xInicial = 155;
         int y = 500;
         int largura = 80;
         int altura = 80;
         int espaco = 10;
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 11; i++) {
+            if(i == 11) {
+                JButton btnFinalizar = new JButton("END");
+                btnFinalizar.setBounds(xInicial + 10 * (largura + espaco), y, largura, altura);
+                btnFinalizar.setFont(new Font("Arial", Font.BOLD, 20));
+                btnFinalizar.setBackground(Color.BLACK);
+                btnFinalizar.setForeground(Color.WHITE);
+                add(btnFinalizar);
+                break;
+            }
             JButton btn = new JButton(String.valueOf(i));
             btn.setBounds(xInicial + (i - 1) * (largura + espaco), y, largura, altura);
             btn.setFont(new Font("Arial", Font.BOLD, 20));
             add(btn);
         }
+
+        // ===== Painel do Pokemon Aleatório =====
+        PokemonAleatorioPanel painelPokemonAleatorio = new PokemonAleatorioPanel();
+        painelPokemonAleatorio.setBounds(240, 180, 800, 300);
+        painelPokemon.add(painelPokemonAleatorio);
     }
+
     public static void main(String[] args) {
         FWhosThatPoke frame = new FWhosThatPoke();
         frame.setVisible(true);

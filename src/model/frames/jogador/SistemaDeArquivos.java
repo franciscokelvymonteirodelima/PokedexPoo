@@ -212,8 +212,7 @@ public class SistemaDeArquivos {
             original.getSpDefesa(),
             original.getVelocidade(),
             original.getDescricao(),
-            original.getHabilidade()
-        );
+            original.getHabilidade());
         return copia;
     }
     

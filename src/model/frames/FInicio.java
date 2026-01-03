@@ -38,16 +38,30 @@ public class FInicio extends JFrame {
             "Pokedex",
             "Batalha Pokemon",
             "Qual é esse Pokemon? (MiniGame)",
-            "",
-            "",
-            ""
+            "SHooping",
+            "jogo",
+            "joosjos"
         };
 
         for (int i = 0; i < textos.length; i++) {
             JButton botao = new JButton(textos[i]);
             botao.setBounds(xBotao, yInicial + i * (alturaBotao + espaco), larguraBotao, alturaBotao);
             botao.setFont(new Font("Arial", Font.BOLD, 20));
+            botao.setForeground(Color.WHITE);
             add(botao);
+            if(i == 0) {
+                botao.setBackground(Color.RED); // Vermelho para Batalha Pokemon
+            } else if(i == 1) {
+                botao.setBackground(Color.BLUE); // Azul para MiniGame
+            } else if(i == 2){
+                botao.setBackground(Color.GREEN); // Verde para Pokedex
+            } else if(i == 3){
+                botao.setBackground(Color.PINK); //  para Shopping
+            } else if(i == 4){
+                botao.setBackground(Color.ORANGE); // Laranja
+            } else if(i == 5){
+                botao.setBackground(Color.MAGENTA); // Magenta para os outros
+            }
         }
     }
 
