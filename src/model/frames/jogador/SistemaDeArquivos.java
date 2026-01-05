@@ -1,4 +1,5 @@
 
+package model.frames.jogador;
 
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;
@@ -18,6 +19,7 @@ public class SistemaDeArquivos {
     static {
         try {
             Files.createDirectories(Paths.get(PASTA_SAVES));
+            System.out.println("Pasta saves criada ou já existe: " + PASTA_SAVES);
         } catch (IOException e) {
             System.err.println("Erro ao criar pasta de saves: " + e.getMessage());
         }

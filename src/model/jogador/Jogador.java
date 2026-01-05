@@ -144,8 +144,9 @@ public class Jogador {
     
     // MÉTODO PARA SALVAR PROGRESSO (futuramente)
     public void salvarProgresso() {
-        // Implementação futura com arquivo
-        System.out.println("Progresso salvo!");
+        // Chamar o sistema de arquivos para salvar
+        System.out.println("Chamando salvar...");
+        model.frames.jogador.SistemaDeArquivos.salvarComDialogo(this);
     }
     
     // MÉTODO PARA CARREGAR PROGRESSO (futuramente)

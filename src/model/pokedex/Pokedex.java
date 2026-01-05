@@ -73,7 +73,7 @@ public class Pokedex {
     }
 
     // depois rever a questao o construtor de pokemons para aceitar sem o nivel ja que no dicionario eles sempre vao estar no nivel 1 e isso nao é necessario ...
-     private void carregarPrimeiraGeracao() {
+    private void carregarPrimeiraGeracao() {
         // Bulbasaur line
         adicionarPokemon(new Pokemon("Bulbasaur", 1, "Grass", "Poison", "Bulba!", 45, 49, 49, 65, 65, 45, "Pokémon semente. Carrega uma semente nas costas desde o nascimento.", "Overgrow", "/model/frames/images/GEN1/1.png"));
         adicionarPokemon(new Pokemon("Ivysaur", 2, "Grass", "Poison", "Ivy!", 60, 62, 63, 80, 80, 60, "Quando o bulbo nas costas cresce, parece perder a capacidade de ficar de pé.", "Overgrow", "/model/frames/images/GEN1/2.png"));
@@ -355,4 +355,5 @@ public class Pokedex {
         // Mew
         adicionarPokemon(new Pokemon("Mew", 151, "Psychic", "-", "Mew!", 100, 100, 100, 100, 100, 100, "Diz-se que contém o DNA de todos os Pokémon. Muito raro e esquivo.", "Synchronize", "/model/frames/images/GEN1/151.png")); 
     }
+
 }

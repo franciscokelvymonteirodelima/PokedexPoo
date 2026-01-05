@@ -1,7 +1,9 @@
 
+package model.frames.jogador;
 
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;
+import model.frames.jogador.TelaMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +29,7 @@ public class TelaJogador extends JFrame {
 
         add(criarPainelPerfil(), BorderLayout.NORTH);
         add(criarPainelCentral(), BorderLayout.CENTER);
+        add(criarPainelBotoes(), BorderLayout.SOUTH);
     }
 
     /* ================= PERFIL ================= */
@@ -111,6 +114,25 @@ public class TelaJogador extends JFrame {
 
         JList<String> lista = new JList<>(model);
         painel.add(new JScrollPane(lista), BorderLayout.CENTER);
+
+        return painel;
+    }
+
+    /* ================= BOTOES ================= */
+    private JPanel criarPainelBotoes() {
+        JPanel painel = new JPanel(new FlowLayout());
+
+        JButton btnSalvar = new JButton("Salvar Jogo");
+        btnSalvar.addActionListener(e -> jogador.salvarProgresso());
+
+        JButton btnVoltar = new JButton("Voltar ao Menu");
+        btnVoltar.addActionListener(e -> {
+            new TelaMenu().setVisible(true);
+            this.dispose();
+        });
+
+        painel.add(btnSalvar);
+        painel.add(btnVoltar);
 
         return painel;
     }
