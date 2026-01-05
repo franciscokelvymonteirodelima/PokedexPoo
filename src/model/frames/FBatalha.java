@@ -1,5 +1,6 @@
 package model.frames;
 import model.batalha.Comparacao;
+import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
 
 import javax.swing.*;
@@ -18,20 +19,45 @@ public class FBatalha extends JFrame{
         initComponents();
     }
 
-    private JLabel nomePokemon1; // O nome sera modificado a depender do pokemon
+    private JLabel nomePokemon1; //Dados que serão modificados
     private JLabel nomePokemon2;
+    private JLabel spritePokemon1;
+    private JLabel hpPokemon1;
 
     private JLabel levelPokemon1;
     private JLabel levelPokemon2;
+    private JLabel spritePokemon2;
+    private JLabel hpPokemon2;
+
+    private JLabel perguntaAcao;
 
     public void atualizarInterface(){
         Pokemon pokemon1 = comparacao.getPokemon1();
         nomePokemon1.setText(pokemon1.getNome().toUpperCase());
         levelPokemon1.setText("Lv" +  pokemon1.getNivel());
+        hpPokemon1.setText("Hp " +  pokemon1.getHp());
 
         Pokemon pokemon2 = comparacao.getPokemon2();
         nomePokemon2.setText(pokemon2.getNome().toUpperCase());
         levelPokemon2.setText("Lv" +  pokemon2.getNivel());
+        hpPokemon2.setText("Hp " +  pokemon2.getHp());
+
+        carregarSprite(spritePokemon1, pokemon1.getCaminhoImagem(), 350, 350);
+        carregarSprite(spritePokemon2, pokemon2.getCaminhoImagem(), 300, 300);
+
+        perguntaAcao.setText(pokemon2.getNome().toUpperCase() + " do");
+    }
+
+    //Metodo para carregar o sprite
+    private void carregarSprite(JLabel label, String caminho, int largura, int altura) {
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+            Image img = icon.getImage().getScaledInstance(largura, altura, Image.SCALE_SMOOTH);
+            label.setIcon(new ImageIcon(img));
+        } catch (Exception e) {
+            System.out.println("Erro ao carregar imagem: " + caminho);
+
+        }
     }
 
     private void initComponents() {
@@ -41,21 +67,22 @@ public class FBatalha extends JFrame{
         panel.setBackground(GameColors.BATTLE_BG_GRASS);
 
         // Definicao das caixas de dados do pokemon em batalha
-        JPanel panel1 = new JPanel();
-        panel1.setBounds(50, 50, 280, 80);   // posição + tamanho
-        panel1.setLayout(null);
-        panel1.setBackground(GameColors.HUD_BACKGROUND);
-        panel1.setBorder(BorderFactory.createLineBorder(GameColors.HUD_BORDER));
-
         JPanel panel2 = new JPanel();
-        panel2.setBounds(900, 400, 280, 80);
+        panel2.setBounds(50, 50, 280, 80);   // posição + tamanho
         panel2.setLayout(null);
         panel2.setBackground(GameColors.HUD_BACKGROUND);
         panel2.setBorder(BorderFactory.createLineBorder(GameColors.HUD_BORDER));
 
+        JPanel panel1 = new JPanel();
+        panel1.setBounds(900, 400, 280, 80);
+        panel1.setLayout(null);
+        panel1.setBackground(GameColors.HUD_BACKGROUND);
+        panel1.setBorder(BorderFactory.createLineBorder(GameColors.HUD_BORDER));
+
         //--------- Definicao dos dados do pokemos para a panel1 ----------
         nomePokemon1 = new JLabel();
         levelPokemon1 = new JLabel();
+        hpPokemon1 = new JLabel();
         nomePokemon1.setFont(new Font("Arial", Font.BOLD, 17));
         nomePokemon1.setBounds(25, 10, 200, 20);
         levelPokemon1.setFont(new Font("Arial", Font.BOLD, 17));
@@ -65,11 +92,15 @@ public class FBatalha extends JFrame{
         barraLevel1.setBounds(80, 40, 180, 10);
         barraLevel1.setBackground(GameColors.HP_FULL);
         barraLevel1.setLayout(null);
+
+        hpPokemon1.setFont(new Font("Arial", Font.BOLD, 12));
+        hpPokemon1.setBounds(30, 40, 50, 10);
         // ----------------------------------------------------------------
 
         //--------- Definicao dos dados do pokemos para a panel2 ----------
         nomePokemon2 = new JLabel();
         levelPokemon2 = new JLabel();
+        hpPokemon2 = new JLabel();
         nomePokemon2.setFont(new Font("Arial", Font.BOLD, 17));
         levelPokemon2.setFont(new Font("Arial", Font.BOLD, 17));
         nomePokemon2.setBounds(25, 10, 200, 20);
@@ -79,6 +110,9 @@ public class FBatalha extends JFrame{
         barraLevel2.setBounds(80, 40, 180, 10);
         barraLevel2.setBackground(GameColors.HP_FULL);
         barraLevel2.setLayout(null);
+
+        hpPokemon2.setFont(new Font("Arial", Font.BOLD, 12));
+        hpPokemon2.setBounds(30, 40, 50, 10);
         // -------------------------------------------------------------------
 
         // ----------- PAINEL INFERIOR --------------------------------------
@@ -108,15 +142,15 @@ public class FBatalha extends JFrame{
         panelAux2.add(linha1);
 
         //Linha 2
-        JLabel linha2 = new JLabel("TORCHIC do?");
-        linha2.setForeground(GameColors.TEXT_WHITE);
-        linha2.setFont(new Font("Consolas", Font.BOLD, 30));
-        linha2.setBounds(40, 65, 500, 30);
-        panelAux2.add(linha2);
+        perguntaAcao = new JLabel(); // Cria vazio
+        perguntaAcao.setForeground(GameColors.TEXT_WHITE);
+        perguntaAcao.setFont(new Font("Consolas", Font.BOLD, 30));
+        perguntaAcao.setBounds(40, 65, 500, 30);
+        panelAux2.add(perguntaAcao);
 
         // PANEL PARA AS OPCOES DE ESCOLHA
         JPanel panelEscolhas = new JPanel();
-        panelEscolhas.setLayout(new GridLayout(2, 2, 10, 10));
+        panelEscolhas.setLayout(new GridLayout(1, 1));
         panelEscolhas.setBackground(GameColors.MENU_WHITE_BG);
         panelEscolhas.setBounds(620, 10, 600, 140);
         panelInferiorPrincipal.add(panelEscolhas);
@@ -133,37 +167,12 @@ public class FBatalha extends JFrame{
 
         // -----------------------------------
 
-        buttonFight.setFont(new Font("Arial", Font.BOLD, 30));
+        buttonFight.setFont(new Font("Arial", Font.BOLD, 80));
         buttonFight.setBackground(GameColors.MENU_WHITE_BG);
         buttonFight.setBorderPainted(false);
         buttonFight.setFocusPainted(false);
-        JButton buttonPokemon = new JButton("Pokemon");
-        buttonPokemon.setFont(new Font("Arial", Font.BOLD, 30));
-        buttonPokemon.setBackground(GameColors.MENU_WHITE_BG);
-        buttonPokemon.setBorderPainted(false);
-        buttonPokemon.setFocusPainted(false);
-        JButton buttonBag = new JButton("Bag");
-        buttonBag.setFont(new Font("Arial", Font.BOLD, 30));
-        buttonBag.setBackground(GameColors.MENU_WHITE_BG);
-        buttonBag.setBorderPainted(false);
-        buttonBag.setFocusPainted(false);
-        JButton buttonRun = new JButton("Run");
-        buttonRun.setFont(new Font("Arial", Font.BOLD, 30));
-        buttonRun.setBackground(GameColors.MENU_WHITE_BG);
-        buttonRun.setBorderPainted(false);
-        buttonRun.setFocusPainted(false);
-
-        //Agrupar Botoes:
-        ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(buttonFight);
-        buttonGroup.add(buttonPokemon);
-        buttonGroup.add(buttonBag);
-        buttonGroup.add(buttonRun);
 
         panelEscolhas.add(buttonFight);
-        panelEscolhas.add(buttonPokemon);
-        panelEscolhas.add(buttonBag);
-        panelEscolhas.add(buttonRun);
 
         // Dimensoes:
         panelInferiorPrincipal.setBounds(0, 525, 1280, 180);
@@ -173,112 +182,57 @@ public class FBatalha extends JFrame{
         panel1.add(barraLevel1);
         panel1.add(nomePokemon1);
         panel1.add(levelPokemon1);
+        panel1.add(hpPokemon1);
 
+        panel2.add(barraLevel2);
         panel2.add(nomePokemon2);
         panel2.add(levelPokemon2);
-        panel2.add(barraLevel2);
+        panel2.add(hpPokemon2);
 
         panel.add(panelInferiorPrincipal);
         //--------------- Adicao dos sprites --------------------------------------------------
 
-        // -------- Sprinte LOTAD -----------------------------------
+        // -------- Sprite 1 -----------------------------------
         // Nessesario fazer um tratamento de excessao para verificar se achou a imagem !
-        ImageIcon lotadIcon = new ImageIcon(getClass().getResource("images/Lotad.png"));
-        // Carregar o caminho: não faz configuracoes
-        Image imageLotadConfig = lotadIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-        // Faz as configs necessarias
-
-        JLabel lotadSprite = new JLabel(new ImageIcon(imageLotadConfig));
-        // O JLabel so pode receber ImageIcon, entao eu transformo imageCongig(Image) em ImageIcon e passo para JLabel (coldura)
-
-        lotadSprite.setBounds(700,30, 300, 300);
+        spritePokemon1 = new JLabel();
+        spritePokemon1.setBounds(200, 220, 350, 350);
+        panel.add(spritePokemon1);
         // -------------------------------------------------------------
 
-        // -------- Sprinte TORCHIC -----------------------------------
+        // -------- Sprite 2 -----------------------------------
         // Nessesario fazer um tratamento de excessao para verificar se achou a imagem !
-        ImageIcon torchicIcon = new ImageIcon(getClass().getResource("images/Torchic.png"));
-
-        Image imageTorchicConfig = torchicIcon.getImage().getScaledInstance(350, 350, Image.SCALE_SMOOTH);
-
-        JLabel torchicSprite = new JLabel(new ImageIcon(imageTorchicConfig));
-
-        torchicSprite.setBounds(230, 220, 350, 350);
+        spritePokemon2 = new JLabel();
+        spritePokemon2.setBounds(700, 30, 300, 300);
+        panel.add(spritePokemon2);
         // ------------------------------------------------------------
 
         //------- Sprite BattleBase ----------------------
 
-        ImageIcon battleBaseIcon = new ImageIcon(getClass().getResource("images/BattleBase.png"));
+        ImageIcon battleBaseIcon = new ImageIcon(getClass().getResource("images/Fundos&Simbolos/BattleBase.png"));
         Image playerbattlebase = battleBaseIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 
         JLabel battleBaseLabel = new JLabel(new ImageIcon(playerbattlebase));
         battleBaseLabel.setBounds(0, -140, 1280, 720);
 
         // -----------------------------------------------
-
-        //------- Sprite MascSimbol ----------------------
-        ImageIcon simbolMascIcon = new ImageIcon(getClass().getResource("images/MascSimbol.png"));
-        Image simbolMascIconCpnfig = simbolMascIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-
-        JLabel simbolMasc =  new JLabel(new ImageIcon(simbolMascIconCpnfig));
-
-        simbolMasc.setBounds(83, 7, 25, 25);
-        // -----------------------------------------------
-
-        //------- Sprite MascSimbol ----------------------
-        ImageIcon simbolFemIcon = new ImageIcon(getClass().getResource("images/FemSimbol.png"));
-        Image simbolFemIconCpnfig = simbolFemIcon.getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
-
-        JLabel simbolFem =  new JLabel(new ImageIcon(simbolFemIconCpnfig));
-
-        simbolFem.setBounds(105, 7, 22, 22);
-        // -----------------------------------------------
-
         // -----------------------------------------------------------------------------------------
         panel.add(panel1);
         panel.add(panel2);
-        panel.add(lotadSprite);
-        panel.add(torchicSprite);
         panel.add(battleBaseLabel);
         atualizarInterface();
     }
 
 
     public static void main(String[] args) {
-        Pokemon bulbasaur = new Pokemon(
-                "Bulbasaur",    // nome
-                1,              // numeroPokedex
-                5,              // nivel
-                "Grama",        // tipo1
-                "Veneno",       // tipo2
-                "Bulba!",       // somCaracteristico
-                45,             // hp (base)
-                49,             // ataque
-                49,             // defesa
-                65,             // spAtaque
-                65,             // spDefesa
-                45,             // velocidade
-                "Uma semente estranha foi plantada em suas costas ao nascer.", // descricao
-                "Overgrow"      // habilidade
-        );
+        Pokedex pokedex1 = new Pokedex();
+        int numeroAleatorio1 = (int) (Math.random() * 151) + 1;
+        Pokemon pokemon1 = pokedex1.getPokemonPC(numeroAleatorio1);
 
-        Pokemon charmander = new Pokemon(
-                "Charmander",   // nome
-                4,              // numeroPokedex
-                5,              // nivel
-                "Fogo",         // tipo1
-                null,           // tipo2 (Sua lógica vai transformar em "-")
-                "Char!",        // somCaracteristico
-                39,             // hp (base)
-                52,             // ataque
-                43,             // defesa
-                60,             // spAtaque
-                50,             // spDefesa
-                65,             // velocidade
-                "A chama em sua cauda indica sua força vital.", // descricao
-                "Blaze"         // habilidade
-        );
+        Pokedex pokedex2 = new Pokedex();
+        int numeroAleatorio2 = (int) (Math.random() * 151) + 1;
+        Pokemon pokemon2 = pokedex2.getPokemonPC(numeroAleatorio2);
 
-        Comparacao comparacao1 = new Comparacao(bulbasaur, charmander);
+        Comparacao comparacao1 = new Comparacao(pokemon1, pokemon2);
 
         FBatalha frame = new FBatalha("Batalha", comparacao1);
         frame.setVisible(true);

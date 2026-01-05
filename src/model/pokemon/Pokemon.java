@@ -1,6 +1,8 @@
 package model.pokemon;
 
 import model.ataques.Ataque;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Pokemon {
     private String tipo2;  
     
     private String somCaracteristico;
+
     private String descricao; 
     private String habilidade; // talvez util futuramente mas tenho la minhas duvidas ...
 
