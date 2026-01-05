@@ -17,7 +17,7 @@ public class PokemonAleatorioPanel extends JPanel {
         Pokemon pokemonAleatorio = pokedex.getPokemonPC(numeroAleatorio);
 
         // Carregar a imagem do Pokémon
-        ImageIcon imagemPokemon = new ImageIcon(pokemonAleatorio.getCaminhoImagem());
+        ImageIcon imagemPokemon = new ImageIcon(getClass().getResource(pokemonAleatorio.getCaminhoImagem()));
         Image img = imagemPokemon.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH);
         imagemPokemon = new ImageIcon(img);
 

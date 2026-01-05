@@ -1,6 +1,7 @@
 package model.frames;
 import javax.swing.*;
 import java.awt.*;
+import model.frames.GameColors;
 
 public class FInicio extends JFrame {
     public FInicio() {
@@ -11,14 +12,14 @@ public class FInicio extends JFrame {
         setLayout(null);
         
         // ===== Fundo =====
-        ImageIcon fundoMenu = new ImageIcon("/home/jeudes/PokedexPoo-main/src/model/frames/images/FUNDO_MENU.jpg");
+        ImageIcon fundoMenu = new ImageIcon(getClass().getResource("/model/frames/images/FundosSimbolos/FUNDO_MENU.jpg"));
         JLabel background = new JLabel(fundoMenu);
         background.setBounds(0, 0, 1280, 720);
         setContentPane(background);
         setLayout(null);
 
         // ===== Nome do Site =====
-        ImageIcon iconePokemon = new ImageIcon("/home/jeudes/PokedexPoo-main/src/model/frames/images/LogoInicio_400x.png");
+        ImageIcon iconePokemon = new ImageIcon(getClass().getResource("/model/frames/images/FundosSimbolos/LogoInicio_400x.png"));
         JLabel labelIcone = new JLabel(iconePokemon);
         labelIcone.setBounds(320, 10, 640, 120);
         add(labelIcone);
@@ -38,9 +39,9 @@ public class FInicio extends JFrame {
             "Pokedex",
             "Batalha Pokemon",
             "Qual é esse Pokemon? (MiniGame)",
-            "SHooping",
-            "jogo",
-            "joosjos"
+            "Jogador",
+            "Loja",
+            "Sair"
         };
 
         for (int i = 0; i < textos.length; i++) {
@@ -50,17 +51,17 @@ public class FInicio extends JFrame {
             botao.setForeground(Color.WHITE);
             add(botao);
             if(i == 0) {
-                botao.setBackground(Color.RED); // Vermelho para Batalha Pokemon
+                botao.setBackground(Color.MAGENTA); // Vermelho para Batalha Pokemon
             } else if(i == 1) {
                 botao.setBackground(Color.BLUE); // Azul para MiniGame
             } else if(i == 2){
-                botao.setBackground(Color.GREEN); // Verde para Pokedex
+                botao.setBackground(GameColors.HP_FULL); // Verde para Pokedex
             } else if(i == 3){
                 botao.setBackground(Color.PINK); //  para Shopping
             } else if(i == 4){
                 botao.setBackground(Color.ORANGE); // Laranja
             } else if(i == 5){
-                botao.setBackground(Color.MAGENTA); // Magenta para os outros
+                botao.setBackground(Color.RED); // Magenta para os outros
             }
         }
     }
