@@ -1,4 +1,5 @@
 
+package model.frames.jogador;
 
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;

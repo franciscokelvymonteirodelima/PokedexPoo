@@ -1,3 +1,5 @@
+package model.frames.jogador;
+
 import model.jogador.Jogador;
 
 import javax.swing.*;
