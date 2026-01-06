@@ -87,7 +87,7 @@ public class FWhosThatPoke extends JFrame {
 
         // ===== Painel do Pokemon Aleatório =====
         PokemonAleatorioPanel painelPokemonAleatorio = new PokemonAleatorioPanel();
-        painelPokemonAleatorio.setBounds(100, 180, 800, 300);
+        painelPokemonAleatorio.setBounds(275, 40, 350, 350);
         painelPokemon.add(painelPokemonAleatorio);
     }
 
