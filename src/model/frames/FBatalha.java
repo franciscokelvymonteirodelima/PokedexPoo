@@ -208,7 +208,7 @@ public class FBatalha extends JFrame{
 
         //------- Sprite BattleBase ----------------------
 
-        ImageIcon battleBaseIcon = new ImageIcon(getClass().getResource("images/Fundos&Simbolos/BattleBase.png"));
+        ImageIcon battleBaseIcon = new ImageIcon(getClass().getResource("images/FundosSimbolos/BattleBase.png"));
         Image playerbattlebase = battleBaseIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
 
         JLabel battleBaseLabel = new JLabel(new ImageIcon(playerbattlebase));
