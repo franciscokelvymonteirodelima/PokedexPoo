@@ -8,6 +8,7 @@ public class GamePokemon {
     private Pokemon[] rodadas = new Pokemon[10];
     private int rodadaAtual = -1;
     private int acertos = 0;
+    private boolean[] rodadasRespondidas = new boolean[10];
 
     // ===== Construtor que inicializa as rodadas com Pokémons aleatórios =====
     public GamePokemon() {
@@ -15,7 +16,14 @@ public class GamePokemon {
 
         for (int i = 0; i < 10; i++) {
             int poke = (int) (Math.random() * 151) + 1;
-            rodadas[i] = pokedex.getPokemonPC(poke);
+            Pokemon pokemon = pokedex.getPokemonPC(poke);
+            int tentativas = 0;
+            while(pokemon == null && tentativas < 10){
+                poke = (int) (Math.random() * 151) + 1;
+                pokemon = pokedex.getPokemonPC(poke);
+                tentativas++;
+            }
+            rodadas[i] = pokemon;
         }
     }
 
@@ -27,11 +35,26 @@ public class GamePokemon {
 
     // ===== Verifica se a resposta do jogador está correta =====
     public boolean verificarResposta(String resposta) {
-        if (rodadaAtual == -1) 
+        if (rodadaAtual == -1 || rodadasRespondidas[rodadaAtual]) 
             return false;
 
         Pokemon p = rodadas[rodadaAtual];
-        return resposta.trim().equalsIgnoreCase(p.getNome());
+        if(p == null || p.getNome() == null)
+            return false;
+
+        String respostaNormalizada = resposta.trim().replaceAll("\\s+", " ").toLowerCase();
+        String nomeNormalizado = p.getNome().trim().replaceAll("\\s+", " ").toLowerCase();
+        boolean correta = respostaNormalizada.equals(nomeNormalizado);
+
+        rodadasRespondidas[rodadaAtual] = true;
+        return correta;
+    }
+
+    public boolean rodadaJaRespondida(int index) {
+        if (index < 0 || index >= rodadasRespondidas.length) {
+            return false;
+        }
+        return rodadasRespondidas[index];
     }
 
     // ===== Incrementa o número de acertos =====
@@ -49,6 +72,9 @@ public class GamePokemon {
     }
 
     public Pokemon getPokemonAtual() {
+        if(rodadaAtual < 0 || rodadaAtual >= rodadas.length){
+            return null;
+        }
         return rodadas[rodadaAtual];
     }
 }
