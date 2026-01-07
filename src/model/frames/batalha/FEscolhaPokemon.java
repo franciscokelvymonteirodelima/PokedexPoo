@@ -1,8 +1,9 @@
-package model.frames;
+package model.frames.batalha;
 
 import model.arquivo.LeitorArquivosSaveGame;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
+import model.frames.GameColors;
 
 import javax.swing.*;
 import java.awt.*;
