@@ -36,9 +36,10 @@ public class FInicio extends JFrame {
         int espaco = 20;
 
         String[] textos = {
-            "Pokedex",
-            "Batalha Pokemon",
+            "Batalha PokemonPokedex",
             "Qual é esse Pokemon? (MiniGame)",
+            "Pokedex",
+            "Ranking",
             "Jogador",
             "Loja",
             "Sair"

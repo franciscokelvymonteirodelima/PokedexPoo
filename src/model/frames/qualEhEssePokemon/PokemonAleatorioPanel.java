@@ -51,13 +51,6 @@ public class PokemonAleatorioPanel extends JPanel {
             return;
         }
 
-        // ImageIcon imagemPokemon = new ImageIcon(getClass().getResource(caminhoImagem));
-        // if(imagemPokemon == null){
-        //     imagemPokemonLabel.setIcon(null);
-        //     imagemPokemonLabel.setText("Imagem não encontrada");
-        //     return;
-        // }
-
         Image imagemPokemon = new ImageIcon(getClass().getResource(caminhoImagem)).getImage();
         BufferedImage bimage = new BufferedImage(350, 350, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = bimage.createGraphics();
