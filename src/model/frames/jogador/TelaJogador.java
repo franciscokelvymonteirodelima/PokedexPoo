@@ -1,4 +1,3 @@
-
 package model.frames.jogador;
 
 import model.jogador.Jogador;
@@ -30,6 +29,18 @@ public class TelaJogador extends JFrame {
         add(criarPainelPerfil(), BorderLayout.NORTH);
         add(criarPainelCentral(), BorderLayout.CENTER);
         add(criarPainelBotoes(), BorderLayout.SOUTH);
+    }
+
+    public void atualizarInterface() {
+        // Remove tudo o que está na tela atualmente
+        getContentPane().removeAll();
+        
+        // Chama o método que monta a tela novamente com os dados atualizados
+        inicializarTela();
+        
+        // Avisa o Swing para revalidar o layout e repintar
+        revalidate();
+        repaint();
     }
 
     /* ================= PERFIL ================= */
@@ -93,7 +104,7 @@ public class TelaJogador extends JFrame {
 
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Pokemon p : jogador.getTimePokemon()) {
-            model.addElement(p.getNome() + " (Lv." + p.getNivel() + ")");
+            model.addElement(p.getNome());  // Removi para testes: + " (Lv." + p.getNivel() + ")"
         }
 
         JList<String> lista = new JList<>(model);
@@ -109,7 +120,7 @@ public class TelaJogador extends JFrame {
 
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Pokemon p : jogador.getPcBox()) {
-            model.addElement(p.getNome() + " (Lv." + p.getNivel() + ")");
+            model.addElement(p.getNome());  // Removi para testes: + " (Lv." + p.getNivel() + ")"
         }
 
         JList<String> lista = new JList<>(model);
@@ -120,6 +131,19 @@ public class TelaJogador extends JFrame {
 
     /* ================= BOTOES ================= */
     private JPanel criarPainelBotoes() {
+
+        JButton btnEditar = new JButton("Editar Time");
+        btnEditar.addActionListener(e -> {
+        // Abre a tela de edição
+        TelaGerenciarTime telaEdicao = new TelaGerenciarTime(jogador, this);
+        telaEdicao.setVisible(true);
+    
+        // Assim que o código chegar aqui, significa que a tela de edição foi fechada
+        // Então chamamos o refresh automático:
+        atualizarInterface();
+        });
+    
+
         JPanel painel = new JPanel(new FlowLayout());
 
         JButton btnSalvar = new JButton("Salvar Jogo");
@@ -133,6 +157,7 @@ public class TelaJogador extends JFrame {
 
         painel.add(btnSalvar);
         painel.add(btnVoltar);
+        painel.add(btnEditar);
 
         return painel;
     }

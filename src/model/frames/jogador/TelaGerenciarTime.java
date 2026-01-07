@@ -1,0 +1,101 @@
+package model.frames.jogador;
+
+import model.jogador.Jogador;
+import model.pokemon.Pokemon;
+import javax.swing.*;
+import java.awt.*;
+
+public class TelaGerenciarTime extends JDialog {
+    private Jogador jogador;
+    private DefaultListModel<Pokemon> modelPC;
+    private DefaultListModel<Pokemon> modelTime;
+    private JList<Pokemon> listaPC;
+    private JList<Pokemon> listaTime;
+
+    public TelaGerenciarTime(Jogador jogador, JFrame pai) {
+        super(pai, "Gerenciar Time", true);
+        this.jogador = jogador;
+        setSize(600, 400);
+        setLocationRelativeTo(pai);
+        setLayout(new BorderLayout());
+
+        // Configuração das Listas
+        modelPC = new DefaultListModel<>();
+        jogador.getPcBox().forEach(modelPC::addElement);
+        listaPC = new JList<>(modelPC);
+
+        modelTime = new DefaultListModel<>();
+        jogador.getTimePokemon().forEach(modelTime::addElement);
+        listaTime = new JList<>(modelTime);
+
+        // Painel Central com as listas e botões
+        JPanel painelCentral = new JPanel(new GridLayout(1, 3, 10, 10));
+        painelCentral.add(criarPainelLista("PC Box", listaPC));
+        painelCentral.add(criarPainelBotoesTroca());
+        painelCentral.add(criarPainelLista("Meu Time (Máx 6)", listaTime));
+
+        add(painelCentral, BorderLayout.CENTER);
+        
+        JButton btnFechar = new JButton("Finalizar");
+        btnFechar.addActionListener(e -> dispose());
+        add(btnFechar, BorderLayout.SOUTH);
+    }
+
+    private JPanel criarPainelLista(String titulo, JList<Pokemon> lista) {
+        JPanel p = new JPanel(new BorderLayout());
+        p.setBorder(BorderFactory.createTitledBorder(titulo));
+        p.add(new JScrollPane(lista), BorderLayout.CENTER);
+        return p;
+    }
+
+    private JPanel criarPainelBotoesTroca() {
+        JPanel p = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridx = 0;
+
+        JButton btnParaTime = new JButton(">>");
+        JButton btnParaPC = new JButton("<<");
+
+        btnParaTime.addActionListener(e -> moverParaTime());
+        btnParaPC.addActionListener(e -> moverParaPC());
+
+        p.add(btnParaTime, gbc);
+        gbc.gridy = 1;
+        p.add(btnParaPC, gbc);
+        return p;
+    }
+
+    private void moverParaTime() {
+        Pokemon selecionado = listaPC.getSelectedValue();
+        if (selecionado != null) {
+            if (jogador.getTimePokemon().size() < 6) {
+                jogador.getPcBox().remove(selecionado);
+                jogador.getTimePokemon().add(selecionado);
+                atualizarModels();
+            } else {
+                JOptionPane.showMessageDialog(this, "O time já está cheio!");
+            }
+        }
+    }
+
+    private void moverParaPC() {
+        Pokemon selecionado = listaTime.getSelectedValue();
+        if (selecionado != null) {
+            if (jogador.getTimePokemon().size() > 1) { // Evita ficar sem pokémons
+                jogador.getTimePokemon().remove(selecionado);
+                jogador.getPcBox().add(selecionado);
+                atualizarModels();
+            } else {
+                JOptionPane.showMessageDialog(this, "Você precisa de pelo menos 1 Pokémon no time!");
+            }
+        }
+    }
+
+    private void atualizarModels() {
+        modelPC.clear();
+        jogador.getPcBox().forEach(modelPC::addElement);
+        modelTime.clear();
+        jogador.getTimePokemon().forEach(modelTime::addElement);
+    }
+}
