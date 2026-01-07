@@ -3,8 +3,8 @@ Nome=kel
 Idade=10
 Genero=Masculino
 Cidade=Pallet Town
-Dinheiro=3000
-PokemonsCapturados=6
+Dinheiro=500
+PokemonsCapturados=0
 [TIME_POKEMON]
 8,0
 9,0

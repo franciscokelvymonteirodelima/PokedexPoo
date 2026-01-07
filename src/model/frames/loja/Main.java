@@ -1,10 +1,12 @@
 package model.frames.loja;
 
-import model.jogador.Jogador;
+import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-        Jogador jogador = new Jogador("Red");
-        new TelaColecionaveis(jogador);
+        // Sem definir LookAndFeel, o Java usa o padrão "Metal" ou o padrão do sistema
+        SwingUtilities.invokeLater(() -> {
+            new TelaMenu().setVisible(true);
+        });
     }
 }
