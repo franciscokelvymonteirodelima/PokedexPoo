@@ -1,5 +1,6 @@
-package model.frames;
+package model.frames.batalha;
 import model.batalha.Comparacao;
+import model.frames.GameColors;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
 
@@ -51,7 +52,16 @@ public class FBatalha extends JFrame{
     //Metodo para carregar o sprite
     private void carregarSprite(JLabel label, String caminho, int largura, int altura) {
         try {
-            ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+            if (caminho == null) {
+                System.out.println("caminhoImagem is null para o pokemon");
+                return;
+            }
+            java.net.URL url = getClass().getResource(caminho);
+            if (url == null) {
+                System.out.println("Recurso de imagem não encontrado: " + caminho);
+                return;
+            }
+            ImageIcon icon = new ImageIcon(url);
             Image img = icon.getImage().getScaledInstance(largura, altura, Image.SCALE_SMOOTH);
             label.setIcon(new ImageIcon(img));
         } catch (Exception e) {
@@ -208,10 +218,19 @@ public class FBatalha extends JFrame{
 
         //------- Sprite BattleBase ----------------------
 
-        ImageIcon battleBaseIcon = new ImageIcon(getClass().getResource("images/FundosSimbolos/BattleBase.png"));
-        Image playerbattlebase = battleBaseIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
-
-        JLabel battleBaseLabel = new JLabel(new ImageIcon(playerbattlebase));
+        ImageIcon battleBaseIcon = null;
+        java.net.URL battleBaseUrl = getClass().getResource("/model/frames/images/FundosSimbolos/BattleBase.png");
+        if (battleBaseUrl != null) {
+            battleBaseIcon = new ImageIcon(battleBaseUrl);
+        } else {
+            System.out.println("Recurso BattleBase.png não encontrado em /model/frames/images/FundosSimbolos/");
+        }
+        Image playerbattlebase = null;
+        JLabel battleBaseLabel = new JLabel();
+        if (battleBaseIcon != null) {
+            playerbattlebase = battleBaseIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
+            battleBaseLabel.setIcon(new ImageIcon(playerbattlebase));
+        }
         battleBaseLabel.setBounds(0, -140, 1280, 720);
 
         // -----------------------------------------------

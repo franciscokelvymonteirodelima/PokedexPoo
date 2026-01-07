@@ -122,10 +122,10 @@ public class Pokedex {
         adicionarPokemon(new Pokemon("Sandshrew", 27, "Ground", "-", "Sandshrew!", 50, 75, 85, 20, 30, 40, "Enterra-se e dorme sob o solo. Come areia ao invés de comida comum.", "Sand Veil", "/model/frames/images/GEN1/27.png"));
         adicionarPokemon(new Pokemon("Sandslash", 28, "Ground", "-", "Sandslash!", 75, 100, 110, 45, 55, 65, "Enrola-se formando uma bola para se proteger de inimigos. Também rola para se mover.", "Sand Veil", "/model/frames/images/GEN1/28.png"));
         // Nidoran line
-        adicionarPokemon(new Pokemon("Nidoran♀", 29, "Poison", "-", "Nido!", 55, 47, 52, 40, 40, 41, "Apesar de pequeno, emite veneno poderoso de suas farpas. Aparentemente mais dócil.", "Poison Point", "/model/frames/images/GEN1/29.png"));
+        adicionarPokemon(new Pokemon("Nidoran", 29, "Poison", "-", "Nido!", 55, 47, 52, 40, 40, 41, "Apesar de pequeno, emite veneno poderoso de suas farpas. Aparentemente mais dócil.", "Poison Point", "/model/frames/images/GEN1/29.png"));
         adicionarPokemon(new Pokemon("Nidorina", 30, "Poison", "-", "Nidorina!", 70, 62, 67, 55, 55, 56, "A fêmea tem chifre menor. Quando se alimenta de seus filhotes, primeiro mastiga comida.", "Poison Point", "/model/frames/images/GEN1/30.png"));
         adicionarPokemon(new Pokemon("Nidoqueen", 31, "Poison", "Ground", "Nidoqueen!", 90, 92, 87, 75, 85, 76, "Seu corpo é coberto por escamas duras como agulhas. Pressiona adversários com força.", "Poison Point", "/model/frames/images/GEN1/31.png"));
-        adicionarPokemon(new Pokemon("Nidoran♂", 32, "Poison", "-", "Nido!", 46, 57, 40, 40, 40, 50, "Estica suas orelhas para verificar seus arredores. Se irritado, libera veneno potente.", "Poison Point", "/model/frames/images/GEN1/32.png"));
+        adicionarPokemon(new Pokemon("Nidoran", 32, "Poison", "-", "Nido!", 46, 57, 40, 40, 40, 50, "Estica suas orelhas para verificar seus arredores. Se irritado, libera veneno potente.", "Poison Point", "/model/frames/images/GEN1/32.png"));
         adicionarPokemon(new Pokemon("Nidorino", 33, "Poison", "-", "Nidorino!", 61, 72, 57, 55, 55, 65, "Facilmente irritável. Usa seu chifre para espetar o inimigo, então injetando veneno.", "Poison Point", "/model/frames/images/GEN1/33.png"));
         adicionarPokemon(new Pokemon("Nidoking", 34, "Poison", "Ground", "Nidoking!", 81, 102, 77, 85, 75, 85, "Usa sua cauda poderosa em combate para golpear, apertar e quebrar os ossos do inimigo.", "Poison Point", "/model/frames/images/GEN1/34.png"));
 

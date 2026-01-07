@@ -26,4 +26,18 @@ public class GameColors {
     public static final Color MENU_BORDER_PURPLE = new Color(112, 104, 136);
     public static final Color TEXT_DARK = new Color(64, 64, 64);
     public static final Color TEXT_WHITE = new Color(255, 255, 255);
+
+    // colors Menu Buttons
+    public static final Color BUTTON_BATTLE = new Color(34, 139, 34);
+    public static final Color BUTTON_MINIGAME = new Color(65, 105, 225);
+    public static final Color BUTTON_POKEDEX = new Color(106, 90, 205);
+    public static final Color BUTTON_RANKING = new Color(139, 0, 139);
+    public static final Color BUTTON_PLAYER = new Color(210, 105, 30);
+    public static final Color BUTTON_SHOP = new Color(255, 140, 0);
+    public static final Color BUTTON_EXIT = new Color(255, 0, 0);
+
+    // colors WhosThatPoke Buttons
+    public static final Color BUTTON_CORRECT = new Color(60, 160, 90);
+    public static final Color BUTTON_INCORRECT = new Color(200, 80, 80);
+    public static final Color BUTTON_NEUTRAL = new Color(32,178,170); 
 }

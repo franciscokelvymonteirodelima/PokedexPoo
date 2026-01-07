@@ -1,5 +1,6 @@
-package model.frames;
+package model.frames.batalha;
 
+import model.frames.GameColors;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
 

@@ -1,9 +1,8 @@
 package model.frames.qualEhEssePokemon;
 
-import javax.swing.*;
-
+import model.frames.GameColors;
 import model.pokemon.Pokemon;
-
+import javax.swing.*;
 import java.awt.*;
 
 public class FWhosThatPoke extends JFrame {
@@ -88,6 +87,8 @@ public class FWhosThatPoke extends JFrame {
             JButton btn = new JButton(String.valueOf(i));
             btn.setBounds(xInicial + (i - 1) * (largura + espaco), y, largura, altura);
             btn.setFont(new Font("Arial", Font.BOLD, 20));
+            btn.setBackground(GameColors.BUTTON_NEUTRAL);
+            btn.setForeground(Color.WHITE);
             final int rodada = i - 1;
             btn.addActionListener(e -> selecionarRodada(rodada));
             botoesRodadas[i - 1] = btn;
@@ -160,8 +161,10 @@ public class FWhosThatPoke extends JFrame {
         if(correta){
             game.setAcertos();
             JOptionPane.showMessageDialog(this, "Correto! Ele é realmente o " + pokemonAtual.getNome() + "!");
+            botoesRodadas[rodadaAtual].setBackground(GameColors.BUTTON_CORRECT);
         } else{
             JOptionPane.showMessageDialog(this, "Errado! O Pokémon é o " + pokemonAtual.getNome() + "!");
+            botoesRodadas[rodadaAtual].setBackground(GameColors.BUTTON_INCORRECT);
         }
 
         atualizarScore();
