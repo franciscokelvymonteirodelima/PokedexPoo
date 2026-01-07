@@ -1,5 +1,6 @@
 
 package model.frames.jogador;
+//package model.jogador;
 
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;
@@ -330,4 +331,32 @@ public class SistemaDeArquivos {
         File[] saves = listarSaves();
         return saves != null && saves.length > 0;
     }
+
+    //SISTEMA DE PERSISTÊNCIA
+    //ideia do enio espero que de certo kkkkk
+
+    /**
+     * Carrega o save, modifica o dinheiro e salva novamente.
+     * @param nomeArquivo Nome do arquivo (ex: "player1")
+     * @param bonus Valor a ser somado
+     */
+    public static void modificarDinheiroNoSave(String nomeArquivo, int bonus) {
+        // 1. Chama seu método que lê o arquivo e retorna um objeto Jogador
+        Jogador jogador = model.frames.jogador.SistemaDeArquivos.carregarJogador(nomeArquivo);
+
+        if (jogador != null) {
+            // 2. Modifica o valor usando o método que você já tem
+            jogador.ganharDinheiro(bonus);
+            
+            // 3. Salva por cima do arquivo antigo para atualizar
+            model.frames.jogador.SistemaDeArquivos.salvarJogador(jogador, nomeArquivo);
+            System.out.println("Arquivo " + nomeArquivo + " atualizado com sucesso!");
+        } else {
+            System.err.println("Erro: Não foi possível encontrar o save " + nomeArquivo);
+        }
+    }
+
+    // Setter necessário para o carregamento de arquivos
+
+
 }

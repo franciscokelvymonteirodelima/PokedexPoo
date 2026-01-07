@@ -154,4 +154,18 @@ public class Jogador {
         // Implementação futura com arquivo
         System.out.println("Progresso carregado!");
     }
+
+    // Aumentar dinheiro (ex: vender item ou vencer batalha)
+    public void adicionarDinheiro(double valor) {
+        this.dinheiro += valor;
+    }
+
+    // Diminuir dinheiro (ex: comprar Pokébola)
+    public boolean removerDinheiro(double valor) {
+        if (this.dinheiro >= valor) {
+            this.dinheiro -= valor;
+            return true; // Compra realizada
+        }
+        return false; // Saldo insuficiente
+    }
 }

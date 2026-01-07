@@ -1,4 +1,3 @@
-
 package model.frames.jogador;
 
 import model.jogador.Jogador;
@@ -93,7 +92,7 @@ public class TelaJogador extends JFrame {
 
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Pokemon p : jogador.getTimePokemon()) {
-            model.addElement(p.getNome() + " (Lv." + p.getNivel() + ")");
+            model.addElement(p.getNome());  // Removi para testes: + " (Lv." + p.getNivel() + ")"
         }
 
         JList<String> lista = new JList<>(model);
@@ -109,7 +108,7 @@ public class TelaJogador extends JFrame {
 
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Pokemon p : jogador.getPcBox()) {
-            model.addElement(p.getNome() + " (Lv." + p.getNivel() + ")");
+            model.addElement(p.getNome());  // Removi para testes: + " (Lv." + p.getNivel() + ")"
         }
 
         JList<String> lista = new JList<>(model);
