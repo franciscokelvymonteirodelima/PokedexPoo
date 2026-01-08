@@ -6,6 +6,8 @@ import model.pokedex.Pokedex;
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SistemaDeArquivos {
     private static final String PASTA_SAVES = "saves";
@@ -43,8 +45,23 @@ public class SistemaDeArquivos {
                 writer.write(p.getNumeroPokedex() + "," + p.getNivel() + "\n");
             }
             
+            // Seção Colecionáveis
+            writer.write("[COLECIONAVEIS]\n");
+            Set<Integer> colecionaveis = jogador.getColecionaveisComprados();
+            if (colecionaveis != null && !colecionaveis.isEmpty()) {
+                StringBuilder sb = new StringBuilder();
+                for (Integer indice : colecionaveis) {
+                    if (sb.length() > 0) sb.append(",");
+                    sb.append(indice);
+                }
+                writer.write(sb.toString() + "\n");
+            }
+            
+            System.out.println("✅ Save atualizado com sucesso!");
             return true;
         } catch (IOException e) {
+            System.err.println("❌ Erro ao salvar: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -53,6 +70,7 @@ public class SistemaDeArquivos {
         try (BufferedReader reader = new BufferedReader(new FileReader(caminho))) {
             String linha, secao = "";
             Jogador jogador = null;
+            int pokemonsCapturados = 0; // Armazena temporariamente
 
             while ((linha = reader.readLine()) != null) {
                 linha = linha.trim();
@@ -71,10 +89,18 @@ public class SistemaDeArquivos {
                     String valor = p[1];
 
                     switch (chave) {
-                        case "Nome": jogador = new Jogador(valor); break;
-                        case "Idade": if (jogador != null) jogador.setIdade(Integer.parseInt(valor)); break;
-                        case "Genero": if (jogador != null) jogador.setGenero(valor); break;
-                        case "Cidade": if (jogador != null) jogador.setCidadeOrigem(valor); break;
+                        case "Nome": 
+                            jogador = new Jogador(valor); 
+                            break;
+                        case "Idade": 
+                            if (jogador != null) jogador.setIdade(Integer.parseInt(valor)); 
+                            break;
+                        case "Genero": 
+                            if (jogador != null) jogador.setGenero(valor); 
+                            break;
+                        case "Cidade": 
+                            if (jogador != null) jogador.setCidadeOrigem(valor); 
+                            break;
                         case "Dinheiro": 
                             if (jogador != null) {
                                 int d = Integer.parseInt(valor);
@@ -83,8 +109,9 @@ public class SistemaDeArquivos {
                             }
                             break;
                         case "PokemonsCapturados":
-                             // Se sua classe Jogador tiver setPokemonsCapturados, adicione aqui
-                             break;
+                            // CORREÇÃO: Agora carrega corretamente o valor
+                            pokemonsCapturados = Integer.parseInt(valor);
+                            break;
                     }
                 } else if (secao.equals("[TIME_POKEMON]") || secao.equals("[PC_BOX]")) {
                     String[] partes = linha.split(",");
@@ -93,14 +120,37 @@ public class SistemaDeArquivos {
                         int lvl = Integer.parseInt(partes[1]);
                         Pokemon p = buscarNaPokedex(num, lvl);
                         if (p != null) {
-                            if (secao.equals("[TIME_POKEMON]")) jogador.getTimePokemon().add(p);
-                            else jogador.getPcBox().add(p);
+                            if (secao.equals("[TIME_POKEMON]")) {
+                                jogador.getTimePokemon().add(p);
+                            } else {
+                                jogador.getPcBox().add(p);
+                            }
+                        }
+                    }
+                } else if (secao.equals("[COLECIONAVEIS]")) {
+                    if (jogador != null && !linha.isEmpty()) {
+                        String[] indices = linha.split(",");
+                        for (String indiceStr : indices) {
+                            try {
+                                int indice = Integer.parseInt(indiceStr.trim());
+                                jogador.adicionarColecionavel(indice);
+                            } catch (NumberFormatException e) {
+                                System.err.println("Erro ao carregar colecionável: " + indiceStr);
+                            }
                         }
                     }
                 }
             }
+            
+            // CORREÇÃO: Aplica o contador de pokémons capturados ao final
+            if (jogador != null) {
+                jogador.setPokemonsCapturados(pokemonsCapturados);
+                System.out.println("✅ PokemonsCapturados restaurado: " + pokemonsCapturados);
+            }
+            
             return jogador;
         } catch (Exception e) {
+            System.err.println("❌ Erro ao carregar: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -109,7 +159,6 @@ public class SistemaDeArquivos {
     private static Pokemon buscarNaPokedex(int num, int lvl) {
         for (Pokemon p : pokedex.listarTodos()) {
             if (p.getNumeroPokedex() == num) {
-                // Retorna uma nova instância baseada na original com o nível correto
                 return new Pokemon(p.getNome(), p.getNumeroPokedex(), lvl, p.getTipo1(), p.getTipo2(), 
                                    p.getSomCaracteristico(), p.getHp(), p.getAtaque(), p.getDefesa(), 
                                    p.getSpAtaque(), p.getSpDefesa(), p.getVelocidade(), p.getDescricao(), p.getHabilidade());

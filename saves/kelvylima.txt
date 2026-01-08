@@ -1,4 +1,11 @@
 [JOGADOR]
 Nome=kelvylima
-Dinheiro=2000
+Idade=10
+Genero=Não informado
+Cidade=Pallet Town
+Dinheiro=950
+PokemonsCapturados=0
 [TIME_POKEMON]
+[PC_BOX]
+[COLECIONAVEIS]
+0,1,2,3,4,8

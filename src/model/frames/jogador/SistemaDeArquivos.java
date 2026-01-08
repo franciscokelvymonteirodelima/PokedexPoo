@@ -1,6 +1,4 @@
-
 package model.frames.jogador;
-//package model.jogador;
 
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;
@@ -10,6 +8,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class SistemaDeArquivos {
     
@@ -66,6 +65,21 @@ public class SistemaDeArquivos {
             writer.newLine();
             for (Pokemon p : jogador.getPcBox()) {
                 writer.write(p.getNumeroPokedex() + "," + p.getNivel());
+                writer.newLine();
+            }
+            
+            // ============ NOVA SEÇÃO: COLECIONÁVEIS ============
+            writer.write("[COLECIONAVEIS]");
+            writer.newLine();
+            Set<Integer> colecionaveis = jogador.getColecionaveisComprados();
+            if (colecionaveis != null && !colecionaveis.isEmpty()) {
+                // Salva os índices dos itens comprados separados por vírgula
+                StringBuilder sb = new StringBuilder();
+                for (Integer indice : colecionaveis) {
+                    if (sb.length() > 0) sb.append(",");
+                    sb.append(indice);
+                }
+                writer.write(sb.toString());
                 writer.newLine();
             }
             
@@ -171,10 +185,27 @@ public class SistemaDeArquivos {
                         }
                     }
                 }
+                
+                // ============ NOVA SEÇÃO: CARREGAR COLECIONÁVEIS ============
+                else if (secaoAtual.equals("[COLECIONAVEIS]")) {
+                    // Carrega os colecionáveis comprados
+                    if (jogador != null && !linha.isEmpty()) {
+                        String[] indices = linha.split(",");
+                        for (String indiceStr : indices) {
+                            try {
+                                int indice = Integer.parseInt(indiceStr.trim());
+                                jogador.adicionarColecionavel(indice);
+                            } catch (NumberFormatException e) {
+                                System.err.println("Erro ao carregar colecionável: " + indiceStr);
+                            }
+                        }
+                    }
+                }
             }
             
             if (jogador != null) {
                 System.out.println("✅ Jogo carregado: " + jogador.getNome());
+                System.out.println("   Colecionáveis: " + jogador.quantidadeColecionaveis() + "/10");
             }
             return jogador;
             
@@ -357,6 +388,5 @@ public class SistemaDeArquivos {
     }
 
     // Setter necessário para o carregamento de arquivos
-
 
 }

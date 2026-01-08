@@ -2,7 +2,9 @@ package model.jogador;
 
 import model.pokemon.Pokemon;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Jogador {
     
@@ -16,6 +18,8 @@ public class Jogador {
     private int dinheiro;
     private int pokemonsCapturados;
     
+    // ============ NOVO: Colecionáveis ============
+    private Set<Integer> colecionaveisComprados = new HashSet<>();
     
     // Relacionamentos
     private List<Pokemon> timePokemon; // Time atual (até 6 Pokémons)
@@ -56,6 +60,7 @@ public class Jogador {
     public void setIdade(int idade) { this.idade = idade; }
     public void setGenero(String genero) { this.genero = genero; }
     public void setCidadeOrigem(String cidadeOrigem) { this.cidadeOrigem = cidadeOrigem; }
+    public void setPokemonsCapturados(int pokemonsCapturados) { this.pokemonsCapturados = pokemonsCapturados; }
     
     // MÉTODOS DE GERENCIAMENTO DE DINHEIRO
     public void ganharDinheiro(int quantidade) {
@@ -105,6 +110,49 @@ public class Jogador {
             System.out.println("Não foi possível mover o Pokémon!");
         }
     }
+    
+    // ============ NOVOS MÉTODOS: COLECIONÁVEIS ============
+    
+    /**
+     * Retorna o conjunto de índices dos colecionáveis comprados
+     */
+    public Set<Integer> getColecionaveisComprados() {
+        return colecionaveisComprados;
+    }
+
+    /**
+     * Adiciona um colecionável à coleção do jogador
+     * @param indice O índice do item colecionável (0-9)
+     */
+    public void adicionarColecionavel(int indice) {
+        colecionaveisComprados.add(indice);
+    }
+
+    /**
+     * Verifica se um colecionável já foi comprado
+     * @param indice O índice do item colecionável (0-9)
+     * @return true se já foi comprado, false caso contrário
+     */
+    public boolean temColecionavel(int indice) {
+        return colecionaveisComprados.contains(indice);
+    }
+
+    /**
+     * Remove um colecionável (caso precise)
+     * @param indice O índice do item colecionável (0-9)
+     */
+    public void removerColecionavel(int indice) {
+        colecionaveisComprados.remove(indice);
+    }
+
+    /**
+     * Retorna a quantidade de colecionáveis comprados
+     */
+    public int quantidadeColecionaveis() {
+        return colecionaveisComprados.size();
+    }
+    
+    // ============ FIM DOS MÉTODOS DE COLECIONÁVEIS ============
     
     // MÉTODOS DE EXIBIÇÃO
     // isso talvez seja substituido mas serve pra testar ...
