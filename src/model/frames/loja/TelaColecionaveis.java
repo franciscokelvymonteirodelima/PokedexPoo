@@ -247,12 +247,26 @@ public class TelaColecionaveis extends JFrame {
             }
         });
 
+        // Botão Voltar ao Menu
+        JButton btnVoltar = new JButton("Voltar ao Menu");
+        btnVoltar.setPreferredSize(new Dimension(160, 32));
+        
+        btnVoltar.addActionListener(e -> {
+            // Fecha a tela atual
+            dispose();
+            
+            // Abre a TelaMenu
+            new TelaMenu();
+        });
+
         JPanel rodape = new JPanel();
         rodape.setBorder(BorderFactory.createEmptyBorder(10, 20, 15, 20));
         rodape.setLayout(new BoxLayout(rodape, BoxLayout.X_AXIS));
 
         rodape.add(lblDinheiro);
         rodape.add(Box.createHorizontalGlue());
+        rodape.add(btnVoltar);
+        rodape.add(Box.createRigidArea(new Dimension(10, 0))); // Espaçamento entre botões
         rodape.add(btnComprar);
 
         /* ================= MONTAGEM ================= */

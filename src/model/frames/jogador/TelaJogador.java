@@ -129,6 +129,23 @@ public class TelaJogador extends JFrame {
         return painel;
     }
 
+    /* ============= COLECIONÁVEIS ============= */
+
+    private JPanel criarPainelColecionaveis() {
+        JPanel painel = new JPanel(new BorderLayout());
+        painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (String item : jogador.getColecionaveis()) {
+            model.addElement(item);
+        }
+
+        JList<String> lista = new JList<>(model);
+        painel.add(new JScrollPane(lista), BorderLayout.CENTER);
+
+        return painel;
+    }
+
     /* ================= BOTOES ================= */
     private JPanel criarPainelBotoes() {
 
