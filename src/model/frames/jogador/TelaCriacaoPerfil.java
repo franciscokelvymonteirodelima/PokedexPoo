@@ -1,4 +1,3 @@
-
 package model.frames.jogador;
 
 import model.jogador.Jogador;
@@ -11,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TelaCriacaoPerfil extends JFrame {
+    
+    // Cor vermelho suave padrão
+    private static final Color VERMELHO_SUAVE = new Color(220, 100, 100);
+    
     private Pokedex pokedex;
     private Jogador jogadorCriado;
     
@@ -44,21 +47,27 @@ public class TelaCriacaoPerfil extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
+        
+        // Fundo vermelho suave
+        getContentPane().setBackground(VERMELHO_SUAVE);
     }
 
     private void inicializarComponentes() {
         // Painel principal com margem
         JPanel painelPrincipal = new JPanel(new BorderLayout(15, 15));
         painelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
+        painelPrincipal.setBackground(VERMELHO_SUAVE);
         
         // Título
         JLabel titulo = new JLabel("Criar Perfil de Treinador Pokemon", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+        titulo.setFont(new Font("Arial", Font.BOLD, 20));
+        titulo.setForeground(Color.WHITE);
         titulo.setBorder(new EmptyBorder(0, 0, 20, 0));
         painelPrincipal.add(titulo, BorderLayout.NORTH);
         
         // Painel central com formulário e seleção de Pokémons
         JPanel painelCentral = new JPanel(new GridLayout(1, 2, 15, 0));
+        painelCentral.setBackground(VERMELHO_SUAVE);
         painelCentral.add(criarPainelFormulario());
         painelCentral.add(criarPainelSelecaoPokemon());
         painelPrincipal.add(painelCentral, BorderLayout.CENTER);
@@ -73,7 +82,15 @@ public class TelaCriacaoPerfil extends JFrame {
     private JPanel criarPainelFormulario() {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
-        painel.setBorder(BorderFactory.createTitledBorder("Informações Pessoais"));
+        painel.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.WHITE, 2),
+            "Informações Pessoais",
+            0,
+            0,
+            new Font("Arial", Font.BOLD, 14),
+            Color.WHITE
+        ));
+        painel.setBackground(VERMELHO_SUAVE);
         
         // Nome
         painel.add(criarCampo("Nome do Treinador:", txtNome = new JTextField(20)));
@@ -98,16 +115,18 @@ public class TelaCriacaoPerfil extends JFrame {
         // Informações
         JTextArea txtInfo = new JTextArea(
             "Dicas:\n\n" +
-            "- Escolha um nome unico para seu treinador\n" +
-            "- Voce comeca com $3000\n" +
-            "- Selecione ate 6 Pokemons para seu time inicial\n" +
-            "- Pokemons adicionais irao para o PC\n" +
-            "- Voce pode editar seu perfil depois"
+            "- Escolha um nome único para seu treinador\n" +
+            "- Você começa com $3000\n" +
+            "- Selecione até 6 Pokémons para seu time inicial\n" +
+            "- Pokémons adicionais irão para o PC\n" +
+            "- Você pode editar seu perfil depois"
         );
         txtInfo.setEditable(false);
         txtInfo.setLineWrap(true);
         txtInfo.setWrapStyleWord(true);
         txtInfo.setBorder(new EmptyBorder(10, 10, 10, 10));
+        txtInfo.setBackground(new Color(240, 240, 240));
+        txtInfo.setFont(new Font("Arial", Font.PLAIN, 12));
         
         JScrollPane scrollInfo = new JScrollPane(txtInfo);
         scrollInfo.setMaximumSize(new Dimension(400, 200));
@@ -119,8 +138,11 @@ public class TelaCriacaoPerfil extends JFrame {
     private JPanel criarCampo(String rotulo, JComponent componente) {
         JPanel painel = new JPanel(new BorderLayout(5, 5));
         painel.setMaximumSize(new Dimension(400, 60));
+        painel.setBackground(VERMELHO_SUAVE);
         
         JLabel lbl = new JLabel(rotulo);
+        lbl.setForeground(Color.WHITE);
+        lbl.setFont(new Font("Arial", Font.BOLD, 13));
         painel.add(lbl, BorderLayout.NORTH);
         painel.add(componente, BorderLayout.CENTER);
         
@@ -130,14 +152,25 @@ public class TelaCriacaoPerfil extends JFrame {
     /* ================= SELEÇÃO DE POKÉMONS ================= */
     private JPanel criarPainelSelecaoPokemon() {
         JPanel painel = new JPanel(new BorderLayout(10, 10));
-        painel.setBorder(BorderFactory.createTitledBorder("Selecionar Pokemons"));
+        painel.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.WHITE, 2),
+            "Selecionar Pokémons",
+            0,
+            0,
+            new Font("Arial", Font.BOLD, 14),
+            Color.WHITE
+        ));
+        painel.setBackground(VERMELHO_SUAVE);
         
         // Painel superior com contador
-        JLabel lblContador = new JLabel("Pokemons selecionados: 0/6 (Time)", SwingConstants.CENTER);
+        JLabel lblContador = new JLabel("Pokémons selecionados: 0/6 (Time)", SwingConstants.CENTER);
+        lblContador.setForeground(Color.WHITE);
+        lblContador.setFont(new Font("Arial", Font.BOLD, 13));
         painel.add(lblContador, BorderLayout.NORTH);
         
         // Painel central com as listas
         JPanel painelListas = new JPanel(new GridLayout(1, 2, 10, 0));
+        painelListas.setBackground(VERMELHO_SUAVE);
         
         // Lista de Pokémons disponíveis
         modelDisponiveis = new DefaultListModel<>();
@@ -146,7 +179,12 @@ public class TelaCriacaoPerfil extends JFrame {
         listDisponiveis.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         
         JPanel painelEsquerda = new JPanel(new BorderLayout());
-        painelEsquerda.add(new JLabel("Pokédex (Disponíveis):", SwingConstants.CENTER), BorderLayout.NORTH);
+        painelEsquerda.setBackground(VERMELHO_SUAVE);
+        
+        JLabel lblDisponiveis = new JLabel("Pokédex (Disponíveis):", SwingConstants.CENTER);
+        lblDisponiveis.setForeground(Color.WHITE);
+        lblDisponiveis.setFont(new Font("Arial", Font.BOLD, 12));
+        painelEsquerda.add(lblDisponiveis, BorderLayout.NORTH);
         painelEsquerda.add(new JScrollPane(listDisponiveis), BorderLayout.CENTER);
         
         // Campo de busca
@@ -157,7 +195,12 @@ public class TelaCriacaoPerfil extends JFrame {
             }
         });
         JPanel painelBusca = new JPanel(new BorderLayout(5, 5));
-        painelBusca.add(new JLabel("Buscar:"), BorderLayout.WEST);
+        painelBusca.setBackground(VERMELHO_SUAVE);
+        
+        JLabel lblBuscar = new JLabel("Buscar:");
+        lblBuscar.setForeground(Color.WHITE);
+        lblBuscar.setFont(new Font("Arial", Font.BOLD, 12));
+        painelBusca.add(lblBuscar, BorderLayout.WEST);
         painelBusca.add(txtBusca, BorderLayout.CENTER);
         painelEsquerda.add(painelBusca, BorderLayout.SOUTH);
         
@@ -167,7 +210,12 @@ public class TelaCriacaoPerfil extends JFrame {
         listSelecionados.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         
         JPanel painelDireita = new JPanel(new BorderLayout());
-        painelDireita.add(new JLabel("Meus Pokémons:", SwingConstants.CENTER), BorderLayout.NORTH);
+        painelDireita.setBackground(VERMELHO_SUAVE);
+        
+        JLabel lblSelecionados = new JLabel("Meus Pokémons:", SwingConstants.CENTER);
+        lblSelecionados.setForeground(Color.WHITE);
+        lblSelecionados.setFont(new Font("Arial", Font.BOLD, 12));
+        painelDireita.add(lblSelecionados, BorderLayout.NORTH);
         painelDireita.add(new JScrollPane(listSelecionados), BorderLayout.CENTER);
         
         painelListas.add(painelEsquerda);
@@ -176,11 +224,12 @@ public class TelaCriacaoPerfil extends JFrame {
         
         // Botões de ação
         JPanel painelBotoesAcao = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        painelBotoesAcao.setBackground(VERMELHO_SUAVE);
         
         JButton btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(e -> {
             adicionarPokemonsSelecionados();
-            lblContador.setText(String.format("Pokemons selecionados: %d/6 (Time) + %d (PC)", 
+            lblContador.setText(String.format("Pokémons selecionados: %d/6 (Time) + %d (PC)", 
                 Math.min(pokemonsSelecionados.size(), 6),
                 Math.max(0, pokemonsSelecionados.size() - 6)));
         });
@@ -188,7 +237,7 @@ public class TelaCriacaoPerfil extends JFrame {
         JButton btnRemover = new JButton("Remover");
         btnRemover.addActionListener(e -> {
             removerPokemonsSelecionados();
-            lblContador.setText(String.format("Pokemons selecionados: %d/6 (Time) + %d (PC)", 
+            lblContador.setText(String.format("Pokémons selecionados: %d/6 (Time) + %d (PC)", 
                 Math.min(pokemonsSelecionados.size(), 6),
                 Math.max(0, pokemonsSelecionados.size() - 6)));
         });
@@ -196,7 +245,7 @@ public class TelaCriacaoPerfil extends JFrame {
         JButton btnLimpar = new JButton("Limpar Tudo");
         btnLimpar.addActionListener(e -> {
             limparSelecao();
-            lblContador.setText("Pokemons selecionados: 0/6 (Time)");
+            lblContador.setText("Pokémons selecionados: 0/6 (Time)");
         });
         
         painelBotoesAcao.add(btnAdicionar);
@@ -281,13 +330,16 @@ public class TelaCriacaoPerfil extends JFrame {
 
     private JPanel criarPainelBotoes() {
         JPanel painel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        painel.setBackground(VERMELHO_SUAVE);
         
         JButton btnCriar = new JButton("Criar Perfil");
         btnCriar.setPreferredSize(new Dimension(150, 40));
+        btnCriar.setFont(new Font("Arial", Font.BOLD, 14));
         btnCriar.addActionListener(e -> criarPerfil());
         
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setPreferredSize(new Dimension(150, 40));
+        btnCancelar.setFont(new Font("Arial", Font.PLAIN, 14));
         btnCancelar.addActionListener(e -> dispose());
         
         painel.add(btnCriar);
@@ -355,8 +407,8 @@ public class TelaCriacaoPerfil extends JFrame {
             "Idade: %d anos\n" +
             "Cidade: %s\n" +
             "Dinheiro: $%d\n" +
-            "Pokemons no Time: %d\n" +
-            "Pokemons no PC: %d",
+            "Pokémons no Time: %d\n" +
+            "Pokémons no PC: %d",
             nome, idade, cidade, jogadorCriado.getDinheiro(),
             jogadorCriado.getTimePokemon().size(),
             jogadorCriado.getPcBox().size()

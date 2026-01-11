@@ -6,20 +6,26 @@ import java.awt.*;
 import java.io.File;
 
 public class TelaDetalhesPokemon extends JDialog {
+    
     public TelaDetalhesPokemon(JFrame parent, Pokemon pokemon) {
         super(parent, "Detalhes do Pokémon", true);
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout(10, 10));
         
+        // Fundo vermelho suave
+        Color vermelhoSuave = new Color(220, 100, 100);
+        
         // Painel superior com imagem E informações LADO A LADO
         JPanel painelSuperior = new JPanel(new BorderLayout(15, 10));
         painelSuperior.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
+        painelSuperior.setBackground(vermelhoSuave);
         
         // ===== PAINEL DA IMAGEM (ESQUERDA) =====
         JPanel painelImagem = new JPanel();
         painelImagem.setLayout(new BorderLayout());
         painelImagem.setPreferredSize(new Dimension(150, 150));
-        painelImagem.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+        painelImagem.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        painelImagem.setBackground(Color.WHITE);
         
         JLabel labelImagem = carregarImagem(pokemon);
         painelImagem.add(labelImagem, BorderLayout.CENTER);
@@ -28,21 +34,26 @@ public class TelaDetalhesPokemon extends JDialog {
         JPanel painelInfo = new JPanel();
         painelInfo.setLayout(new GridLayout(4, 1, 5, 10));
         painelInfo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        painelInfo.setBackground(vermelhoSuave);
         
         // Labels com fonte maior e melhor formatação
         Font fonteInfo = new Font("Arial", Font.PLAIN, 14);
         
         JLabel labelNome = new JLabel("Nome: " + pokemon.getNome());
         labelNome.setFont(fonteInfo);
+        labelNome.setForeground(Color.WHITE);
         
         JLabel labelNumero = new JLabel("Número: " + pokemon.getNumeroPokedex());
         labelNumero.setFont(fonteInfo);
+        labelNumero.setForeground(Color.WHITE);
         
         JLabel labelTipo1 = new JLabel("Tipo 1: " + pokemon.getTipo1());
         labelTipo1.setFont(fonteInfo);
+        labelTipo1.setForeground(Color.WHITE);
         
         JLabel labelTipo2 = new JLabel("Tipo 2: " + pokemon.getTipo2());
         labelTipo2.setFont(fonteInfo);
+        labelTipo2.setForeground(Color.WHITE);
         
         painelInfo.add(labelNome);
         painelInfo.add(labelNumero);
@@ -56,26 +67,39 @@ public class TelaDetalhesPokemon extends JDialog {
         // ===== PAINEL DO GRÁFICO =====
         PainelGraficoStatus grafico = new PainelGraficoStatus(pokemon);
         
-        // ===== BOTÃO FECHAR =====
+        // ===== PAINEL DE BOTÕES =====
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        painelBotoes.setBackground(vermelhoSuave);
+        
+        JButton btnDescricao = new JButton("Ver Descrição");
+        btnDescricao.addActionListener(e -> abrirTelaDescricao(pokemon));
+        
         JButton btnFechar = new JButton("Fechar");
         btnFechar.addActionListener(e -> dispose());
-        JPanel painelBotao = new JPanel();
-        painelBotao.add(btnFechar);
+        
+        painelBotoes.add(btnDescricao);
+        painelBotoes.add(btnFechar);
         
         // Adiciona tudo
         add(painelSuperior, BorderLayout.NORTH);
         add(grafico, BorderLayout.CENTER);
-        add(painelBotao, BorderLayout.SOUTH);
+        add(painelBotoes, BorderLayout.SOUTH);
         
         pack();
         setMinimumSize(new Dimension(520, 580));
         setLocationRelativeTo(parent);
+        getContentPane().setBackground(vermelhoSuave);
+    }
+    
+    private void abrirTelaDescricao(Pokemon pokemon) {
+        TelaDescricaoPokemon telaDescricao = new TelaDescricaoPokemon(this, pokemon);
+        telaDescricao.setVisible(true);
     }
     
     private JLabel carregarImagem(Pokemon pokemon) {
         try {
             // Tenta primeiro com resources (caminho relativo ao classpath)
-            String caminhoResource = "/model/frames/images/GEN 1/" + pokemon.getNumeroPokedex() + ".png";
+            String caminhoResource = "/model/frames/images/GEN1/" + pokemon.getNumeroPokedex() + ".png";
             java.net.URL imgUrl = getClass().getResource(caminhoResource);
             
             if (imgUrl != null) {
@@ -87,7 +111,7 @@ public class TelaDetalhesPokemon extends JDialog {
             }
             
             // Se não encontrar, tenta caminho absoluto
-            String caminhoAbsoluto = "src/model/frames/images/GEN 1/" + pokemon.getNumeroPokedex() + ".png";
+            String caminhoAbsoluto = "src/model/frames/images/GEN1/" + pokemon.getNumeroPokedex() + ".png";
             File arquivo = new File(caminhoAbsoluto);
             
             if (arquivo.exists()) {
