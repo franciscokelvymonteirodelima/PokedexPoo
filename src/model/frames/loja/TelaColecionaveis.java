@@ -2,6 +2,7 @@ package model.frames.loja;
 
 import model.jogador.Jogador;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -16,6 +17,14 @@ public class TelaColecionaveis extends JFrame {
     private JLabel lblDinheiro;
 
     private static final String CAMINHO_IMAGENS = "/model/frames/images/LOJA/";
+    
+    // Cores padronizadas
+    private static final Color COR_FUNDO = new Color(220, 100, 100);
+    private static final Color COR_BOTAO = Color.WHITE;
+    private static final Color COR_TEXTO_BOTAO = new Color(180, 80, 80);
+    private static final Color COR_BORDA = new Color(180, 80, 80);
+    private static final Color COR_TITULO = Color.WHITE;
+    private static final Color COR_PAINEL = new Color(240, 240, 240);
 
     private String[] itens = {
             "Poké Badge Comum",
@@ -56,13 +65,18 @@ public class TelaColecionaveis extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
+        
+        // Define cor de fundo
+        getContentPane().setBackground(COR_FUNDO);
 
         /* ================= TOPO ================= */
         JLabel lblTitulo = new JLabel("LOJA DE COLECIONÁVEIS");
         lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 22));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTitulo.setForeground(COR_TITULO);
 
         JPanel topo = new JPanel(new BorderLayout());
+        topo.setBackground(COR_FUNDO);
         topo.setBorder(BorderFactory.createEmptyBorder(15, 15, 5, 15));
         topo.add(lblTitulo, BorderLayout.CENTER);
 
@@ -104,6 +118,8 @@ public class TelaColecionaveis extends JFrame {
         tabela.setRowHeight(60);
         tabela.setFont(new Font("SansSerif", Font.PLAIN, 14));
         tabela.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+        tabela.getTableHeader().setBackground(COR_PAINEL);
+        tabela.getTableHeader().setForeground(Color.BLACK);
 
         // Ajuste da coluna de imagem
         tabela.getColumnModel().getColumn(0).setPreferredWidth(70);
@@ -124,7 +140,7 @@ public class TelaColecionaveis extends JFrame {
                 }
                 
                 if (isSelected) {
-                    label.setBackground(table.getSelectionBackground());
+                    label.setBackground(new Color(255, 200, 200));
                     label.setOpaque(true);
                 } else {
                     label.setBackground(Color.WHITE);
@@ -154,7 +170,9 @@ public class TelaColecionaveis extends JFrame {
 
                 setHorizontalAlignment(SwingConstants.CENTER);
 
-                if (!isSelected) {
+                if (isSelected) {
+                    c.setBackground(new Color(255, 200, 200));
+                } else {
                     c.setFont(new Font("SansSerif", Font.PLAIN, 14));
                     c.setBackground(Color.WHITE);
 
@@ -186,16 +204,21 @@ public class TelaColecionaveis extends JFrame {
         });
 
         JScrollPane scroll = new JScrollPane(tabela);
-        scroll.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        scroll.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createEmptyBorder(10, 20, 10, 20),
+            new LineBorder(COR_BORDA, 2)
+        ));
+        scroll.getViewport().setBackground(Color.WHITE);
 
         /* ================= RODAPÉ ================= */
         lblDinheiro = new JLabel(String.format("Dinheiro: R$ %d | Colecionáveis: %d/10", 
                                                 jogador.getDinheiro(), 
                                                 jogador.quantidadeColecionaveis()));
         lblDinheiro.setFont(new Font("SansSerif", Font.BOLD, 14));
+        lblDinheiro.setForeground(COR_TITULO);
 
-        JButton btnComprar = new JButton("Comprar Item");
-        btnComprar.setPreferredSize(new Dimension(160, 32));
+        JButton btnComprar = criarBotao("Comprar Item");
+        JButton btnVoltar = criarBotao("Voltar ao Menu");
 
         btnComprar.addActionListener(e -> {
             int row = tabela.getSelectedRow();
@@ -247,26 +270,20 @@ public class TelaColecionaveis extends JFrame {
             }
         });
 
-        // Botão Voltar ao Menu
-        JButton btnVoltar = new JButton("Voltar ao Menu");
-        btnVoltar.setPreferredSize(new Dimension(160, 32));
-        
         btnVoltar.addActionListener(e -> {
-            // Fecha a tela atual
             dispose();
-            
-            // Abre a TelaMenu
             new TelaMenu();
         });
 
         JPanel rodape = new JPanel();
+        rodape.setBackground(COR_FUNDO);
         rodape.setBorder(BorderFactory.createEmptyBorder(10, 20, 15, 20));
         rodape.setLayout(new BoxLayout(rodape, BoxLayout.X_AXIS));
 
         rodape.add(lblDinheiro);
         rodape.add(Box.createHorizontalGlue());
         rodape.add(btnVoltar);
-        rodape.add(Box.createRigidArea(new Dimension(10, 0))); // Espaçamento entre botões
+        rodape.add(Box.createRigidArea(new Dimension(10, 0)));
         rodape.add(btnComprar);
 
         /* ================= MONTAGEM ================= */
@@ -275,6 +292,33 @@ public class TelaColecionaveis extends JFrame {
         add(rodape, BorderLayout.SOUTH);
 
         setVisible(true);
+    }
+
+    private JButton criarBotao(String texto) {
+        JButton botao = new JButton(texto);
+        botao.setBackground(COR_BOTAO);
+        botao.setForeground(COR_TEXTO_BOTAO);
+        botao.setFocusPainted(false);
+        botao.setFont(new Font("SansSerif", Font.BOLD, 12));
+        
+        botao.setPreferredSize(new Dimension(160, 32));
+        
+        botao.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(COR_BORDA, 2),
+            BorderFactory.createEmptyBorder(5, 15, 5, 15)
+        ));
+        
+        // Efeito hover
+        botao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botao.setBackground(new Color(255, 220, 220));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botao.setBackground(COR_BOTAO);
+            }
+        });
+        
+        return botao;
     }
 
     /**
