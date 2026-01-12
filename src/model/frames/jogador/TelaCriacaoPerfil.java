@@ -1,5 +1,4 @@
 package model.frames.jogador;
-
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;
 import model.pokedex.Pokedex;
@@ -446,4 +445,4 @@ public class TelaCriacaoPerfil extends JFrame {
             tela.setVisible(true);
         });
     }
-}
+} 

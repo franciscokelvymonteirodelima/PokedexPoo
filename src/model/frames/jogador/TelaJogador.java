@@ -185,7 +185,7 @@ public class TelaJogador extends JFrame {
     }
 
     /* ============= COLECIONÁVEIS ============= */
-    private JPanel criarPainelColecionaveis() {
+    /*private JPanel criarPainelColecionaveis() {
         JPanel painel = new JPanel(new BorderLayout());
         painel.setBackground(COR_PAINEL);
         painel.setBorder(BorderFactory.createCompoundBorder(
@@ -210,7 +210,7 @@ public class TelaJogador extends JFrame {
         painel.add(scroll, BorderLayout.CENTER);
 
         return painel;
-    }
+    }*/
 
     /* ================= BOTOES ================= */
     private JPanel criarPainelBotoes() {

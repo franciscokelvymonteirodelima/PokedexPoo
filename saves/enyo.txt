@@ -3,7 +3,7 @@ Nome=enyo
 Idade=20
 Genero=Masculino
 Cidade=Pallet Town
-Dinheiro=3000
+Dinheiro=2800
 PokemonsCapturados=11
 [TIME_POKEMON]
 4,0
@@ -18,3 +18,5 @@ PokemonsCapturados=11
 12,0
 13,0
 14,0
+[COLECIONAVEIS]
+0
