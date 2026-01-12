@@ -7,12 +7,12 @@ import model.batalha.Comparacao;
 import model.frames.GameColors;
 import model.frames.batalha.*;
 import model.frames.qualEhEssePokemon.*;
-import model.frames.jogador.*;
-import model.frames.loja.*;
 import model.frames.dicionario.*;
 // import model.frames.ranking.*;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
+import model.frames.jogador.SistemaDeArquivos;
+import model.frames.jogador.TelaMenu;
 
 
 public class FInicio extends JFrame {
@@ -136,9 +136,14 @@ public class FInicio extends JFrame {
     }
 
     private void botaoJogadorAction() {
-        SistemaDeArquivos.existemSaves();
-        TelaMenu frameJogador = new TelaMenu();
-        frameJogador.setVisible(true);
+        try{
+            SistemaDeArquivos.existemSaves();
+            TelaMenu frameJogador = new TelaMenu();
+            frameJogador.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao iniciar jogador: " + ex.getClass().getSimpleName() + " - " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void botaoLojaAction() {
