@@ -17,7 +17,7 @@ public class FWhosThatPoke extends JFrame {
     public FWhosThatPoke() {
         setTitle("Who's that Pokemon");
         setSize(1280, 720);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 

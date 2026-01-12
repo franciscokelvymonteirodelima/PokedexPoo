@@ -15,7 +15,7 @@ public class FBatalha extends JFrame{
         super(title);
         this.comparacao =  comparacao;
         setSize(1280, 720);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
     }

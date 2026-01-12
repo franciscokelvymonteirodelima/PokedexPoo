@@ -12,7 +12,7 @@ public class TelaPokedex extends JFrame {
         setTitle("Dicionário Pokémon");
         setSize(1000, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         inicializarTela();
     }
 
