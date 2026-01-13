@@ -63,7 +63,7 @@ public class TelaColecionaveis extends JFrame {
         setTitle("Loja de Colecionáveis");
         setSize(900, 620);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
         
         // Define cor de fundo

@@ -17,7 +17,7 @@ public class TelaMenu extends JFrame {
     public TelaMenu() {
         setTitle("Pokemon Manager - Menu");
         setSize(400, 300);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
         // Define cor de fundo
@@ -57,7 +57,7 @@ public class TelaMenu extends JFrame {
             }
         });
 
-        btnSair.addActionListener(e -> System.exit(0));
+        btnSair.addActionListener(e -> dispose());
 
         // Montagem
         painelPrincipal.add(lblTitulo);
