@@ -136,8 +136,8 @@ public class TelaJogador extends JFrame {
         painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         DefaultListModel<String> model = new DefaultListModel<>();
-        for (String item : jogador.getColecionaveis()) {
-            model.addElement(item);
+        for (Integer item : jogador.getColecionaveisComprados()) {
+            model.addElement(String.valueOf(item));
         }
 
         JList<String> lista = new JList<>(model);
@@ -167,8 +167,12 @@ public class TelaJogador extends JFrame {
         btnSalvar.addActionListener(e -> jogador.salvarProgresso());
 
         JButton btnVoltar = new JButton("Voltar ao Menu");
+//        btnVoltar.addActionListener(e -> {
+//            new TelaMenu().setVisible(true);
+//            this.dispose();
+//        });
+
         btnVoltar.addActionListener(e -> {
-            new TelaMenu().setVisible(true);
             this.dispose();
         });
 

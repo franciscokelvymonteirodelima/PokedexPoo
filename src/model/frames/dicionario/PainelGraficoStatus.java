@@ -17,6 +17,12 @@ public class PainelGraficoStatus extends JPanel {
         this.pokemon = pokemon;
         setBackground(Color.WHITE);
     }
+
+    public void setPokemon(Pokemon novoPokemon) {
+        this.pokemon = novoPokemon;
+        this.repaint();
+        // Metodo necessario para a tela FEscolhaPokemon para que os status sejam atualizados em tempo real
+    }
     
     @Override
     public Dimension getPreferredSize() {

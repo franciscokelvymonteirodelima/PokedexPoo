@@ -35,7 +35,6 @@ public class SistemaDeArquivos {
         String caminhoCompleto = PASTA_SAVES + File.separator + nomeArquivo + ".txt";
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoCompleto))) {
-            
             // Linha 1: Informações básicas do jogador
             writer.write("[JOGADOR]");
             writer.newLine();
@@ -233,20 +232,24 @@ public class SistemaDeArquivos {
      */
     private static Pokemon criarCopiaPokemon(Pokemon original, int nivel) {
         Pokemon copia = new Pokemon(
-            original.getNome(),
-            original.getNumeroPokedex(),
-            nivel,
-            original.getTipo1(),
-            original.getTipo2(),
-            original.getSomCaracteristico(),
-            original.getHp(),
-            original.getAtaque(),
-            original.getDefesa(),
-            original.getSpAtaque(),
-            original.getSpDefesa(),
-            original.getVelocidade(),
-            original.getDescricao(),
-            original.getHabilidade());
+                original.getNome(),
+                original.getNumeroPokedex(),
+                nivel,
+                original.getTipo1(),
+                original.getTipo2(),
+                original.getSomCaracteristico(),
+                original.getHp(),
+                original.getAtaque(),
+                original.getDefesa(),
+                original.getSpAtaque(),
+                original.getSpDefesa(),
+                original.getVelocidade(),
+                original.getDescricao(),
+                original.getHabilidade()
+        );
+        copia.setCaminhoImagem(original.getCaminhoImagem());
+        // ----------------------------
+
         return copia;
     }
     
@@ -386,7 +389,5 @@ public class SistemaDeArquivos {
             System.err.println("Erro: Não foi possível encontrar o save " + nomeArquivo);
         }
     }
-
-    // Setter necessário para o carregamento de arquivos
 
 }

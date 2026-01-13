@@ -16,6 +16,7 @@ import model.frames.jogador.TelaMenu;
 
 
 public class FInicio extends JFrame {
+    private model.jogador.Jogador jogadorLogado = null; //guardar o jogador carreagdo
     private JButton[] botoesMenu;
 
     public FInicio() {
@@ -65,7 +66,7 @@ public class FInicio extends JFrame {
             add(botao);
             if(i == 0) {
                 botao.setBackground(GameColors.BUTTON_BATTLE); // Verde para Batalha Pokemon
-                botao.addActionListener(e -> botaoBatalhaAction());
+                botao.addActionListener(e -> irParaSelecaoBatalha());
                 botoesMenu[i] = botao;
             } else if(i == 1) {
                 botao.setBackground(GameColors.BUTTON_MINIGAME); // Azul para MiniGame
@@ -117,6 +118,39 @@ public class FInicio extends JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao iniciar batalha: " + ex.getClass().getSimpleName() + " - " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void carregarSaveJogador() {
+        try {
+            model.jogador.Jogador temp = SistemaDeArquivos.carregarComDialogo();
+            if (temp != null) {
+                Sessao.jogadorLogado = temp;
+                JOptionPane.showMessageDialog(this, "Bem-vindo de volta, " + temp.getNome() + "!");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void irParaSelecaoBatalha() {
+        System.out.println("Tentando iniciar batalha..."); // Log no console
+
+        if (Sessao.jogadorLogado == null) {
+            System.out.println("Erro: Sessao.jogadorLogado está NULL");
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum save carregado! Vá em 'Jogador' para carregar.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        System.out.println("Jogador encontrado: " + Sessao.jogadorLogado.getNome());
+        try {
+            FEscolhaPokemon tela = new FEscolhaPokemon("Escolha",  Sessao.jogadorLogado);
+            tela.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao abrir tela de escolha: " + e.getMessage());
         }
     }
 

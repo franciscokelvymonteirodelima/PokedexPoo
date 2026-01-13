@@ -1,13 +1,20 @@
 package model.frames.batalha;
 
 import model.arquivo.LeitorArquivosSaveGame;
+import model.batalha.Comparacao;
+import model.frames.dicionario.PainelGraficoStatus;
+import model.jogador.Jogador;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
 import model.frames.GameColors;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class FEscolhaPokemon extends JFrame {
@@ -17,21 +24,24 @@ public class FEscolhaPokemon extends JFrame {
     private JLabel labelTipo;
     private Pokedex pokedex;
     private LeitorArquivosSaveGame leitorArquivoSaveGame;
+    private PainelGraficoStatus painelGraficoStatus;
+    private Jogador jogador;
+    private Pokemon pokemonSelecionado;
 
-    public FEscolhaPokemon(String title){
+    public FEscolhaPokemon(String title, Jogador jogador){
         super(title);
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         pokedex = new Pokedex();
         leitorArquivoSaveGame = new LeitorArquivosSaveGame();
+        this.jogador = jogador;
         initComponents();
     }
 
     private ImageIcon carregarIconePokemon(Pokemon p) {
         String nomeArquivo = p.getCaminhoImagem();
 
-        // Limpeza básica do nome
         if (nomeArquivo.contains("/")) {
             nomeArquivo = nomeArquivo.substring(nomeArquivo.lastIndexOf("/") + 1);
         }
@@ -39,25 +49,8 @@ public class FEscolhaPokemon extends JFrame {
             nomeArquivo = nomeArquivo.replace(".png", "");
         }
 
-        // O caminho muda pois agora é relativo à pasta 'src'
-        // Como a classe FEscolhaPokemon está em 'model.frames', e images está em 'model.frames.images'
-        // O caminho é relativo a classe ou absoluto a partir do src (usando /)
-
-        // Tenta caminho normal (ex: "8.png")
         String caminhoRecurso = "/model/frames/images/GEN1/" + nomeArquivo + ".png";
-        java.net.URL imgURL = getClass().getResource(caminhoRecurso);
-
-        // Se falhar, tenta com 3 dígitos (ex: "008.png")
-        if (imgURL == null) {
-            try {
-                int id = Integer.parseInt(nomeArquivo);
-                String nomeFormatado = String.format("%03d", id);
-                caminhoRecurso = "/model/frames/images/GEN1/" + nomeFormatado + ".png";
-                imgURL = getClass().getResource(caminhoRecurso);
-            } catch (NumberFormatException e) {
-                // ignora
-            }
-        }
+        URL imgURL = getClass().getResource(caminhoRecurso);
 
         if (imgURL == null) {
             System.err.println("Imagem não encontrada no pacote: " + caminhoRecurso);
@@ -89,13 +82,13 @@ public class FEscolhaPokemon extends JFrame {
         botao.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 2)); // Borda cinza suave
         botao.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Mãozinha ao passar o mouse
 
-        botao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        botao.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 botao.setBackground(new Color(230, 240, 255)); // Azul bem clarinho ao passar o mouse
                 botao.setBorder(BorderFactory.createLineBorder(new Color(100, 150, 255), 2)); // Borda azul
             }
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 botao.setBackground(Color.WHITE); // Volta para branco
                 botao.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 2)); // Volta borda cinza
             }
@@ -106,6 +99,8 @@ public class FEscolhaPokemon extends JFrame {
         return botao;
     }
     private void mostrarPokemon(Pokemon p) {
+
+        this.pokemonSelecionado = p;
 
         ImageIcon icon = carregarIconePokemon(p);
 
@@ -120,7 +115,11 @@ public class FEscolhaPokemon extends JFrame {
         }
 
         labelNome.setText(p.getNome());
-        labelTipo.setText(p.getTipo1() + " / " + p.getTipo2());
+        labelTipo.setText("Tipo 1: " + p.getTipo1() + " / " + "Tipo 2: " + p.getTipo2());
+
+        if (painelGraficoStatus != null) {
+            painelGraficoStatus.setPokemon(p);
+        }
     }
 
     private void initComponents() {
@@ -140,14 +139,23 @@ public class FEscolhaPokemon extends JFrame {
         panel.add(titulo);
 
         //  ------ Adicionar as imagens dos pokemons --------
-        ArrayList<Integer> listaDeIds = leitorArquivoSaveGame.lerNumerosPokemon();
+        //ArrayList<Integer> listaDeIds = leitorArquivoSaveGame.lerNumerosPokemon();
+        List<Pokemon> listaPokemons = jogador.getPcBox(); // ou jogador.getTimePokemon();
 
-        for (Integer id : listaDeIds) {
-            Pokemon p = pokedex.getPokemonPC(id);
+        Pokemon pGrafico = null;
+        
+        for (Pokemon p : listaPokemons) {
             if (p != null) {
                 panelPokemons.add(criarBotaoPokemon(p));
             }
+            if (pGrafico == null) {
+                pGrafico = p;
+            }
         }
+
+        painelGraficoStatus = new PainelGraficoStatus(pGrafico);
+        painelGraficoStatus.setBounds(10, 320, 400, 150);
+        
         // -------------------------------------------------
 
         JPanel panelInfo = new JPanel();
@@ -175,11 +183,35 @@ public class FEscolhaPokemon extends JFrame {
         scroll.setBounds(20, 60, 420, 480);
         panel.add(scroll);
         panel.add(panelInfo);
+        panelInfo.add(painelGraficoStatus);
+
+        JButton btnLutar = new JButton("IR PARA A BATALHA!");
+        btnLutar.setBounds(60, 480, 300, 40);
+        btnLutar.setBackground(new Color(220, 20, 60));
+        btnLutar.setForeground(Color.WHITE);
+        btnLutar.setFont(new Font("Arial", Font.BOLD, 18));
+        btnLutar.addActionListener(e -> iniciarBatalha());
+        panelInfo.add(btnLutar);
+
     }
 
-    public static void main(String[] args) {
-        FEscolhaPokemon frame = new FEscolhaPokemon("Escolha de Pokemons");
-        frame.setVisible(true);
+    private void iniciarBatalha() {
+        if (pokemonSelecionado == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione um Pokémon primeiro!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Pokedex pokedexInimiga = new Pokedex();
+        int idInimigo = (int) (Math.random() * 151) + 1;
+        Pokemon inimigo = pokedexInimiga.getPokemonPC(idInimigo);
+
+        Comparacao comparacao = new Comparacao(pokemonSelecionado, inimigo);
+
+        FBatalha telaBatalha = new FBatalha("Batalha Pokémon", comparacao);
+        telaBatalha.setVisible(true);
+
+        this.dispose();
     }
 
 }
+

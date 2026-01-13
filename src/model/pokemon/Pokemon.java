@@ -179,6 +179,9 @@ public class Pokemon {
     public void setNivel(int nivel) { this.nivel = nivel; }
     public void setHp(int hp) { this.hp = hp; }
     public void setDesmaiado(boolean desmaiado) { this.desmaiado = desmaiado; }
+    public void setCaminhoImagem(String caminhoImagem) {
+        this.caminhoImagem = caminhoImagem;
+    }
     
     @Override
     public String toString() {

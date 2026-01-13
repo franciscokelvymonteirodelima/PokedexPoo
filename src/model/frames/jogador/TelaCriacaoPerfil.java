@@ -1,5 +1,6 @@
 package model.frames.jogador;
 
+import model.frames.inicio.Sessao;
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;
 import model.pokedex.Pokedex;
@@ -10,25 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TelaCriacaoPerfil extends JFrame {
-    
+
     // Cor vermelho suave padrão
     private static final Color VERMELHO_SUAVE = new Color(220, 100, 100);
-    
+
     private Pokedex pokedex;
     private Jogador jogadorCriado;
-    
+
     // Componentes do formulário
     private JTextField txtNome;
     private JSpinner spnIdade;
     private JComboBox<String> cmbGenero;
     private JTextField txtCidade;
-    
+
     // Lista de Pokémons selecionados
     private DefaultListModel<String> modelDisponiveis;
     private DefaultListModel<String> modelSelecionados;
     private JList<String> listDisponiveis;
     private JList<String> listSelecionados;
-    
+
     private List<Pokemon> pokemonsSelecionados;
     private List<Pokemon> pokemonsDisponiveis;
 
@@ -36,7 +37,7 @@ public class TelaCriacaoPerfil extends JFrame {
         this.pokedex = new Pokedex();
         this.pokemonsSelecionados = new ArrayList<>();
         this.pokemonsDisponiveis = new ArrayList<>(pokedex.listarTodos());
-        
+
         configurarJanela();
         inicializarComponentes();
     }
@@ -47,7 +48,7 @@ public class TelaCriacaoPerfil extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
-        
+
         // Fundo vermelho suave
         getContentPane().setBackground(VERMELHO_SUAVE);
     }
@@ -57,24 +58,24 @@ public class TelaCriacaoPerfil extends JFrame {
         JPanel painelPrincipal = new JPanel(new BorderLayout(15, 15));
         painelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
         painelPrincipal.setBackground(VERMELHO_SUAVE);
-        
+
         // Título
         JLabel titulo = new JLabel("Criar Perfil de Treinador Pokemon", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 20));
         titulo.setForeground(Color.WHITE);
         titulo.setBorder(new EmptyBorder(0, 0, 20, 0));
         painelPrincipal.add(titulo, BorderLayout.NORTH);
-        
+
         // Painel central com formulário e seleção de Pokémons
         JPanel painelCentral = new JPanel(new GridLayout(1, 2, 15, 0));
         painelCentral.setBackground(VERMELHO_SUAVE);
         painelCentral.add(criarPainelFormulario());
         painelCentral.add(criarPainelSelecaoPokemon());
         painelPrincipal.add(painelCentral, BorderLayout.CENTER);
-        
+
         // Painel de botões
         painelPrincipal.add(criarPainelBotoes(), BorderLayout.SOUTH);
-        
+
         add(painelPrincipal);
     }
 
@@ -91,27 +92,27 @@ public class TelaCriacaoPerfil extends JFrame {
             Color.WHITE
         ));
         painel.setBackground(VERMELHO_SUAVE);
-        
+
         // Nome
         painel.add(criarCampo("Nome do Treinador:", txtNome = new JTextField(20)));
         painel.add(Box.createVerticalStrut(15));
-        
+
         // Idade
         SpinnerNumberModel modelIdade = new SpinnerNumberModel(10, 5, 99, 1);
         spnIdade = new JSpinner(modelIdade);
         painel.add(criarCampo("Idade:", spnIdade));
         painel.add(Box.createVerticalStrut(15));
-        
+
         // Gênero
         String[] generos = {"Masculino", "Feminino", "Outro", "Não informado"};
         cmbGenero = new JComboBox<>(generos);
         painel.add(criarCampo("Gênero:", cmbGenero));
         painel.add(Box.createVerticalStrut(15));
-        
+
         // Cidade
         painel.add(criarCampo("Cidade de Origem:", txtCidade = new JTextField("Pallet Town", 20)));
         painel.add(Box.createVerticalStrut(20));
-        
+
         // Informações
         JTextArea txtInfo = new JTextArea(
             "Dicas:\n\n" +
@@ -127,11 +128,11 @@ public class TelaCriacaoPerfil extends JFrame {
         txtInfo.setBorder(new EmptyBorder(10, 10, 10, 10));
         txtInfo.setBackground(new Color(240, 240, 240));
         txtInfo.setFont(new Font("Arial", Font.PLAIN, 12));
-        
+
         JScrollPane scrollInfo = new JScrollPane(txtInfo);
         scrollInfo.setMaximumSize(new Dimension(400, 200));
         painel.add(scrollInfo);
-        
+
         return painel;
     }
 
@@ -139,13 +140,13 @@ public class TelaCriacaoPerfil extends JFrame {
         JPanel painel = new JPanel(new BorderLayout(5, 5));
         painel.setMaximumSize(new Dimension(400, 60));
         painel.setBackground(VERMELHO_SUAVE);
-        
+
         JLabel lbl = new JLabel(rotulo);
         lbl.setForeground(Color.WHITE);
         lbl.setFont(new Font("Arial", Font.BOLD, 13));
         painel.add(lbl, BorderLayout.NORTH);
         painel.add(componente, BorderLayout.CENTER);
-        
+
         return painel;
     }
 
@@ -161,32 +162,32 @@ public class TelaCriacaoPerfil extends JFrame {
             Color.WHITE
         ));
         painel.setBackground(VERMELHO_SUAVE);
-        
+
         // Painel superior com contador
         JLabel lblContador = new JLabel("Pokémons selecionados: 0/6 (Time)", SwingConstants.CENTER);
         lblContador.setForeground(Color.WHITE);
         lblContador.setFont(new Font("Arial", Font.BOLD, 13));
         painel.add(lblContador, BorderLayout.NORTH);
-        
+
         // Painel central com as listas
         JPanel painelListas = new JPanel(new GridLayout(1, 2, 10, 0));
         painelListas.setBackground(VERMELHO_SUAVE);
-        
+
         // Lista de Pokémons disponíveis
         modelDisponiveis = new DefaultListModel<>();
         carregarPokemonsDisponiveis();
         listDisponiveis = new JList<>(modelDisponiveis);
         listDisponiveis.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
+
         JPanel painelEsquerda = new JPanel(new BorderLayout());
         painelEsquerda.setBackground(VERMELHO_SUAVE);
-        
+
         JLabel lblDisponiveis = new JLabel("Pokédex (Disponíveis):", SwingConstants.CENTER);
         lblDisponiveis.setForeground(Color.WHITE);
         lblDisponiveis.setFont(new Font("Arial", Font.BOLD, 12));
         painelEsquerda.add(lblDisponiveis, BorderLayout.NORTH);
         painelEsquerda.add(new JScrollPane(listDisponiveis), BorderLayout.CENTER);
-        
+
         // Campo de busca
         JTextField txtBusca = new JTextField();
         txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -196,63 +197,63 @@ public class TelaCriacaoPerfil extends JFrame {
         });
         JPanel painelBusca = new JPanel(new BorderLayout(5, 5));
         painelBusca.setBackground(VERMELHO_SUAVE);
-        
+
         JLabel lblBuscar = new JLabel("Buscar:");
         lblBuscar.setForeground(Color.WHITE);
         lblBuscar.setFont(new Font("Arial", Font.BOLD, 12));
         painelBusca.add(lblBuscar, BorderLayout.WEST);
         painelBusca.add(txtBusca, BorderLayout.CENTER);
         painelEsquerda.add(painelBusca, BorderLayout.SOUTH);
-        
+
         // Lista de Pokémons selecionados
         modelSelecionados = new DefaultListModel<>();
         listSelecionados = new JList<>(modelSelecionados);
         listSelecionados.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
+
         JPanel painelDireita = new JPanel(new BorderLayout());
         painelDireita.setBackground(VERMELHO_SUAVE);
-        
+
         JLabel lblSelecionados = new JLabel("Meus Pokémons:", SwingConstants.CENTER);
         lblSelecionados.setForeground(Color.WHITE);
         lblSelecionados.setFont(new Font("Arial", Font.BOLD, 12));
         painelDireita.add(lblSelecionados, BorderLayout.NORTH);
         painelDireita.add(new JScrollPane(listSelecionados), BorderLayout.CENTER);
-        
+
         painelListas.add(painelEsquerda);
         painelListas.add(painelDireita);
         painel.add(painelListas, BorderLayout.CENTER);
-        
+
         // Botões de ação
         JPanel painelBotoesAcao = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         painelBotoesAcao.setBackground(VERMELHO_SUAVE);
-        
+
         JButton btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(e -> {
             adicionarPokemonsSelecionados();
-            lblContador.setText(String.format("Pokémons selecionados: %d/6 (Time) + %d (PC)", 
+            lblContador.setText(String.format("Pokémons selecionados: %d/6 (Time) + %d (PC)",
                 Math.min(pokemonsSelecionados.size(), 6),
                 Math.max(0, pokemonsSelecionados.size() - 6)));
         });
-        
+
         JButton btnRemover = new JButton("Remover");
         btnRemover.addActionListener(e -> {
             removerPokemonsSelecionados();
-            lblContador.setText(String.format("Pokémons selecionados: %d/6 (Time) + %d (PC)", 
+            lblContador.setText(String.format("Pokémons selecionados: %d/6 (Time) + %d (PC)",
                 Math.min(pokemonsSelecionados.size(), 6),
                 Math.max(0, pokemonsSelecionados.size() - 6)));
         });
-        
+
         JButton btnLimpar = new JButton("Limpar Tudo");
         btnLimpar.addActionListener(e -> {
             limparSelecao();
             lblContador.setText("Pokémons selecionados: 0/6 (Time)");
         });
-        
+
         painelBotoesAcao.add(btnAdicionar);
         painelBotoesAcao.add(btnRemover);
         painelBotoesAcao.add(btnLimpar);
         painel.add(painelBotoesAcao, BorderLayout.SOUTH);
-        
+
         return painel;
     }
 
@@ -266,9 +267,9 @@ public class TelaCriacaoPerfil extends JFrame {
     private void filtrarPokemonsDisponiveis(String filtro) {
         modelDisponiveis.clear();
         String filtroLower = filtro.toLowerCase().trim();
-        
+
         for (Pokemon p : pokemonsDisponiveis) {
-            if (filtroLower.isEmpty() || 
+            if (filtroLower.isEmpty() ||
                 p.getNome().toLowerCase().contains(filtroLower) ||
                 p.getTipo1().toLowerCase().contains(filtroLower) ||
                 (p.getTipo2() != null && p.getTipo2().toLowerCase().contains(filtroLower))) {
@@ -279,24 +280,24 @@ public class TelaCriacaoPerfil extends JFrame {
 
     private String formatarPokemon(Pokemon p) {
         String tipo2 = p.getTipo2() != null && !p.getTipo2().equals("-") ? "/" + p.getTipo2() : "";
-        return String.format("#%03d %s (%s%s)", 
+        return String.format("#%03d %s (%s%s)",
             p.getNumeroPokedex(), p.getNome(), p.getTipo1(), tipo2);
     }
 
     private void adicionarPokemonsSelecionados() {
         List<String> selecionados = listDisponiveis.getSelectedValuesList();
-        
+
         for (String pokemonStr : selecionados) {
             // Extrair número da Pokédex do formato "#001 Nome (Tipo)"
             String numStr = pokemonStr.substring(1, 4);
             int num = Integer.parseInt(numStr);
-            
+
             // Encontrar o Pokémon correspondente
             Pokemon pokemon = pokemonsDisponiveis.stream()
                 .filter(p -> p.getNumeroPokedex() == num)
                 .findFirst()
                 .orElse(null);
-            
+
             if (pokemon != null && !pokemonsSelecionados.contains(pokemon)) {
                 pokemonsSelecionados.add(pokemon);
                 modelSelecionados.addElement(pokemonStr);
@@ -306,16 +307,16 @@ public class TelaCriacaoPerfil extends JFrame {
 
     private void removerPokemonsSelecionados() {
         List<String> selecionados = listSelecionados.getSelectedValuesList();
-        
+
         for (String pokemonStr : selecionados) {
             String numStr = pokemonStr.substring(1, 4);
             int num = Integer.parseInt(numStr);
-            
+
             Pokemon pokemon = pokemonsSelecionados.stream()
                 .filter(p -> p.getNumeroPokedex() == num)
                 .findFirst()
                 .orElse(null);
-            
+
             if (pokemon != null) {
                 pokemonsSelecionados.remove(pokemon);
                 modelSelecionados.removeElement(pokemonStr);
@@ -331,20 +332,20 @@ public class TelaCriacaoPerfil extends JFrame {
     private JPanel criarPainelBotoes() {
         JPanel painel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         painel.setBackground(VERMELHO_SUAVE);
-        
+
         JButton btnCriar = new JButton("Criar Perfil");
         btnCriar.setPreferredSize(new Dimension(150, 40));
         btnCriar.setFont(new Font("Arial", Font.BOLD, 14));
         btnCriar.addActionListener(e -> criarPerfil());
-        
+
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setPreferredSize(new Dimension(150, 40));
         btnCancelar.setFont(new Font("Arial", Font.PLAIN, 14));
         btnCancelar.addActionListener(e -> dispose());
-        
+
         painel.add(btnCriar);
         painel.add(btnCancelar);
-        
+
         return painel;
     }
 
@@ -353,32 +354,33 @@ public class TelaCriacaoPerfil extends JFrame {
         // Validações
         String nome = txtNome.getText().trim();
         if (nome.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "Por favor, insira um nome para o treinador!", 
-                "Nome Obrigatório", 
+            JOptionPane.showMessageDialog(this,
+                "Por favor, insira um nome para o treinador!",
+                "Nome Obrigatório",
                 JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         if (pokemonsSelecionados.isEmpty()) {
             int resposta = JOptionPane.showConfirmDialog(this,
                 "Você não selecionou nenhum Pokémon. Deseja continuar mesmo assim?",
                 "Sem Pokémons",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
-            
+
             if (resposta != JOptionPane.YES_OPTION) {
                 return;
             }
         }
-        
+
         // Criar jogador
         int idade = (Integer) spnIdade.getValue();
         String genero = (String) cmbGenero.getSelectedItem();
         String cidade = txtCidade.getText().trim();
-        
+
         jogadorCriado = new Jogador(nome, idade, genero, cidade);
-        
+        Sessao.jogadorLogado = jogadorCriado;
+
         // Adicionar Pokémons
         for (Pokemon pokemon : pokemonsSelecionados) {
             // Criar uma cópia do Pokémon para o jogador
@@ -397,9 +399,10 @@ public class TelaCriacaoPerfil extends JFrame {
                 pokemon.getDescricao(),
                 pokemon.getHabilidade()
             );
+            pokemonCopia.setCaminhoImagem(pokemon.getCaminhoImagem());
             jogadorCriado.capturarPokemon(pokemonCopia);
         }
-        
+
         // Mensagem de sucesso
         String mensagem = String.format(
             "Perfil criado com sucesso!\n\n" +
@@ -413,12 +416,12 @@ public class TelaCriacaoPerfil extends JFrame {
             jogadorCriado.getTimePokemon().size(),
             jogadorCriado.getPcBox().size()
         );
-        
-        JOptionPane.showMessageDialog(this, 
-            mensagem, 
-            "Perfil Criado!", 
+
+        JOptionPane.showMessageDialog(this,
+            mensagem,
+            "Perfil Criado!",
             JOptionPane.INFORMATION_MESSAGE);
-        
+
         // Abrir tela do perfil
         abrirTelaPerfil();
     }
@@ -441,7 +444,7 @@ public class TelaCriacaoPerfil extends JFrame {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
             TelaCriacaoPerfil tela = new TelaCriacaoPerfil();
             tela.setVisible(true);
         });

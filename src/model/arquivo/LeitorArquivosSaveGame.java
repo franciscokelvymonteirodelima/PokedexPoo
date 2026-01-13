@@ -13,7 +13,7 @@ public class LeitorArquivosSaveGame {
         ArrayList<Integer> guardarNumeros = new ArrayList<>();
 
         try {
-            File arquivo = new File("saves/kel.txt");
+            File arquivo = new File("saves/enyo.txt");
             Scanner leitor = new Scanner(arquivo);
 
             while (leitor.hasNextLine()) {

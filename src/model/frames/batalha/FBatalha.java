@@ -173,6 +173,7 @@ public class FBatalha extends JFrame{
             Pokemon vencedor = comparacao.realizarComparacao();
 
             JOptionPane.showMessageDialog(null, "O vencedor foi: " + vencedor.getNome());
+            this.dispose();
         });
 
         // -----------------------------------
@@ -239,21 +240,5 @@ public class FBatalha extends JFrame{
         panel.add(panel2);
         panel.add(battleBaseLabel);
         atualizarInterface();
-    }
-
-
-    public static void main(String[] args) {
-        Pokedex pokedex1 = new Pokedex();
-        int numeroAleatorio1 = (int) (Math.random() * 151) + 1;
-        Pokemon pokemon1 = pokedex1.getPokemonPC(numeroAleatorio1);
-
-        Pokedex pokedex2 = new Pokedex();
-        int numeroAleatorio2 = (int) (Math.random() * 151) + 1;
-        Pokemon pokemon2 = pokedex2.getPokemonPC(numeroAleatorio2);
-
-        Comparacao comparacao1 = new Comparacao(pokemon1, pokemon2);
-
-        FBatalha frame = new FBatalha("Batalha", comparacao1);
-        frame.setVisible(true);
     }
 }

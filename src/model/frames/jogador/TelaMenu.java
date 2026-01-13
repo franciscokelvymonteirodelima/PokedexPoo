@@ -1,8 +1,10 @@
 package model.frames.jogador;
 
+import model.frames.inicio.Sessao;
 import model.jogador.Jogador;
 import javax.swing.*;
 import java.awt.*;
+import model.frames.jogador.SistemaDeArquivos;
 
 public class TelaMenu extends JFrame {
     
@@ -18,7 +20,7 @@ public class TelaMenu extends JFrame {
         setTitle("Pokémon Manager");
         setSize(400, 300);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
         
         // Fundo vermelho suave
@@ -51,9 +53,27 @@ public class TelaMenu extends JFrame {
         painelPrincipal.add(btnSair);
         
         // Ações
-        btnNovoJogo.addActionListener(e -> novoJogo());
-        btnCarregar.addActionListener(e -> carregarJogo());
-        btnSair.addActionListener(e -> System.exit(0));
+        btnNovoJogo.addActionListener(e -> {
+            model.frames.jogador.TelaCriacaoPerfil telaCriacao = new model.frames.jogador.TelaCriacaoPerfil();
+            telaCriacao.setVisible(true);
+            this.dispose();
+        });
+        btnCarregar.addActionListener(e -> {
+            model.jogador.Jogador jogadorCarregado = SistemaDeArquivos.carregarComDialogo();
+
+            if (jogadorCarregado != null) {
+
+                Sessao.jogadorLogado = jogadorCarregado;
+
+                new TelaJogador(jogadorCarregado).setVisible(true);
+
+                this.dispose();
+            }
+
+        });
+        btnSair.addActionListener(e -> {
+            dispose();
+        });
         
         add(painelPrincipal, BorderLayout.CENTER);
     }
