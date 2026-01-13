@@ -333,20 +333,30 @@ public class TelaCriacaoPerfil extends JFrame {
         JPanel painel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         painel.setBackground(VERMELHO_SUAVE);
 
-        JButton btnCriar = new JButton("Criar Perfil");
+        JButton btnCriar = criarBotaoEstilizado("Criar Perfil");
         btnCriar.setPreferredSize(new Dimension(150, 40));
         btnCriar.setFont(new Font("Arial", Font.BOLD, 14));
         btnCriar.addActionListener(e -> criarPerfil());
 
-        JButton btnCancelar = new JButton("Cancelar");
+        JButton btnCancelar = criarBotaoEstilizado("Cancelar");
         btnCancelar.setPreferredSize(new Dimension(150, 40));
-        btnCancelar.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnCancelar.setFont(new Font("Arial", Font.BOLD, 14));
         btnCancelar.addActionListener(e -> dispose());
 
         painel.add(btnCriar);
         painel.add(btnCancelar);
 
         return painel;
+    }
+    
+    /* ================= ESTILO DE BOTÃO ================= */
+    private JButton criarBotaoEstilizado(String texto) {
+        JButton btn = new JButton(texto);
+        btn.setFont(new Font("Arial", Font.BOLD, 14));
+        btn.setBackground(Color.WHITE);
+        btn.setForeground(VERMELHO_SUAVE);
+        btn.setFocusPainted(false);
+        return btn;
     }
 
     /* ================= CRIAR PERFIL ================= */

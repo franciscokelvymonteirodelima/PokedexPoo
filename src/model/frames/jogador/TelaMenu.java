@@ -82,7 +82,7 @@ public class TelaMenu extends JFrame {
         JButton btn = new JButton(texto);
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn.setMaximumSize(new Dimension(200, 40));
-        btn.setFont(new Font("Arial", Font.PLAIN, 14));
+        btn.setFont(new Font("Arial", Font.BOLD, 14));
         btn.setBackground(Color.WHITE);
         btn.setForeground(VERMELHO_SUAVE);
         btn.setFocusPainted(false);

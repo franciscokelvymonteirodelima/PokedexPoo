@@ -2,7 +2,6 @@ package model.frames.jogador;
 
 import model.jogador.Jogador;
 import model.pokemon.Pokemon;
-import model.frames.jogador.TelaMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +9,9 @@ import java.io.File;
 
 public class TelaJogador extends JFrame {
 
+    // Cor vermelho suave padrão (igual à TelaMenu)
+    private static final Color VERMELHO_SUAVE = new Color(220, 100, 100);
+    
     private Jogador jogador;
 
     public TelaJogador(Jogador jogador) {
@@ -25,6 +27,9 @@ public class TelaJogador extends JFrame {
 
     private void inicializarTela() {
         setLayout(new BorderLayout(15, 15));
+        
+        // Fundo vermelho (igual à TelaCriacaoPerfil)
+        getContentPane().setBackground(VERMELHO_SUAVE);
 
         add(criarPainelPerfil(), BorderLayout.NORTH);
         add(criarPainelCentral(), BorderLayout.CENTER);
@@ -46,17 +51,45 @@ public class TelaJogador extends JFrame {
     /* ================= PERFIL ================= */
     private JPanel criarPainelPerfil() {
         JPanel painel = new JPanel(new BorderLayout(15, 15));
-        painel.setBorder(BorderFactory.createTitledBorder("Perfil"));
+        // Borda com título em branco (sobre fundo vermelho)
+        painel.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.WHITE, 2),
+            "Perfil",
+            0, 0,
+            new Font("Arial", Font.BOLD, 14),
+            Color.WHITE
+        ));
+        painel.setBackground(VERMELHO_SUAVE);
 
         JLabel lblImagem = criarLabelImagem();
 
         JPanel info = new JPanel(new GridLayout(2, 3, 10, 10));
-        info.add(new JLabel("Nome: " + jogador.getNome()));
-        info.add(new JLabel("Idade: " + jogador.getIdade()));
-        info.add(new JLabel("Gênero: " + jogador.getGenero()));
-        info.add(new JLabel("Cidade: " + jogador.getCidadeOrigem()));
-        info.add(new JLabel("Dinheiro: $" + jogador.getDinheiro()));
-        info.add(new JLabel("Capturados: " + jogador.getPokemonsCapturados()));
+        info.setBackground(VERMELHO_SUAVE);
+        
+        // Labels com texto branco (sobre fundo vermelho)
+        JLabel lblNome = new JLabel("Nome: " + jogador.getNome());
+        lblNome.setForeground(Color.WHITE);
+        info.add(lblNome);
+        
+        JLabel lblIdade = new JLabel("Idade: " + jogador.getIdade());
+        lblIdade.setForeground(Color.WHITE);
+        info.add(lblIdade);
+        
+        JLabel lblGenero = new JLabel("Gênero: " + jogador.getGenero());
+        lblGenero.setForeground(Color.WHITE);
+        info.add(lblGenero);
+        
+        JLabel lblCidade = new JLabel("Cidade: " + jogador.getCidadeOrigem());
+        lblCidade.setForeground(Color.WHITE);
+        info.add(lblCidade);
+        
+        JLabel lblDinheiro = new JLabel("Dinheiro: $" + jogador.getDinheiro());
+        lblDinheiro.setForeground(Color.WHITE);
+        info.add(lblDinheiro);
+        
+        JLabel lblCapturados = new JLabel("Capturados: " + jogador.getPokemonsCapturados());
+        lblCapturados.setForeground(Color.WHITE);
+        info.add(lblCapturados);
 
         painel.add(lblImagem, BorderLayout.WEST);
         painel.add(info, BorderLayout.CENTER);
@@ -90,6 +123,8 @@ public class TelaJogador extends JFrame {
     /* ================= CENTRAL ================= */
     private JTabbedPane criarPainelCentral() {
         JTabbedPane abas = new JTabbedPane();
+        abas.setBackground(VERMELHO_SUAVE);
+        abas.setForeground(Color.WHITE);
 
         abas.addTab("Time Pokémon", criarPainelTime());
         abas.addTab("PC Box", criarPainelPC());
@@ -101,6 +136,7 @@ public class TelaJogador extends JFrame {
     private JPanel criarPainelTime() {
         JPanel painel = new JPanel(new BorderLayout());
         painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        painel.setBackground(VERMELHO_SUAVE);
 
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Pokemon p : jogador.getTimePokemon()) {
@@ -108,6 +144,8 @@ public class TelaJogador extends JFrame {
         }
 
         JList<String> lista = new JList<>(model);
+        lista.setBackground(Color.WHITE);
+        lista.setForeground(VERMELHO_SUAVE);
         painel.add(new JScrollPane(lista), BorderLayout.CENTER);
 
         return painel;
@@ -117,6 +155,7 @@ public class TelaJogador extends JFrame {
     private JPanel criarPainelPC() {
         JPanel painel = new JPanel(new BorderLayout());
         painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        painel.setBackground(VERMELHO_SUAVE);
 
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Pokemon p : jogador.getPcBox()) {
@@ -124,6 +163,8 @@ public class TelaJogador extends JFrame {
         }
 
         JList<String> lista = new JList<>(model);
+        lista.setBackground(Color.WHITE);
+        lista.setForeground(VERMELHO_SUAVE);
         painel.add(new JScrollPane(lista), BorderLayout.CENTER);
 
         return painel;
@@ -134,6 +175,7 @@ public class TelaJogador extends JFrame {
     private JPanel criarPainelColecionaveis() {
         JPanel painel = new JPanel(new BorderLayout());
         painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        painel.setBackground(Color.WHITE);
 
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Integer item : jogador.getColecionaveisComprados()) {
@@ -141,6 +183,8 @@ public class TelaJogador extends JFrame {
         }
 
         JList<String> lista = new JList<>(model);
+        lista.setBackground(Color.WHITE);
+        lista.setForeground(VERMELHO_SUAVE);
         painel.add(new JScrollPane(lista), BorderLayout.CENTER);
 
         return painel;
@@ -149,7 +193,7 @@ public class TelaJogador extends JFrame {
     /* ================= BOTOES ================= */
     private JPanel criarPainelBotoes() {
 
-        JButton btnEditar = new JButton("Editar Time");
+        JButton btnEditar = criarBotaoEstilizado("Editar Time");
         btnEditar.addActionListener(e -> {
         // Abre a tela de edição
         TelaGerenciarTime telaEdicao = new TelaGerenciarTime(jogador, this);
@@ -162,11 +206,12 @@ public class TelaJogador extends JFrame {
     
 
         JPanel painel = new JPanel(new FlowLayout());
+        painel.setBackground(VERMELHO_SUAVE);
 
-        JButton btnSalvar = new JButton("Salvar Jogo");
+        JButton btnSalvar = criarBotaoEstilizado("Salvar Jogo");
         btnSalvar.addActionListener(e -> jogador.salvarProgresso());
 
-        JButton btnVoltar = new JButton("Voltar ao Menu");
+        JButton btnVoltar = criarBotaoEstilizado("Voltar ao Menu");
 //        btnVoltar.addActionListener(e -> {
 //            new TelaMenu().setVisible(true);
 //            this.dispose();
@@ -181,5 +226,15 @@ public class TelaJogador extends JFrame {
         painel.add(btnEditar);
 
         return painel;
+    }
+    
+    /* ================= ESTILO DE BOTÃO ================= */
+    private JButton criarBotaoEstilizado(String texto) {
+        JButton btn = new JButton(texto);
+        btn.setFont(new Font("Arial", Font.BOLD, 14));
+        btn.setBackground(Color.WHITE);
+        btn.setForeground(VERMELHO_SUAVE);
+        btn.setFocusPainted(false);
+        return btn;
     }
 }
