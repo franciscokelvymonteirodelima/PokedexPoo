@@ -8,7 +8,7 @@ import model.frames.GameColors;
 import model.frames.batalha.*;
 import model.frames.qualEhEssePokemon.*;
 import model.frames.dicionario.*;
-// import model.frames.ranking.*;
+import model.frames.ranking.*;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
 import model.frames.jogador.SistemaDeArquivos;
@@ -165,8 +165,8 @@ public class FInicio extends JFrame {
     }
 
     private void botaoRankingAction() {
-        // FRanking frameRanking = new FRanking();
-        // frameRanking.setVisible(true);
+        FRanking frameRanking = new FRanking();
+        frameRanking.setVisible(true);
     }
 
     private void botaoJogadorAction() {
