@@ -2,16 +2,12 @@ package model.frames.inicio;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLOutput;
 
-import model.batalha.Comparacao;
 import model.frames.GameColors;
 import model.frames.batalha.*;
 import model.frames.qualEhEssePokemon.*;
 import model.frames.dicionario.*;
 import model.frames.ranking.*;
-import model.pokedex.Pokedex;
-import model.pokemon.Pokemon;
 import model.frames.jogador.SistemaDeArquivos;
 //import model.frames.jogador.TelaMenu; , nao adicione isso ainda estou fazendo testes :/ 
 

@@ -60,10 +60,7 @@ public class FRanking extends JFrame {
         btnVoltar.setBorder(new LineBorder(Color.BLACK, 3));
         btnVoltar.setFocusPainted(false);
         background.add(btnVoltar);
-        btnVoltar.addActionListener(e -> {
-            dispose();
-            new model.frames.inicio.FInicio().setVisible(true);
-        });
+        btnVoltar.addActionListener(e -> dispose());
     }
 
     private List<Jogador> carregarSaves() {

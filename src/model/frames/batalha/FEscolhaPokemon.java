@@ -31,7 +31,7 @@ public class FEscolhaPokemon extends JFrame {
     public FEscolhaPokemon(String title, Jogador jogador){
         super(title);
         setSize(900, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         pokedex = new Pokedex();
         leitorArquivoSaveGame = new LeitorArquivosSaveGame();
