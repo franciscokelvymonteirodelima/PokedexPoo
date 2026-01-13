@@ -1,0 +1,12 @@
+[JOGADOR]
+Nome=beatriz
+Idade=21
+Genero=Feminino
+Cidade=Pallet Town
+Dinheiro=3000
+PokemonsCapturados=0
+[TIME_POKEMON]
+94,1    
+1,1
+[PC_BOX]
+[COLECIONAVEIS]

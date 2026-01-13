@@ -50,7 +50,12 @@ public class SistemaDeArquivos {
             writer.newLine();
             writer.write("PokemonsCapturados=" + jogador.getPokemonsCapturados());
             writer.newLine();
-            
+
+            // ---------------- RANKING ----------------
+            writer.write("[RANKING]\n");
+            writer.write("Score=" + jogador.getScore() + "\n");
+            writer.write("Vitorias=" + jogador.getVitorias() + "\n");
+
             // Salvar Time Pokémon
             writer.write("[TIME_POKEMON]");
             writer.newLine();

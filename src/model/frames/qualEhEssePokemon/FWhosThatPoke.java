@@ -6,6 +6,8 @@ import model.pokemon.Pokemon;
 import javax.swing.*;
 import java.awt.*;
 import model.frames.jogador.SistemaDeArquivos;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FWhosThatPoke extends JFrame {
     private GamePokemon game;
@@ -45,6 +47,17 @@ public class FWhosThatPoke extends JFrame {
         campoTexto.setLineWrap(true);
         campoTexto.setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
         campoTexto.setBounds(200, 60, 600, 50);
+
+        campoTexto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    e.consume();
+                    btnEnviar.doClick();
+                }
+            }
+        });
+
         background.add(campoTexto);
 
         // ====== Botão Enviar =====
@@ -174,10 +187,18 @@ public class FWhosThatPoke extends JFrame {
         campoTexto.setEnabled(false);
         btnEnviar.setEnabled(false);
         campoTexto.setText("Rodada já respondida!");
-
+        
         if(rodadaAtual >=0 && rodadaAtual < botoesRodadas.length - 1){
             botoesRodadas[rodadaAtual].setEnabled(false);
         }
+
+        int proximaRodada = rodadaAtual + 1;
+
+        if(proximaRodada < game.getTotal()){
+            selecionarRodada(proximaRodada);
+        } else{
+            botoesRodadas[10].requestFocus();
+        } 
     }
 
     private void atualizarScore(){
