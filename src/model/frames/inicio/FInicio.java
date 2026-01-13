@@ -12,7 +12,7 @@ import model.frames.dicionario.*;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
 import model.frames.jogador.SistemaDeArquivos;
-import model.frames.jogador.TelaMenu;
+//import model.frames.jogador.TelaMenu; , nao adicione isso ainda estou fazendo testes :/ 
 
 
 public class FInicio extends JFrame {
@@ -172,7 +172,8 @@ public class FInicio extends JFrame {
     private void botaoJogadorAction() {
         try{
             SistemaDeArquivos.existemSaves();
-            TelaMenu frameJogador = new TelaMenu();
+            //isso pode ser considerado uma gambiara mas ta funcionando por enquanto kkk desculpa enyo ...
+            model.frames.jogador.TelaMenu frameJogador = new model.frames.jogador.TelaMenu();
             frameJogador.setVisible(true);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -181,9 +182,10 @@ public class FInicio extends JFrame {
     }
 
     private void botaoLojaAction() {
-        // TelaLoja frameLoja = new TelaLoja();
-        // frameLoja.setVisible(true);
+        model.frames.loja.TelaMenu frameLoja = new model.frames.loja.TelaMenu();
+        frameLoja.setVisible(true);
     }
+
 
     private void sairDoJogo() {
         int resposta = JOptionPane.showConfirmDialog(
