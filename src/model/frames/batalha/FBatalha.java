@@ -46,7 +46,7 @@ public class FBatalha extends JFrame{
         carregarSprite(spritePokemon1, pokemon1.getCaminhoImagem(), 350, 350);
         carregarSprite(spritePokemon2, pokemon2.getCaminhoImagem(), 300, 300);
 
-        perguntaAcao.setText(pokemon2.getNome().toUpperCase() + " do");
+        perguntaAcao.setText(pokemon1.getNome().toUpperCase() + " do");
     }
 
     //Metodo para carregar o sprite
