@@ -1,24 +1,19 @@
 [JOGADOR]
-Nome=Luiz
-Idade=77
-Genero=Não informado
+Nome=wesley
+Idade=11
+Genero=Masculino
 Cidade=Pallet Town
-Dinheiro=3800
+Dinheiro=3250
 PokemonsCapturados=0
 [RANKING]
-Score=100
+Score=55
 Vitorias=0
 [TIME_POKEMON]
-5,1
+150,1
+95,1
+94,1
+49,1
 6,1
-7,1
-8,1
-9,1
-10,1
+62,1
 [PC_BOX]
-11,1
-12,1
-13,1
-14,1
-15,1
 [COLECIONAVEIS]

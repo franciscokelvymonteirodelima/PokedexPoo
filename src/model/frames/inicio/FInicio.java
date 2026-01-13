@@ -28,6 +28,7 @@ public class FInicio extends JFrame {
         background.setBounds(0, 0, 1280, 720);
         setContentPane(background);
         setLayout(null);
+        setResizable(false);
 
         // ===== Nome do Site =====
         ImageIcon iconePokemon = new ImageIcon(getClass().getResource("/model/frames/images/FundosSimbolos/LogoInicio_400x.png"));

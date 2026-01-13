@@ -140,7 +140,7 @@ public class FEscolhaPokemon extends JFrame {
 
         //  ------ Adicionar as imagens dos pokemons --------
         //ArrayList<Integer> listaDeIds = leitorArquivoSaveGame.lerNumerosPokemon();
-        List<Pokemon> listaPokemons = jogador.getPcBox(); // ou jogador.getTimePokemon();
+        List<Pokemon> listaPokemons = jogador.getTimePokemon(); 
 
         Pokemon pGrafico = null;
         
