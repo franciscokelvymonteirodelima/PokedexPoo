@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Pokedex POO
+Comment=Sistema de Pokédex desenvolvido em Java
+Exec=/usr/bin/pokedexpoo
+Icon=pokedexpoo
+Terminal=false
+Categories=Game;Education;

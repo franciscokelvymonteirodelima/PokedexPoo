@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+chmod +x /usr/bin/pokedexpoo
+chmod -R 755 /opt/pokedexpoo
+update-desktop-database 2>/dev/null || true
+exit 0

@@ -1,0 +1,19 @@
+[JOGADOR]
+Nome=wesley
+Idade=11
+Genero=Masculino
+Cidade=Pallet Town
+Dinheiro=3250
+PokemonsCapturados=0
+[RANKING]
+Score=55
+Vitorias=0
+[TIME_POKEMON]
+150,1
+95,1
+94,1
+49,1
+6,1
+62,1
+[PC_BOX]
+[COLECIONAVEIS]

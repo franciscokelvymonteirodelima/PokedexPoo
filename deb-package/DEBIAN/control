@@ -1,0 +1,11 @@
+Package: pokedexpoo
+Version: 1.0.0
+Section: games
+Priority: optional
+Architecture: all
+Depends: default-jre | openjdk-11-jre | openjdk-17-jre | openjdk-21-jre
+Maintainer: PokedexPoo Team <pokedexpoo@example.com>
+Description: Sistema de Pokédex desenvolvido em Java
+ Sistema interativo de Pokédex desenvolvido como projeto acadêmico
+ em Programação Orientada a Objetos. Inclui gerenciamento de Pokémon,
+ batalhas, mini-jogos e interface gráfica completa.
