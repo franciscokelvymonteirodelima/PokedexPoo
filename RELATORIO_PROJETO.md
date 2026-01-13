@@ -214,6 +214,6 @@ O sistema não apenas atende aos requisitos acadêmicos, mas também resulta em 
 ---
 
 **Equipe de Desenvolvimento:**  
-[Nome dos membros da equipe]  
+[Kelvy lima, João Eudes, Luiz Guilherme]  
 
-**Data de Entrega:** 13 de janeiro de 2026
+**Data de Entrega:** 14 de janeiro de 2026
