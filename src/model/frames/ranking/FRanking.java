@@ -1,28 +1,3 @@
-// package model.frames.ranking;
-
-// import javax.swing.*;
-// import java.awt.*;
-
-// public class FRanking extends JFrame {
-//     public FRanking() {
-//         setTitle("Ranking");
-//         setSize(1280, 720);
-//         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//         setLocationRelativeTo(null);
-//         setLayout(null);
-
-//         // ===== Imagem do Fundo Principal =====
-//         ImageIcon fundoPrincipal = new ImageIcon(getClass().getResource("/model/frames/images/fundo_ranking.png"));
-//         JLabel background = new JLabel(fundoPrincipal);
-//         background.setBounds(0, 0, 1280, 720);
-//         background.setLayout(null);
-//         setContentPane(background);
-//         add(background);
-
-        
-//     }
-// }
-
 package model.frames.ranking;
 
 import model.jogador.Jogador;
@@ -42,7 +17,7 @@ public class FRanking extends JFrame {
     public FRanking() {
         setTitle("Ranking - Top 50");
         setSize(1280, 720);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 
@@ -55,7 +30,7 @@ public class FRanking extends JFrame {
         setContentPane(background);
 
         // ===== 2. Dados =====
-        List<Jogador> todosJogadores = carregarTodosOsJogadores();
+        List<Jogador> todosJogadores = carregarSaves();
 
         // Ranking Captura
         todosJogadores.sort(Comparator.comparingInt(Jogador::getPokemonsCapturados).reversed());
@@ -68,12 +43,12 @@ public class FRanking extends JFrame {
         // ===== 3. Painéis com Scroll =====
         
         // Painel Esquerdo (Mestres) - Texto Verde
-        JPanel painelMestres = criarPainelRankingComScroll("Mestres Pokémon", dadosCaptura, new Color(100, 255, 100));
+        JPanel painelMestres = PainelRanking("Mestres Pokémon", dadosCaptura, new Color(100, 255, 100));
         painelMestres.setBounds(150, 50, 420, 450); // Aumentei um pouco a largura para caber a barra de scroll
         background.add(painelMestres);
 
         // Painel Direito (Ricos) - Texto Dourado
-        JPanel painelRicos = criarPainelRankingComScroll("Magnatas", dadosDinheiro, new Color(255, 215, 0));
+        JPanel painelRicos = PainelRanking("Magnatas", dadosDinheiro, new Color(255, 215, 0));
         painelRicos.setBounds(710, 50, 420, 450);
         background.add(painelRicos);
 
@@ -85,9 +60,13 @@ public class FRanking extends JFrame {
         btnVoltar.setBorder(new LineBorder(Color.BLACK, 3));
         btnVoltar.setFocusPainted(false);
         background.add(btnVoltar);
+        btnVoltar.addActionListener(e -> {
+            dispose();
+            new model.frames.inicio.FInicio().setVisible(true);
+        });
     }
 
-    private List<Jogador> carregarTodosOsJogadores() {
+    private List<Jogador> carregarSaves() {
         List<Jogador> lista = new ArrayList<>();
         File pasta = new File("saves");
         if (pasta.exists() && pasta.isDirectory()) {
@@ -129,7 +108,7 @@ public class FRanking extends JFrame {
     /**
      * Cria o painel com título fixo e lista rolável (Scroll).
      */
-    private JPanel criarPainelRankingComScroll(String titulo, String[][] dados, Color corDestaque) {
+    private JPanel PainelRanking(String titulo, String[][] dados, Color corDestaque) {
         // 1. Painel Principal (Container)
         JPanel painelPrincipal = new JPanel();
         painelPrincipal.setBackground(new Color(0, 0, 0, 180)); // Fundo semi-transparente
