@@ -3,10 +3,10 @@ Nome=Luiz
 Idade=77
 Genero=Não informado
 Cidade=Pallet Town
-Dinheiro=3800
+Dinheiro=4000
 PokemonsCapturados=0
 [RANKING]
-Score=100
+Score=200
 Vitorias=0
 [TIME_POKEMON]
 5,1

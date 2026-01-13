@@ -1,15 +1,23 @@
 package model.frames.batalha;
 import model.batalha.Comparacao;
+import model.batalha.Gerenciador;
 import model.frames.GameColors;
+import model.frames.inicio.Sessao;
+import model.frames.jogador.SistemaDeArquivos;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 public class FBatalha extends JFrame{
 
     private Comparacao comparacao;
+    private Gerenciador g;
 
     public FBatalha(String title, Comparacao comparacao){
         super(title);
@@ -17,6 +25,8 @@ public class FBatalha extends JFrame{
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        g = new Gerenciador();
+        g.setBounds(0, 0, 1280, 720);
         initComponents();
     }
 
@@ -70,13 +80,121 @@ public class FBatalha extends JFrame{
         }
     }
 
+    private void finalizarBatalha() {
+        Pokemon vencedor = comparacao.realizarComparacao();
+        Pokemon p1 = comparacao.getPokemon1();
+        Pokemon p2 = comparacao.getPokemon2();
+        boolean jogadorVenceu = vencedor.equals(p1);
+        int moedasGanhas = 0;
+        int scoreGanho = 0;
+        StringBuilder msgRecompensa = new StringBuilder();
+        if (jogadorVenceu && Sessao.jogadorLogado != null) {
+            moedasGanhas = 100;
+            scoreGanho = 50;
+
+            Sessao.jogadorLogado.ganharDinheiro(moedasGanhas);
+            Sessao.jogadorLogado.adicionarScore(scoreGanho);
+            boolean salvou = SistemaDeArquivos.salvarJogador(Sessao.jogadorLogado, Sessao.jogadorLogado.getNome());
+
+            msgRecompensa.append("RECOMPENSAS:\n");
+            msgRecompensa.append("+").append(moedasGanhas).append(" Moedas\n");
+            msgRecompensa.append("+").append(scoreGanho).append(" Score\n");
+            if (!salvou) msgRecompensa.append("(Erro ao salvar arquivo)\n");
+        } else if (!jogadorVenceu) {
+            msgRecompensa.append("Você perdeu... Tente novamente!\n");
+        }
+        JPanel painelResultados = new JPanel(new BorderLayout());
+
+        // Título
+        JLabel lblTitulo = new JLabel(jogadorVenceu ? "VITÓRIA!" : "DERROTA");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTitulo.setForeground(jogadorVenceu ? new Color(34, 139, 34) : Color.RED);
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        painelResultados.add(lblTitulo, BorderLayout.NORTH);
+
+        // Tabela de Status
+        JPanel painelStats = new JPanel(new GridLayout(8, 3, 10, 5)); // 8 linhas (cabeçalho + 6 stats + média), 3 colunas
+        painelStats.setBorder(new EmptyBorder(15, 10, 15, 10));
+
+        // Cabeçalho
+        painelStats.add(new JLabel("Atributo", SwingConstants.CENTER));
+        painelStats.add(new JLabel(p1.getNome(), SwingConstants.CENTER));
+        painelStats.add(new JLabel(p2.getNome(), SwingConstants.CENTER));
+
+        // Adiciona linhas de comparação
+        adicionarLinhaStat(painelStats, "HP", p1.getHp(), p2.getHp());
+        adicionarLinhaStat(painelStats, "Atk", p1.getAtaque(), p2.getAtaque());
+        adicionarLinhaStat(painelStats, "Def", p1.getDefesa(), p2.getDefesa());
+        adicionarLinhaStat(painelStats, "Sp. Atk", p1.getSpAtaque(), p2.getSpAtaque());
+        adicionarLinhaStat(painelStats, "Sp. Def", p1.getSpDefesa(), p2.getSpDefesa());
+        adicionarLinhaStat(painelStats, "Speed", p1.getVelocidade(), p2.getVelocidade());
+
+        JLabel lblMedia = new JLabel("MÉDIA GERAL");
+        lblMedia.setFont(new Font("Arial", Font.BOLD, 14));
+        painelStats.add(lblMedia);
+
+        DecimalFormat df = new DecimalFormat("#.0");
+        JLabel lblM1 = new JLabel(df.format(comparacao.calcularMediaStatus(p1)), SwingConstants.CENTER);
+        JLabel lblM2 = new JLabel(df.format(comparacao.calcularMediaStatus(p2)), SwingConstants.CENTER);
+        lblM1.setFont(new Font("Arial", Font.BOLD, 14));
+        lblM2.setFont(new Font("Arial", Font.BOLD, 14));
+
+        if(comparacao.calcularMediaStatus(p1) > comparacao.calcularMediaStatus(p2)) lblM1.setForeground(new Color(0, 150, 0));
+        else lblM2.setForeground(new Color(0, 150, 0));
+
+        painelStats.add(lblM1);
+        painelStats.add(lblM2);
+
+        painelResultados.add(painelStats, BorderLayout.CENTER);
+
+        JTextArea txtRecompensa = new JTextArea(msgRecompensa.toString());
+        txtRecompensa.setEditable(false);
+        txtRecompensa.setBackground(null);
+        txtRecompensa.setFont(new Font("Consolas", Font.BOLD, 14));
+        txtRecompensa.setBorder(new EmptyBorder(10, 20, 10, 20));
+        painelResultados.add(txtRecompensa, BorderLayout.SOUTH);
+
+        JOptionPane.showMessageDialog(this, painelResultados, "Resultado da Batalha", JOptionPane.PLAIN_MESSAGE);
+
+        this.dispose(); // Fecha a janela de batalha
+    }
+
+    private void adicionarLinhaStat(JPanel painel, String nomeStat, int v1, int v2) {
+        painel.add(new JLabel(nomeStat));
+
+        JLabel l1 = new JLabel(String.valueOf(v1), SwingConstants.CENTER);
+        JLabel l2 = new JLabel(String.valueOf(v2), SwingConstants.CENTER);
+
+        if (v1 > v2) {
+            l1.setFont(new Font("Arial", Font.BOLD, 12));
+            l1.setForeground(Color.BLUE);
+        } else if (v2 > v1) {
+            l2.setFont(new Font("Arial", Font.BOLD, 12));
+            l2.setForeground(Color.RED);
+        }
+
+        painel.add(l1);
+        painel.add(l2);
+    }
+
     private void initComponents() {
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, 1280, 720);
+        setContentPane(layeredPane);
+
+        JPanel panelFundo = new JPanel();
+        panelFundo.setLayout(null);
+        panelFundo.setBackground(GameColors.BATTLE_BG_GRASS);
+        panelFundo.setBounds(0, 0, 1280, 720);
+
+        layeredPane.add(panelFundo, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(g, JLayeredPane.PALETTE_LAYER);
+
         JPanel panel = new JPanel();
         panel.setLayout(null);
         setContentPane(panel);
         panel.setBackground(GameColors.BATTLE_BG_GRASS);
 
-        // Definicao das caixas de dados do pokemon em batalha
         JPanel panel2 = new JPanel();
         panel2.setBounds(50, 50, 280, 80);   // posição + tamanho
         panel2.setLayout(null);
@@ -167,13 +285,32 @@ public class FBatalha extends JFrame{
 
         // BOTOES PARA AS OPCOES DE ESCOLHA
         JButton buttonFight = new JButton("Fight");
+        buttonFight.setFont(new Font("Arial", Font.BOLD, 80));
+        buttonFight.setBackground(GameColors.MENU_WHITE_BG);
+        buttonFight.setBorderPainted(false);
+        buttonFight.setFocusPainted(false);
 
         // ---- Acao do botao fight ----------
-        buttonFight.addActionListener(e -> {
-            Pokemon vencedor = comparacao.realizarComparacao();
+        buttonFight.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Pega coordenadas para o tiro
+                int x1 = spritePokemon1.getX() + spritePokemon1.getWidth()/2;
+                int y1 = spritePokemon1.getY() + spritePokemon1.getHeight()/2;
+                int x2 = spritePokemon2.getX() + spritePokemon2.getWidth()/2;
+                int y2 = spritePokemon2.getY() + spritePokemon2.getHeight()/2;
 
-            JOptionPane.showMessageDialog(null, "O vencedor foi: " + vencedor.getNome());
-            this.dispose();
+                // Animação
+                g.criarAtaque(x1, y1, x2, y2);
+                g.criarAtaque(x2, y2, x1, y1); // Ataque mútuo
+
+                // Timer para esperar a animação acabar e vir o resultado
+                Timer timer = new Timer(1000, ev -> {
+                    finalizarBatalha();
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
         });
 
         // -----------------------------------
@@ -185,7 +322,6 @@ public class FBatalha extends JFrame{
 
         panelEscolhas.add(buttonFight);
 
-        // Dimensoes:
         panelInferiorPrincipal.setBounds(0, 525, 1280, 180);
 
         // ------------------------------------------------------------------
@@ -201,6 +337,7 @@ public class FBatalha extends JFrame{
         panel2.add(hpPokemon2);
 
         panel.add(panelInferiorPrincipal);
+        panel.add(g);
         //--------------- Adicao dos sprites --------------------------------------------------
 
         // -------- Sprite 1 -----------------------------------
