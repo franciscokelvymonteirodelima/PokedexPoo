@@ -190,6 +190,21 @@ public class SistemaDeArquivos {
                     }
                 }
                 
+                // ============ NOVA SEÇÃO: CARREGAR RANKING ============
+                else if (secaoAtual.equals("[RANKING]")) {
+                    String[] partes = linha.split("=", 2);
+                    if (partes.length == 2 && jogador != null) {
+                        switch (partes[0]) {
+                            case "Score":
+                                jogador.setScore(Integer.parseInt(partes[1]));
+                                break;
+                            case "Vitorias":
+                                jogador.setVitorias(Integer.parseInt(partes[1]));
+                                break;
+                        }
+                    }
+                }
+                
                 // ============ NOVA SEÇÃO: CARREGAR COLECIONÁVEIS ============
                 else if (secaoAtual.equals("[COLECIONAVEIS]")) {
                     // Carrega os colecionáveis comprados

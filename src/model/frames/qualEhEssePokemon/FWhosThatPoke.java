@@ -211,6 +211,7 @@ private void finalizarJogo() {
         int acertos = game.getAcertos();
         int total = game.getTotal();
         int moedasGanhas = acertos * 50;
+        int scoreGanho = (acertos * 10) + 5;
 
         StringBuilder mensagem = new StringBuilder();
         mensagem.append(String.format("Jogo finalizado!\n"));
@@ -220,13 +221,15 @@ private void finalizarJogo() {
         // Verifica se existe um usuário logado na sessão
         if (Sessao.jogadorLogado != null) {
             Sessao.jogadorLogado.ganharDinheiro(moedasGanhas);
-            Sessao.jogadorLogado.adicionarScore(acertos * 10); 
+            Sessao.jogadorLogado.adicionarScore(scoreGanho); 
 
             boolean salvou = SistemaDeArquivos.salvarJogador(Sessao.jogadorLogado, Sessao.jogadorLogado.getNome());
 
             if (moedasGanhas > 0) {
                 mensagem.append(String.format("\nRECOMPENSA: +%d moedas!\n", moedasGanhas));
                 mensagem.append(String.format("Saldo atual: %d moedas\n", Sessao.jogadorLogado.getDinheiro()));
+                mensagem.append(String.format("RECOMPENSA: +%d pontos!\n", scoreGanho));
+                mensagem.append(String.format("Score total: %d pontos\n", Sessao.jogadorLogado.getScore()));
             }
 
             if (!salvou) {

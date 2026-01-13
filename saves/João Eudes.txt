@@ -3,10 +3,10 @@ Nome=João Eudes
 Idade=20
 Genero=Masculino
 Cidade=Pallet Town
-Dinheiro=3450
+Dinheiro=3550
 PokemonsCapturados=0
 [RANKING]
-Score=20
+Score=15
 Vitorias=0
 [TIME_POKEMON]
 150,1
