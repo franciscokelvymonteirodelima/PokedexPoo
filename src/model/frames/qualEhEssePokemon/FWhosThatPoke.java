@@ -220,6 +220,7 @@ private void finalizarJogo() {
         // Verifica se existe um usuário logado na sessão
         if (Sessao.jogadorLogado != null) {
             Sessao.jogadorLogado.ganharDinheiro(moedasGanhas);
+            Sessao.jogadorLogado.adicionarScore(acertos * 10); 
 
             boolean salvou = SistemaDeArquivos.salvarJogador(Sessao.jogadorLogado, Sessao.jogadorLogado.getNome());
 
