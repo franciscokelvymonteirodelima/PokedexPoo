@@ -6,4 +6,3 @@ public class mainMenu {
         frame.setVisible(true);
     }
 }
-git
