@@ -1,9 +1,11 @@
 package model.frames.qualEhEssePokemon;
 
 import model.frames.GameColors;
+import model.frames.inicio.Sessao;
 import model.pokemon.Pokemon;
 import javax.swing.*;
 import java.awt.*;
+import model.frames.jogador.SistemaDeArquivos;
 
 public class FWhosThatPoke extends JFrame {
     private GamePokemon game;
@@ -184,11 +186,35 @@ public class FWhosThatPoke extends JFrame {
         score.setText("Score : " + acertos + " / " + total);
     }
 
-    private void finalizarJogo(){
+private void finalizarJogo() {
         int acertos = game.getAcertos();
         int total = game.getTotal();
-        String mensagem = String.format("Jogo finalizado!\nSeu score final %d de %d!\nPorcentagem de acerto: %.1f%%", acertos, total, (acertos * 100.0) / total);
-        JOptionPane.showMessageDialog(this, mensagem);
+        int moedasGanhas = acertos * 50;
+
+        StringBuilder mensagem = new StringBuilder();
+        mensagem.append(String.format("Jogo finalizado!\n"));
+        mensagem.append(String.format("Seu score final: %d de %d\n", acertos, total));
+        mensagem.append(String.format("Porcentagem de acerto: %.1f%%\n", (acertos * 100.0) / total));
+
+        // Verifica se existe um usuário logado na sessão
+        if (Sessao.jogadorLogado != null) {
+            Sessao.jogadorLogado.ganharDinheiro(moedasGanhas);
+
+            boolean salvou = SistemaDeArquivos.salvarJogador(Sessao.jogadorLogado, Sessao.jogadorLogado.getNome());
+
+            if (moedasGanhas > 0) {
+                mensagem.append(String.format("\nRECOMPENSA: +%d moedas!\n", moedasGanhas));
+                mensagem.append(String.format("Saldo atual: %d moedas\n", Sessao.jogadorLogado.getDinheiro()));
+            }
+
+            if (!salvou) {
+                mensagem.append("\n(Aviso: Ocorreu um erro ao salvar o progresso no disco.)");
+            }
+        } else {
+            mensagem.append("\n(Modo de teste: Nenhum jogador logado para receber moedas)");
+        }
+
+        JOptionPane.showMessageDialog(this, mensagem.toString());
         dispose();
     }
 

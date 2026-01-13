@@ -102,25 +102,6 @@ public class FInicio extends JFrame {
         botoesMenu[textos.length - 1] = botaoSair;
     }
 
-    private void botaoBatalhaAction() {
-        try {
-            Pokedex pokedex1 = new Pokedex();
-            int numeroAleatorio1 = (int) (Math.random() * 151) + 1;
-            Pokemon pokemon1 = pokedex1.getPokemonPC(numeroAleatorio1);
-
-            Pokedex pokedex2 = new Pokedex();
-            int numeroAleatorio2 = (int) (Math.random() * 151) + 1;
-            Pokemon pokemon2 = pokedex2.getPokemonPC(numeroAleatorio2);
-
-            Comparacao comparacao = new Comparacao(pokemon1, pokemon2);
-            FBatalha frameBatalha = new FBatalha("Batalha Pokemon", comparacao);
-            frameBatalha.setVisible(true);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao iniciar batalha: " + ex.getClass().getSimpleName() + " - " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
     private void carregarSaveJogador() {
         try {
             model.jogador.Jogador temp = SistemaDeArquivos.carregarComDialogo();
@@ -155,8 +136,24 @@ public class FInicio extends JFrame {
     }
 
     private void botaoMiniGameAction() {
-        FWhosThatPoke frameMiniGame = new FWhosThatPoke();
-        frameMiniGame.setVisible(true);
+        System.out.println("Tentando iniciar minigame..."); // Log no console
+
+        if (Sessao.jogadorLogado == null) {
+            System.out.println("Erro: Sessao.jogadorLogado está NULL");
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum save carregado! Vá em 'Jogador' para carregar.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        System.out.println("Jogador encontrado: " + Sessao.jogadorLogado.getNome());
+        try {
+            FWhosThatPoke tela = new FWhosThatPoke();
+            tela.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao abrir tela de escolha: " + e.getMessage());
+        }
     }
 
     private void botaoPokedexAction() {

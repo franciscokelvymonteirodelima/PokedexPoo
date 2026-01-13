@@ -125,7 +125,8 @@ public class FRanking extends JFrame {
         // 3. Painel Interno da Lista (Onde ficam os nomes)
         JPanel painelLista = new JPanel();
         painelLista.setLayout(new BoxLayout(painelLista, BoxLayout.Y_AXIS));
-        painelLista.setBackground(new Color(0, 0, 0, 0)); // Totalmente transparente (herda o fundo do pai)
+        painelLista.setBackground(new Color(0, 0, 0, 180)); // Fundo semi-transparente para evitar problemas de renderização
+        painelLista.setOpaque(true);
 
         for (String[] linha : dados) {
             JPanel linhaPanel = new JPanel(new BorderLayout());
@@ -151,8 +152,9 @@ public class FRanking extends JFrame {
         // 4. Configurando o ScrollPane
         JScrollPane scrollPane = new JScrollPane(painelLista);
         scrollPane.setBorder(null); // Remove borda padrão do scroll
-        scrollPane.getViewport().setOpaque(false); // Área de visualização transparente
-        scrollPane.setOpaque(false); // ScrollPane transparente
+        scrollPane.getViewport().setOpaque(true); // Área de visualização opaca
+        scrollPane.getViewport().setBackground(new Color(0, 0, 0, 180)); // Mesmo fundo do painel
+        scrollPane.setOpaque(true); // ScrollPane opaco
         
         // Remove a barra horizontal
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
