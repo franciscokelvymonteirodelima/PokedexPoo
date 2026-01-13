@@ -239,8 +239,4 @@ private void finalizarJogo() {
         dispose();
     }
 
-    public static void main(String[] args) {
-        FWhosThatPoke frame = new FWhosThatPoke();
-        frame.setVisible(true);
-    }
 }

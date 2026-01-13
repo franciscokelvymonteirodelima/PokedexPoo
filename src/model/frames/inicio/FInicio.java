@@ -2,6 +2,7 @@ package model.frames.inicio;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLOutput;
 
 import model.batalha.Comparacao;
 import model.frames.GameColors;
@@ -16,7 +17,6 @@ import model.frames.jogador.SistemaDeArquivos;
 
 
 public class FInicio extends JFrame {
-    private model.jogador.Jogador jogadorLogado = null; //guardar o jogador carreagdo
     private JButton[] botoesMenu;
 
     public FInicio() {
@@ -70,7 +70,7 @@ public class FInicio extends JFrame {
                 botoesMenu[i] = botao;
             } else if(i == 1) {
                 botao.setBackground(GameColors.BUTTON_MINIGAME); // Azul para MiniGame
-                botao.addActionListener(e -> botaoMiniGameAction());
+                botao.addActionListener(e -> irParaSelecaoMiniGame());
                 botoesMenu[i] = botao;
             } else if(i == 2){
                 botao.setBackground(GameColors.BUTTON_POKEDEX); // Roxo para Pokedex
@@ -132,6 +132,25 @@ public class FInicio extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao abrir tela de escolha: " + e.getMessage());
+        }
+    }
+
+    private void irParaSelecaoMiniGame(){
+        System.out.println("Tentando iniciar mini game ...");
+        if(Sessao.jogadorLogado == null) {
+            System.out.println("Erro ao iniciar mini game - Nenhum save carregado!");
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum save carregado! Vá em 'Jogador' para carregar.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        System.out.println("Jogador encontrado: " + Sessao.jogadorLogado.getNome());
+        try{
+            FWhosThatPoke fWhosThatPoke = new FWhosThatPoke();
+            fWhosThatPoke.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao abrir tela de minigame: " + e.getMessage());
         }
     }
 
