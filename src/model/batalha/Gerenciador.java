@@ -27,7 +27,7 @@ public class Gerenciador extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(larguraDaTela, alturaDaTela));
         this.setLayout(null);
 
-        // --- IMPORTANTE: Deixa o fundo transparente para ver os Pokémons ---
+        //Deixa o fundo transparente para ver os Pokémons ---
         this.setOpaque(false);
         this.setBackground(new Color(0,0,0,0));
         // ------------------------------------------------------------------
@@ -38,7 +38,7 @@ public class Gerenciador extends JPanel implements Runnable {
         threadOn();
     }
 
-    // Método que o FBatalha vai chamar
+    // Metodo utilizado em FBatalha
     public void criarAtaque(int xOrigem, int yOrigem, int xDestino, int yDestino) {
         // Cria o projetil saindo da origem indo para o destino
         Ataque novoAtaque = new Ataque(xOrigem, yOrigem, xDestino, yDestino, 15, imagemPoder); // Velocidade 15
@@ -103,7 +103,7 @@ public class Gerenciador extends JPanel implements Runnable {
             Ataque a = listaAtaques.get(i);
             a.update();
 
-            // Remove se chegou no destino (colisão) ou saiu da tela
+            // Remove se chegou no destino ou saiu da tela
             if (a.destino() || a.x < 0 || a.x > larguraDaTela || a.y < 0 || a.y > alturaDaTela) {
                 listaAtaques.remove(i);
                 i--;

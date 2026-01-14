@@ -1,19 +1,15 @@
 package model.frames.batalha;
-
-import model.arquivo.LeitorArquivosSaveGame;
 import model.batalha.Comparacao;
 import model.frames.dicionario.PainelGraficoStatus;
 import model.jogador.Jogador;
 import model.pokedex.Pokedex;
 import model.pokemon.Pokemon;
 import model.frames.GameColors;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,8 +18,6 @@ public class FEscolhaPokemon extends JFrame {
     private JLabel labelImagem;
     private JLabel labelNome;
     private JLabel labelTipo;
-    private Pokedex pokedex;
-    private LeitorArquivosSaveGame leitorArquivoSaveGame;
     private PainelGraficoStatus painelGraficoStatus;
     private Jogador jogador;
     private Pokemon pokemonSelecionado;
@@ -33,8 +27,6 @@ public class FEscolhaPokemon extends JFrame {
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        pokedex = new Pokedex();
-        leitorArquivoSaveGame = new LeitorArquivosSaveGame();
         this.jogador = jogador;
         initComponents();
     }
@@ -105,9 +97,8 @@ public class FEscolhaPokemon extends JFrame {
         ImageIcon icon = carregarIconePokemon(p);
 
         if (icon != null) {
-            // Redimensiona para o painel de info (200x200)
             Image img = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-            labelImagem.setIcon(new ImageIcon(img));
+            labelImagem.setIcon(new ImageIcon(img)); //Novamente passando a img para o label
             labelImagem.setText("");
         } else {
             labelImagem.setIcon(null);
@@ -139,7 +130,6 @@ public class FEscolhaPokemon extends JFrame {
         panel.add(titulo);
 
         //  ------ Adicionar as imagens dos pokemons --------
-        //ArrayList<Integer> listaDeIds = leitorArquivoSaveGame.lerNumerosPokemon();
         List<Pokemon> listaPokemons = jogador.getTimePokemon(); 
 
         Pokemon pGrafico = null;

@@ -16,8 +16,8 @@ import java.text.DecimalFormat;
 
 public class FBatalha extends JFrame{
 
-    private Comparacao comparacao;
-    private Gerenciador g;
+    private Comparacao comparacao;  // Objeto criado para poder utilizar os metodos da classe
+    private Gerenciador g;  // Servira para a animação do poder
 
     public FBatalha(String title, Comparacao comparacao){
         super(title);
@@ -27,6 +27,8 @@ public class FBatalha extends JFrame{
         setLocationRelativeTo(null);
         g = new Gerenciador();
         g.setBounds(0, 0, 1280, 720);
+        // O gerenciador é meio que uma "segunda tela" que fica por trás, ela é transparente e vai rodar
+        // o movimento do poder percorrendo de um pokemon ao outro
         initComponents();
     }
 
@@ -67,13 +69,20 @@ public class FBatalha extends JFrame{
                 return;
             }
             java.net.URL url = getClass().getResource(caminho);
+            // java.net.URL -> retorna uma URL, o getClass() pega a referencia da classe que ele esta
+            // o getResource() nao procura arquivos internos do Pc, pois se fosse assim, nao funcionaria
+            // para outrs PCs (C:/Users/Voce/Projeto/img.png - > vai mudar de pc para pc)
+            // o getResource vai procurar dentro das pastas do projeto.
             if (url == null) {
                 System.out.println("Recurso de imagem não encontrado: " + caminho);
                 return;
             }
             ImageIcon icon = new ImageIcon(url);
-            Image img = icon.getImage().getScaledInstance(largura, altura, Image.SCALE_SMOOTH);
+            //Criado usando a url
+            Image img = icon.getImage().getScaledInstance(largura, altura, Image.SCALE_SMOOTH); //deixa a img bonita
+            //Ajuste
             label.setIcon(new ImageIcon(img));
+            // Transformando a img em um label "porta retrato que vai a imagem"
         } catch (Exception e) {
             System.out.println("Erro ao carregar imagem: " + caminho);
 
@@ -88,6 +97,8 @@ public class FBatalha extends JFrame{
         int moedasGanhas = 0;
         int scoreGanho = 0;
         StringBuilder msgRecompensa = new StringBuilder();
+        // StringBuilder é melhor de usar e mais pratico do que o String, pois a concatenação de Strings
+        // fica mais facil
         if (jogadorVenceu && Sessao.jogadorLogado != null) {
             moedasGanhas = 100;
             scoreGanho = 50;
@@ -95,6 +106,7 @@ public class FBatalha extends JFrame{
             Sessao.jogadorLogado.ganharDinheiro(moedasGanhas);
             Sessao.jogadorLogado.adicionarScore(scoreGanho);
             boolean salvou = SistemaDeArquivos.salvarJogador(Sessao.jogadorLogado, Sessao.jogadorLogado.getNome());
+            // Atualização dos atributos de moeda e score e salvar no arquivo
 
             msgRecompensa.append("RECOMPENSAS:\n");
             msgRecompensa.append("+").append(moedasGanhas).append(" Moedas\n");
@@ -181,6 +193,10 @@ public class FBatalha extends JFrame{
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, 1280, 720);
         setContentPane(layeredPane);
+
+        // JLayeredPane ele cria um paienl que fica "ao fundo".É necessario pois nessa tela de batalha tem que
+        // ter a principal e a movimentação da esfera de poder que aocntece no fundo, mas como o fundo é
+        // invisivel, ela parece ocorrer na tela principal
 
         JPanel panelFundo = new JPanel();
         panelFundo.setLayout(null);
