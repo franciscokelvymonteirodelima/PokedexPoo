@@ -9,8 +9,6 @@ import model.frames.qualEhEssePokemon.*;
 import model.frames.dicionario.*;
 import model.frames.ranking.*;
 import model.frames.jogador.SistemaDeArquivos;
-//import model.frames.jogador.TelaMenu; , nao adicione isso ainda estou fazendo testes :/ 
-
 
 public class FInicio extends JFrame {
     private JButton[] botoesMenu;
@@ -45,7 +43,7 @@ public class FInicio extends JFrame {
         
         String[] textos = {
             "Batalha Pokemon",
-            "Qual é esse Pokemon? (MiniGame)",
+            "Quem é esse Pokemon? (MiniGame)",
             "Pokedex",
             "Ranking",
             "Jogador",
@@ -98,18 +96,19 @@ public class FInicio extends JFrame {
         add(botaoSair);
         botoesMenu[textos.length - 1] = botaoSair;
     }
-
-    private void carregarSaveJogador() {
-        try {
-            model.jogador.Jogador temp = SistemaDeArquivos.carregarComDialogo();
-            if (temp != null) {
-                Sessao.jogadorLogado = temp;
-                JOptionPane.showMessageDialog(this, "Bem-vindo de volta, " + temp.getNome() + "!");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+    
+    // função com intuito de carrega saves do jogador(antiga funcionalidade, atualmente desativada)
+    // private void carregarSaveJogador() {
+    //     try {
+    //         model.jogador.Jogador temp = SistemaDeArquivos.carregarComDialogo();
+    //         if (temp != null) {
+    //             Sessao.jogadorLogado = temp;
+    //             JOptionPane.showMessageDialog(this, "Bem-vindo de volta, " + temp.getNome() + "!");
+    //         }
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    // }
 
     private void irParaSelecaoBatalha() {
         System.out.println("Tentando iniciar batalha..."); // Log no console
@@ -151,26 +150,27 @@ public class FInicio extends JFrame {
         }
     }
 
-    private void botaoMiniGameAction() {
-        System.out.println("Tentando iniciar minigame..."); // Log no console
+    // antigo botão do minigame, atualmente desativado
+    // private void botaoMiniGameAction() {
+    //     System.out.println("Tentando iniciar minigame..."); // Log no console
 
-        if (Sessao.jogadorLogado == null) {
-            System.out.println("Erro: Sessao.jogadorLogado está NULL");
-            JOptionPane.showMessageDialog(this,
-                    "Nenhum save carregado! Vá em 'Jogador' para carregar.",
-                    "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+    //     if (Sessao.jogadorLogado == null) {
+    //         System.out.println("Erro: Sessao.jogadorLogado está NULL");
+    //         JOptionPane.showMessageDialog(this,
+    //                 "Nenhum save carregado! Vá em 'Jogador' para carregar.",
+    //                 "Aviso", JOptionPane.WARNING_MESSAGE);
+    //         return;
+    //     }
 
-        System.out.println("Jogador encontrado: " + Sessao.jogadorLogado.getNome());
-        try {
-            FWhosThatPoke tela = new FWhosThatPoke();
-            tela.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao abrir tela de escolha: " + e.getMessage());
-        }
-    }
+    //     System.out.println("Jogador encontrado: " + Sessao.jogadorLogado.getNome());
+    //     try {
+    //         FWhosThatPoke tela = new FWhosThatPoke();
+    //         tela.setVisible(true);
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         JOptionPane.showMessageDialog(this, "Erro ao abrir tela de escolha: " + e.getMessage());
+    //     }
+    // }
 
     private void botaoPokedexAction() {
         TelaPokedex framePokedex = new TelaPokedex();

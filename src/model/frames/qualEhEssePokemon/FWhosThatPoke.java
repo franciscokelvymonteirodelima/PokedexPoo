@@ -51,6 +51,7 @@ public class FWhosThatPoke extends JFrame {
         campoTexto.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                // Tratamento de Enter para enviar a resposta
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     e.consume();
                     btnEnviar.doClick();
@@ -174,7 +175,7 @@ public class FWhosThatPoke extends JFrame {
         }
 
         if(correta){
-            game.setAcertos();
+            // game.setAcertos();
             JOptionPane.showMessageDialog(this, "Correto! Ele é realmente o " + pokemonAtual.getNome() + "!");
             botoesRodadas[rodadaAtual].setBackground(GameColors.BUTTON_CORRECT);
         } else{

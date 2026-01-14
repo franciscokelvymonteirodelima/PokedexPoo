@@ -2,7 +2,6 @@ package model.pokemon;
 
 import model.ataques.Ataque;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 

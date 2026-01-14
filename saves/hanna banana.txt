@@ -1,0 +1,14 @@
+[JOGADOR]
+Nome=hanna banana
+Idade=18
+Genero=Não informado
+Cidade=Pallet Town
+Dinheiro=3050
+PokemonsCapturados=1
+[RANKING]
+Score=20
+Vitorias=0
+[TIME_POKEMON]
+12,1
+[PC_BOX]
+[COLECIONAVEIS]

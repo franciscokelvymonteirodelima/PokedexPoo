@@ -1,0 +1,22 @@
+[JOGADOR]
+Nome=Hellys Fernandes
+Idade=21
+Genero=Masculino
+Cidade=são gonsalo
+Dinheiro=450
+PokemonsCapturados=0
+[RANKING]
+Score=100
+Vitorias=0
+[TIME_POKEMON]
+10,1
+58,1
+102,1
+104,1
+76,1
+25,1
+[PC_BOX]
+17,1
+15,1
+[COLECIONAVEIS]
+2,6

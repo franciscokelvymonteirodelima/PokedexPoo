@@ -1,0 +1,17 @@
+[JOGADOR]
+Nome=Henry
+Idade=21
+Genero=Masculino
+Cidade=Pallet Town
+Dinheiro=500
+PokemonsCapturados=3
+[RANKING]
+Score=5
+Vitorias=0
+[TIME_POKEMON]
+5,1
+6,1
+10,1
+[PC_BOX]
+[COLECIONAVEIS]
+6
