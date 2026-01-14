@@ -21,16 +21,13 @@ public class SistemaDeArquivos {
         }
     }
 
-    // =====================================================
-    // SALVAR JOGADOR
-    // =====================================================
+    // salvar o jogador em um arquivo de texto
     public static boolean salvarJogador(Jogador jogador, String nomeArquivo) {
 
         String caminho = PASTA_SAVES + File.separator + nomeArquivo + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminho))) {
 
-            // ---------------- JOGADOR ----------------
             writer.write("[JOGADOR]\n");
             writer.write("Nome=" + jogador.getNome() + "\n");
             writer.write("Idade=" + jogador.getIdade() + "\n");
@@ -39,24 +36,20 @@ public class SistemaDeArquivos {
             writer.write("Dinheiro=" + jogador.getDinheiro() + "\n");
             writer.write("PokemonsCapturados=" + jogador.getPokemonsCapturados() + "\n");
 
-            // ---------------- RANKING ----------------
             writer.write("[RANKING]\n");
             writer.write("Score=" + jogador.getScore() + "\n");
             writer.write("Vitorias=" + jogador.getVitorias() + "\n");
 
-            // ---------------- TIME ----------------
             writer.write("[TIME_POKEMON]\n");
             for (Pokemon p : jogador.getTimePokemon()) {
                 writer.write(p.getNumeroPokedex() + "," + p.getNivel() + "\n");
             }
 
-            // ---------------- PC ----------------
             writer.write("[PC_BOX]\n");
             for (Pokemon p : jogador.getPcBox()) {
                 writer.write(p.getNumeroPokedex() + "," + p.getNivel() + "\n");
             }
 
-            // ---------------- COLECIONÁVEIS ----------------
             writer.write("[COLECIONAVEIS]\n");
             Set<Integer> colecionaveis = jogador.getColecionaveisComprados();
             if (colecionaveis != null && !colecionaveis.isEmpty()) {
@@ -77,9 +70,6 @@ public class SistemaDeArquivos {
         }
     }
 
-    // =====================================================
-    // CARREGAR JOGADOR
-    // =====================================================
     public static Jogador carregarJogador(String caminho) {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(caminho))) {
@@ -102,7 +92,6 @@ public class SistemaDeArquivos {
                     continue;
                 }
 
-                // ---------------- JOGADOR ----------------
                 if (secao.equals("[JOGADOR]")) {
 
                     String[] p = linha.split("=", 2);
@@ -133,7 +122,6 @@ public class SistemaDeArquivos {
                     }
                 }
 
-                // ---------------- RANKING ----------------
                 else if (secao.equals("[RANKING]")) {
 
                     String[] p = linha.split("=", 2);
@@ -143,7 +131,6 @@ public class SistemaDeArquivos {
                     if (p[0].equals("Vitorias")) vitorias = Integer.parseInt(p[1]);
                 }
 
-                // ---------------- TIME / PC ----------------
                 else if (secao.equals("[TIME_POKEMON]") || secao.equals("[PC_BOX]")) {
 
                     String[] p = linha.split(",");

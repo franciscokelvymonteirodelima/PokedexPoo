@@ -48,7 +48,6 @@ public class TelaJogador extends JFrame {
         repaint();
     }
 
-    /* ================= PERFIL ================= */
     private JPanel criarPainelPerfil() {
         JPanel painel = new JPanel(new BorderLayout(15, 15));
         // Borda com título em branco (sobre fundo vermelho)
@@ -97,7 +96,6 @@ public class TelaJogador extends JFrame {
         return painel;
     }
 
-    /* ================= IMAGEM ================= */
     private JLabel criarLabelImagem() {
 
     String caminho = System.getProperty("user.dir")
@@ -119,8 +117,6 @@ public class TelaJogador extends JFrame {
     return erro;
 }
 
-
-    /* ================= CENTRAL ================= */
     private JTabbedPane criarPainelCentral() {
         JTabbedPane abas = new JTabbedPane();
         abas.setBackground(VERMELHO_SUAVE);
@@ -132,7 +128,6 @@ public class TelaJogador extends JFrame {
         return abas;
     }
 
-    /* ================= TIME ================= */
     private JPanel criarPainelTime() {
         JPanel painel = new JPanel(new BorderLayout());
         painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -151,7 +146,6 @@ public class TelaJogador extends JFrame {
         return painel;
     }
 
-    /* ================= PC ================= */
     private JPanel criarPainelPC() {
         JPanel painel = new JPanel(new BorderLayout());
         painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -169,8 +163,6 @@ public class TelaJogador extends JFrame {
 
         return painel;
     }
-
-    /* ============= COLECIONÁVEIS ============= */
 
     private JPanel criarPainelColecionaveis() {
         JPanel painel = new JPanel(new BorderLayout());
@@ -190,7 +182,6 @@ public class TelaJogador extends JFrame {
         return painel;
     }
 
-    /* ================= BOTOES ================= */
     private JPanel criarPainelBotoes() {
 
         JButton btnEditar = criarBotaoEstilizado("Editar Time");
@@ -228,7 +219,6 @@ public class TelaJogador extends JFrame {
         return painel;
     }
     
-    /* ================= ESTILO DE BOTÃO ================= */
     private JButton criarBotaoEstilizado(String texto) {
         JButton btn = new JButton(texto);
         btn.setFont(new Font("Arial", Font.BOLD, 14));

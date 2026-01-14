@@ -79,7 +79,6 @@ public class TelaCriacaoPerfil extends JFrame {
         add(painelPrincipal);
     }
 
-    /* ================= FORMULÁRIO ================= */
     private JPanel criarPainelFormulario() {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
@@ -150,7 +149,6 @@ public class TelaCriacaoPerfil extends JFrame {
         return painel;
     }
 
-    /* ================= SELEÇÃO DE POKÉMONS ================= */
     private JPanel criarPainelSelecaoPokemon() {
         JPanel painel = new JPanel(new BorderLayout(10, 10));
         painel.setBorder(BorderFactory.createTitledBorder(
@@ -348,8 +346,7 @@ public class TelaCriacaoPerfil extends JFrame {
 
         return painel;
     }
-    
-    /* ================= ESTILO DE BOTÃO ================= */
+
     private JButton criarBotaoEstilizado(String texto) {
         JButton btn = new JButton(texto);
         btn.setFont(new Font("Arial", Font.BOLD, 14));
@@ -359,7 +356,6 @@ public class TelaCriacaoPerfil extends JFrame {
         return btn;
     }
 
-    /* ================= CRIAR PERFIL ================= */
     private void criarPerfil() {
         // Validações
         String nome = txtNome.getText().trim();
@@ -446,7 +442,6 @@ public class TelaCriacaoPerfil extends JFrame {
         return jogadorCriado;
     }
 
-    /* ================= MAIN PARA TESTE ================= */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
