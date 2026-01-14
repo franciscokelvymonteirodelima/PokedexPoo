@@ -6,7 +6,7 @@ Cidade=Pallet Town
 Dinheiro=4000
 PokemonsCapturados=0
 [RANKING]
-Score=200
+Score=205
 Vitorias=0
 [TIME_POKEMON]
 5,1

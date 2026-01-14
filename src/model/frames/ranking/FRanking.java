@@ -21,7 +21,7 @@ public class FRanking extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        // Fundo
+        // Background principal do Ranking
         ImageIcon fundoPrincipal = new ImageIcon(getClass().getResource("/model/frames/images/FundosSimbolos/ImagemRanking.png"));
         Image img = fundoPrincipal.getImage().getScaledInstance(1280, 720, Image.SCALE_SMOOTH);
         JLabel background = new JLabel(new ImageIcon(img));
@@ -32,22 +32,21 @@ public class FRanking extends JFrame {
         // Dados dos Jogadores em .txt
         List<Jogador> todosJogadores = carregarSaves();
 
-        // Ranking Score Minigame
+        // Ordenação por Score
         todosJogadores.sort(Comparator.comparingInt(Jogador::getScore).reversed());
         String[][] dadosCaptura = formatarDados(todosJogadores, "score");
 
-        // Ranking Dinheiro
+        // Ordenação por Dinheiro
         todosJogadores.sort(Comparator.comparingInt(Jogador::getDinheiro).reversed());
         String[][] dadosDinheiro = formatarDados(todosJogadores, "dinheiro");
 
-        // ===== 3. Painéis com Scroll =====
-        
-        // Painel Esquerdo (Mestres) - Texto Verde
+        //Paineis de Ranking
+        // Painel Esquerdo (Pontuação dos jogos)
         JPanel painelMestres = PainelRanking("Pokedex Human", dadosCaptura, new Color(100, 255, 100));
         painelMestres.setBounds(150, 50, 420, 450);
         background.add(painelMestres);
 
-        // Painel Direito (Ricos) - Texto Dourado
+        // Painel Direito (Ricos)
         JPanel painelRicos = PainelRanking("Magnatas", dadosDinheiro, new Color(255, 215, 0));
         painelRicos.setBounds(710, 50, 420, 450);
         background.add(painelRicos);
@@ -63,6 +62,7 @@ public class FRanking extends JFrame {
         btnVoltar.addActionListener(e -> dispose());
     }
 
+    // Método para puxar todos os saves da pasta "saves"
     private List<Jogador> carregarSaves() {
         List<Jogador> lista = new ArrayList<>();
         File pasta = new File("saves");
@@ -78,6 +78,7 @@ public class FRanking extends JFrame {
         return lista;
     }
 
+    // Método responsável por formatar os dados para exibição no ranking com top 50
     private String[][] formatarDados(List<Jogador> jogadores, String tipo) {
         int tamanho = Math.min(jogadores.size(), 50);
         String[][] dados = new String[tamanho][2];
@@ -119,7 +120,7 @@ public class FRanking extends JFrame {
         // Painel com a lista de jogadores
         JPanel painelLista = new JPanel();
         painelLista.setLayout(new BoxLayout(painelLista, BoxLayout.Y_AXIS));
-        painelLista.setBackground(new Color(0, 0, 0, 180)); // Fundo semi-transparente para evitar problemas de renderização
+        painelLista.setBackground(new Color(0, 0, 0, 180)); // Fundo semi-transparente
         painelLista.setOpaque(true);
 
         for (String[] linha : dados) {
@@ -140,7 +141,7 @@ public class FRanking extends JFrame {
             linhaPanel.add(lblValor, BorderLayout.EAST);
 
             painelLista.add(linhaPanel);
-            painelLista.add(Box.createRigidArea(new Dimension(0, 5))); // Espaço menor entre linhas
+            painelLista.add(Box.createRigidArea(new Dimension(0, 5))); // Espaçamento entre linhas
         }
 
         JScrollPane scrollPane = new JScrollPane(painelLista);
@@ -151,7 +152,7 @@ public class FRanking extends JFrame {
         
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Velocidade do scroll
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // MUdar velocidade de rolagem
         scrollPane.getVerticalScrollBar().setUI(new EstiloBarraRolagem(corDestaque));
 
         painelPrincipal.add(scrollPane, BorderLayout.CENTER);
@@ -159,7 +160,7 @@ public class FRanking extends JFrame {
         return painelPrincipal;
     }
 
-    // Customização da barra de rolagem
+    // Deixa a barra de rolagem estilizada
     static class EstiloBarraRolagem extends BasicScrollBarUI {
         private final Color corThumb;
 
@@ -167,10 +168,11 @@ public class FRanking extends JFrame {
             this.corThumb = cor;
         }
 
+        // responsavel por configurar as cores da barra de rolagem
         @Override
         protected void configureScrollBarColors() {
             this.thumbColor = corThumb;
-            this.trackColor = new Color(0, 0, 0, 50); // Fundo meio transparente da barra
+            this.trackColor = new Color(0, 0, 0, 50);
         }
 
         @Override
@@ -183,9 +185,10 @@ public class FRanking extends JFrame {
             return createZeroButton();
         }
 
+        // remove os botões da barra de rolagem
         private JButton createZeroButton() {
             JButton btn = new JButton();
-            btn.setPreferredSize(new Dimension(0, 0)); // Remove os botões de seta
+            btn.setPreferredSize(new Dimension(0, 0));
             return btn;
         }
         
@@ -199,10 +202,5 @@ public class FRanking extends JFrame {
             g2.fillRoundRect(thumbBounds.x + 4, thumbBounds.y, 8, thumbBounds.height, 10, 10);
             g2.dispose();
         }
-    }
-
-    public static void main(String[] args) {
-        FRanking frame = new FRanking();
-        frame.setVisible(true);
     }
 }
