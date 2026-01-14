@@ -60,27 +60,27 @@ public class FInicio extends JFrame {
             botao.setForeground(Color.WHITE);
             add(botao);
             if(i == 0) {
-                botao.setBackground(GameColors.BUTTON_BATTLE); // Verde para Batalha Pokemon
+                botao.setBackground(GameColors.BUTTON_BATTLE);
                 botao.addActionListener(e -> irParaSelecaoBatalha());
                 botoesMenu[i] = botao;
             } else if(i == 1) {
-                botao.setBackground(GameColors.BUTTON_MINIGAME); // Azul para MiniGame
+                botao.setBackground(GameColors.BUTTON_MINIGAME);
                 botao.addActionListener(e -> irParaSelecaoMiniGame());
                 botoesMenu[i] = botao;
             } else if(i == 2){
-                botao.setBackground(GameColors.BUTTON_POKEDEX); // Roxo para Pokedex
+                botao.setBackground(GameColors.BUTTON_POKEDEX);
                 botao.addActionListener(e -> botaoPokedexAction());
                 botoesMenu[i] = botao;
             } else if(i == 3){
-                botao.setBackground(GameColors.BUTTON_RANKING); // Laranja para Ranking
+                botao.setBackground(GameColors.BUTTON_RANKING);
                 botao.addActionListener(e -> botaoRankingAction());
                 botoesMenu[i] = botao;
             } else if(i == 4){
-                botao.setBackground(GameColors.BUTTON_PLAYER); // Roxo para Jogador
+                botao.setBackground(GameColors.BUTTON_PLAYER);
                 botao.addActionListener(e -> botaoJogadorAction());
                 botoesMenu[i] = botao;
             } else if(i == 5){
-                botao.setBackground(GameColors.BUTTON_SHOP); // Laranja para Loja
+                botao.setBackground(GameColors.BUTTON_SHOP);
                 botao.addActionListener(e -> botaoLojaAction());
                 botoesMenu[i] = botao;
             }
