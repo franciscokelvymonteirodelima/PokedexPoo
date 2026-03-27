@@ -1,14 +1,13 @@
 package model.frames.inicio;
 
-import javax.swing.*;
 import java.awt.*;
-
+import javax.swing.*;
 import model.frames.GameColors;
 import model.frames.batalha.*;
-import model.frames.qualEhEssePokemon.*;
 import model.frames.dicionario.*;
-import model.frames.ranking.*;
 import model.frames.jogador.SistemaDeArquivos;
+import model.frames.qualEhEssePokemon.*;
+import model.frames.ranking.*;
 
 public class FInicio extends JFrame {
     private JButton[] botoesMenu;
